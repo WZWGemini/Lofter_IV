@@ -1,0 +1,44 @@
+<!-- 用户信息 -->
+<form action="">
+			<div id="menu" class="float-right">			
+				<ul>
+					<li id="user_name">
+						<span href="" class="txt bg1">
+							{$user_info.user_name}
+						</span>
+						<button class="user-btn float-right">
+							<span class="glyphicon glyphicon-triangle-bottom"></span>
+						</button>
+					</li>
+					<li>
+						<span class="glyphicon glyphicon-th-list float-left"></span>
+						<span class="txt wz">文章</span>
+						<span class="count_article">
+							{$user_info.user_article_num}
+						</span>
+					</li>
+					<li>
+						<span class="glyphicon glyphicon-user float-left"></span>
+						<span class="txt gz">关注</span>
+						<span class="count_article">
+							{$user_info.user_attention_num}
+						</span>
+					</li>
+					<li>
+						<span class="glyphicon glyphicon-envelope float-left"></span>
+						<span class="txt sx">私信</span>
+						<span class="count_article">
+							{$user_info.user_message_num}
+						</span>
+					</li>
+					<li>
+						<span></span>
+						<span class="txt user_conf">个人主页设置</span>					
+					</li>
+					<li>
+						<span></span>
+						<span class="txt user_wz">批量管理文章</span>					
+					</li>
+				</ul>
+			</div>
+</form>

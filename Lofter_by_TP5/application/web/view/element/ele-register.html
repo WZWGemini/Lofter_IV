@@ -1,0 +1,19 @@
+            <p>创建我的博客，完善以下信息，可在”博客设置”中随时更改</p>
+            <form id="R_L">
+                <div class="form-input">
+                    <label style="display:none;" for="user_name" >昵称</label>
+                    <input type="text" name="user_name" id="user_name" placeholder="用户名" onblur="user.doCheck(this)">
+                </div>
+                <div class="form-input">
+                    <label style="display:none;" for="user_pwd">密码</label>
+                    <input type="text" name="user_pwd" id="user_pwd" placeholder="密码">
+                </div>
+                <div class="form-input">
+                    <label style="display:none;" for="user_pwd2">密码确认</label>
+                    <input type="text" name="user_pwd2" id="user_pwd2" placeholder="密码确认">
+                </div>
+                <!-- <span class="info">两次密码不一样</span> -->
+                <div class="input-sure">
+                    <a data-action ="doReg" onclick="user.doReg()">注册</a>
+                </div>
+            </form>

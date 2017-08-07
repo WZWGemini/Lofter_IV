@@ -1,0 +1,48 @@
+<!-- 顶部导航 -->
+		<div id="nav">
+			<div class="container">
+				<div class="nav-logo"></div>
+				<div class="nav-head">
+					<ul class="nav-ul">
+						<li><a href="">首页</a></li>
+						<li><a href="">浏览</a></li>
+						<li><a href="" >APP</a></li>
+						<li><a href="">ART</a></li>
+						<li><a href="">摄影课堂</a></li>
+						<!-- 下拉菜单 -->
+						<li class="dropdown">
+							<a id="more" data-toggle='dropdown' role='button' aria-haspopup="true" aria-expanded="false">
+								更多
+								<span class="caret"></span>
+							</a>
+							<ul class="dropdown-menu more-menu" aria-labelledby="more">
+								{if $user_info.user_id == 0 }
+									<li class="more-list" >
+										<span class="glyphicon glyphicon-off"></span>
+										<a href="/Lofter_by_TP5/public/web/index/login" >登录</a>
+									</li>
+									<li class="more-list" >
+										<span class="glyphicon glyphicon-off"></span>
+										<a href="/Lofter_by_TP5/public/web/index/register" >注册</a>
+									</li>
+								{else}
+									<li class="more-list" >
+										<span class="glyphicon glyphicon-off"></span>
+										<a href="/Lofter_by_TP5/public/web/user/logout" onclick="user.doLogout(this)" >退出</a>
+									</li>
+								{/if}
+							</ul>
+						</li>
+
+					</ul>
+				</div>
+				<div class="nav-search">
+					<input class="form-control" placeholder="Search" type="text">
+				</div>
+			</div>
+		</div>
+<script>
+	$("#logout").click(function(){
+		
+	})
+</script>
