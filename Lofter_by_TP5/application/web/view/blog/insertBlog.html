@@ -35,7 +35,7 @@
 					<!-- 功能按钮 -->
 					<div class="options inline-block float-right">
 							<a class="comment btn btn-link">评论( {$art.comment_num|default = "0"} )</a>
-						{if $art.user_info.user_id != $user_info.user_id}
+						{if $art.user_info.user_id != $Think.session.user_info.user_id}
 							<a class=" btn btn-link">推荐</a>
 							<a><i></i></a>
 						{else}
