@@ -1,5 +1,6 @@
 <template>
   <div class="index">
+
     <div class="swipe">
       <mt-swipe :auto="0">
         <mt-swipe-item class="swipe_1"><img src="../assets/img/login_page_one.png" alt=""></mt-swipe-item>

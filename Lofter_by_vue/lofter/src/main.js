@@ -6,7 +6,8 @@ import router from './router'
 // import { Swipe, SwipeItem } from 'mint-ui'
 import MintUI from 'mint-ui'
 import 'mint-ui/lib/style.css'
-// import $ from 'jquery'
+import 'animate.css/animate.min.css'
+import 'bootstrap/dist/css/bootstrap.min.css'
 // 关闭生产环境时错误提示
 Vue.config.productionTip = false
 Vue.use(MintUI);
