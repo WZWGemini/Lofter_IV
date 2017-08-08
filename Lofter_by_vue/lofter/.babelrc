@@ -1,0 +1,22 @@
+//配置文件
+//Vue使用的是ES6语法 ，大部分浏览器不直接支持ES6
+//本文件配置将ES6转换成ES5语法
+//presets 预设配置
+{
+  "presets": [
+    ["env", {
+      "modules": false,
+      "targets": {
+        "browsers": ["> 1%", "last 2 versions", "not ie <= 8"]
+      }
+    }],
+    "stage-2"
+  ],
+  "plugins": ["transform-runtime"],
+  "env": {
+    "test": {
+      "presets": ["env", "stage-2"],
+      "plugins": ["istanbul"]
+    }
+  }
+}
