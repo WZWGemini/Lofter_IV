@@ -3,11 +3,7 @@
   <div class="user">
 
     <!-- 顶部固定导航栏 -->
-<<<<<<< HEAD
     <mt-header fixed class="top-nav" title="啊哈哈" label="ID:Ayu1948">
-=======
-    <mt-header fixed class="top-nav">
->>>>>>> 70f748b995571e8a1bdd9f6ba4eee046212ea340
       <router-link to="/" slot="left">
         <mt-button icon="back"></mt-button>
       </router-link>
