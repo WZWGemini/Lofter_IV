@@ -39,12 +39,12 @@ export default {
 
   a, ul, li {text-decoration:none;list-style:none;}
 
-  .top-nav{
-    background-color: $topic_color;
+   .top-nav{
+     background-color: $topic_color;
     opacity:0;
-    font-size: .3rem;
+    font-size:.3rem;
     height: 10%;
-  }
+   }
 
   .landing-logo{
     width:30%;

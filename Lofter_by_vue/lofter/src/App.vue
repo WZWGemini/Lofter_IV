@@ -14,17 +14,9 @@ export default {
   name: 'app',
   data () {
     return {
-      // showIndexImg: true,
-      // showIndex: false
     }
   },
   computed: {
-    // showIndexLater () {
-    //   setTimeout(() => {
-    //     this.showIndexImg = false
-    //     this.showIndex = true
-    //   }, 2000)
-    // }
   }
 }
 </script>
@@ -34,6 +26,11 @@ export default {
 
   html,body,#app{
     height: 100%;
+    margin: 0;
+  }
+  ul{
+    padding:0;
+    margin: 0;
   }
   .fade-enter-active, .fade-leave-active {
     transition: opacity .5s

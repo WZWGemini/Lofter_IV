@@ -25,7 +25,7 @@
         </ul>
         <input type="submit" class="form-control btn btn-success btn-login" value="登录"/>
       </div>
-        <p class="bottom-txt bottom-text">2017. Welcome to Lofter</p>
+        <p class="bottom-text">2017. Welcome to Lofter</p>
     </div>
   </div>
 </template>
@@ -62,12 +62,7 @@ export default {
     width:30%;
     margin-left:auto;
     margin-right:auto;
-    margin-top:1.8rem;
-  }
-
-  .bottom-txt{
-    margin-bottom:50px;
-    text-align:center;
+    padding-top:1.8rem;
   }
 
   .welcome-text h3{
@@ -176,7 +171,7 @@ export default {
     text-transform:uppercase;
     float:none;
     text-align:center;
-    margin-top:1rem;
+    padding-top:1.5rem;
     font-size:.2rem;
   }
 </style>

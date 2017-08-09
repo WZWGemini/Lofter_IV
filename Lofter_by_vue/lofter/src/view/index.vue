@@ -53,7 +53,6 @@ export default {
 
 <!-- 添加scoped属性限制这个style的作用范围只作用于本组件 -->
 <style scoped>
-  /* @import '../assets/common.scss'; */
   .index{
     height: 100%;
     background: linear-gradient(#398185, #67b7ba);
@@ -63,7 +62,7 @@ export default {
   }
   .swipe{
     padding-top:15%;
-    height: 75%;
+    height: 65%;
   }
   .swipe img{
     display:inline-block;
@@ -74,7 +73,7 @@ export default {
     margin:10% 15%;
   }
   .button_div{
-    font-size:.6rem;
+    font-size:.8rem;
     width: 90%;
     margin:0 5%;
     text-align:center;

@@ -38,7 +38,6 @@
       name: 'foot_nav',
       data () {
         return {
-          selected: null
         }
       }
     }

@@ -7,7 +7,7 @@
     </mt-header>
     <div class="content">
       <div class="landing-logo">
-          <img class="replace-2x" src="../assets/img/logo.png" alt="img" width="100">
+          <img class="replace-2x" src="../assets/img/logo.png" alt="img">
       </div>
       <div class="welcome-text">
         <h3>Welcome to Lofter</h3>
@@ -27,9 +27,9 @@
             <input type="password" id='user_repassword'/>
           </li>
         </ul>
-        <input type="submit" class="form-control btn btn-success btn-register" value="注册"/>
+        <input type="submit" class="form-control btn-register" value="注册"/>
       </div>
-        <p class="bottom-txt bottom-text">2017. Welcome to Lofter</p>
+        <p class="bottom-text">2017. Welcome to Lofter</p>
     </div>
   </div>
 </template>
@@ -66,12 +66,7 @@ export default {
     width:30%;
     margin-left:auto;
     margin-right:auto;
-    margin-top:1.8rem;
-  }
-
-  .bottom-txt{
-    margin-bottom:50px;
-    text-align:center;
+    padding-top:1.8rem;
   }
 
   .welcome-text h3{
@@ -102,6 +97,7 @@ export default {
   }
   .register-ul {
     padding: 0;
+    margin: .5rem 0;
   }
   .register-li {
     height: .6rem;
@@ -180,7 +176,7 @@ export default {
     text-transform:uppercase;
     float:none;
     text-align:center;
-    margin-top:1rem;
+    padding-top:1.5rem;
     font-size:.2rem;
   }
 </style>
