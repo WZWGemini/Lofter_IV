@@ -62,7 +62,7 @@ export default {
     width:30%;
     margin-left:auto;
     margin-right:auto;
-    margin-top:1.8rem;
+    padding-top:1.8rem;
   }
 
   .bottom-txt{
