@@ -1,2 +1,42 @@
+<<<<<<< HEAD
+//对常用样式进行封装
+
+$baseColor:#398185;
+
+@mixin boxSize($with:100%,$height:100%){
+    width: $with;
+    height:$height;
+}
+
+@mixin margin($top:5%,$rig:5%,$bot:$top,$lef:$rig){
+    margin-top: $top;
+    margin-right: $rig;
+    margin-bottom: $bot;
+    margin-left: $lef;
+}
+
+@mixin padding($top:5%,$rig:5%,$bot:$top,$lef:$rig){
+    padding-top: $top;
+    padding-right: $rig;
+    padding-bottom: $bot;
+    padding-left: $lef;
+}
+
+@mixin button($color:$baseColor,$radius:0,$top:10px,$rig:10px,$bot:$top,$lef:$rig){
+    @include boxSize($width,$height);
+    @include padding($top,$rig ,$bot ,$lef);
+    background-color:$color; 
+    border-radius:$radius;
+}
+
+@mixin h{
+    &:hover{
+        color: red;
+    }
+}
 $topic_color:#336162;
 $topic_hcolor:#488283;
+=======
+$topic_color:#336162;
+$topic_hcolor:#488283;
+>>>>>>> fdf29ea986931b9270ff08949b73697bfd949bc9

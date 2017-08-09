@@ -113,7 +113,7 @@ export default {
   .register-li label {
     text-align:center;
     display:inline-block;
-    width: 17%;
+    width: 25%;
     margin-right: 0.15rem;
   }
 

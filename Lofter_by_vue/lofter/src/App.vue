@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <transition name="fade" mode="out-in">
+      <!-- {{showIndexLater}}   -->
      <router-view></router-view>
     </transition>
   </div>
@@ -10,7 +11,21 @@
 // export 出去就是一个Vue 实例
 export default {
   // 为一个个组件命名，指定name 能得到更友好的提示信息
-  name: 'app'
+  name: 'app',
+  data () {
+    return {
+      // showIndexImg: true,
+      // showIndex: false
+    }
+  },
+  computed: {
+    // showIndexLater () {
+    //   setTimeout(() => {
+    //     this.showIndexImg = false
+    //     this.showIndex = true
+    //   }, 2000)
+    // }
+  }
 }
 </script>
 
