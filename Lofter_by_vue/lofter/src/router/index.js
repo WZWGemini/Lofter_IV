@@ -1,18 +1,26 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+<<<<<<< HEAD
 // app启动加载引导登陆注册页面
+=======
+>>>>>>> 70f748b995571e8a1bdd9f6ba4eee046212ea340
 import index from '@/view/index'
 // 登陆注册页面
 import login from '@/view/login'
 import register from '@/view/register'
 // app主页面（app内部页面）
 import lofter from '@/view/lofter'
+<<<<<<< HEAD
 // 个人主页
 import user from '@/view/user'
 // app内部首页
 import home from '@/components/home'
 // import homeFollow from '@/components/home/follow'
 import homeDesert from '@/components/home/desert'
+=======
+import user from '@/view/user'
+import home from '@/components/home'
+>>>>>>> 70f748b995571e8a1bdd9f6ba4eee046212ea340
 Vue.use(Router)
 
 export default new Router({
