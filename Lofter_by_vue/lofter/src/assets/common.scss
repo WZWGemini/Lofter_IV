@@ -21,7 +21,7 @@ $baseColor:#398185;
     padding-left: $lef;
 }
 
-@mixin button($color:$baseColor,$radius：0,$top:10px,$rig:10px,$bot:$top,$lef:$rig){
+@mixin button($color:$baseColor,$radius:0,$top:10px,$rig:10px,$bot:$top,$lef:$rig){
     @include boxSize($width,$height);
     @include padding($top,$rig ,$bot ,$lef);
     background-color:$color; 
@@ -33,3 +33,5 @@ $baseColor:#398185;
         color: red;
     }
 }
+$topic_color:#336162;
+$topic_hcolor:#488283;

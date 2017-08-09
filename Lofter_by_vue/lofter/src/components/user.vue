@@ -1,38 +1,25 @@
 <template>
   <div class="login">
-    <mt-header fixed title="登录LOFTER" class="top-nav">
+    <mt-header fixed class="top-nav">
       <router-link to="/" slot="left">
         <mt-button icon="back"></mt-button>
       </router-link>
+      <mt-button icon="more" slot="right"></mt-button>
     </mt-header>
     <div class="content">
-      <div class="landing-logo">
-          <img class="replace-2x" src="../assets/img/logo.png" alt="img" width="100">
+      <div class="heading">
+          <div class="heading-Info">
+              <img class="replace-2x" src="../assets/img/user_head.jpg" alt="img" width="100">
+              <h3>啊哈哈</h3>
+          </div>
       </div>
-      <div class="welcome-text">
-        <h3>Welcome to Lofter</h3>
-      </div>
-      <div class="login-form">
-        <ul class="login-ul">
-          <li class="login-li">
-            <label for="user_name">用户名</label>
-            <input type="text" id='user_name'/>
-          </li>
-          <li class="login-li">
-            <label for="password">密&nbsp;&nbsp;码</label>
-            <input type="password" id='user_password'/>
-          </li>
-        </ul>
-        <input type="submit" class="form-control btn btn-success btn-login" value="登录"/>
-      </div>
-        <p class="bottom-txt bottom-text">2017. Welcome to Lofter</p>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'login',
+  name: 'user',
   data () {
     return {
 
@@ -54,6 +41,7 @@ export default {
 
   .top-nav{
     background-color: $topic_color;
+    opacity:0;
     font-size: .3rem;
     height: 10%;
   }

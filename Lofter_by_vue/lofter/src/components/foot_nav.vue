@@ -1,31 +1,31 @@
 <template>
-    <div>
-        <ul class='foot-nav'>
+    <div class='foot-nav'>
+        <ul>
             <li>
-                <router-link to='/home'>
+                <router-link to='/lofter/home'>
                     <span class='icon-home'></span>
                     <p>首页</p>
                 </router-link>  
             </li>
             <li>
-                <router-link to='/discover'>
+                <router-link to='/lofter/discover'>
                     <span class='icon-earth'></span>
                     <p>发现</p>
                 </router-link> 
             </li>
-            <li>
-                <router-link to='/issue'>
+            <li class="camera">
+                <router-link to='/lofter/issue'>
                     <span class='icon-camera'></span>
                 </router-link>
             </li>
             <li>
-                <router-link to='/message'>
+                <router-link to='/lofter/message'>
                     <span class='icon-bell'></span>
                     <p>消息</p>
                 </router-link>
             </li>
             <li>
-                <router-link to='/mine'>
+                <router-link to='/lofter/mine'>
                     <span class='icon-user'></span>
                     <p>我的</p>
                 </router-link>
@@ -47,12 +47,19 @@
 .foot-nav{
     background-color: #f5f5f5;
     font-size:0.58rem;
-    overflow:hidden;
     width: 100%;
     padding:4px 0;
-    margin:0;
     position:fixed;
     bottom:0;
+}
+.foot-nav ul{
+    padding: 0;
+    margin:0;
+    overflow:hidden;
+}
+
+.foot-nav a{
+    text-decoration: none;
 }
 .foot-nav li{
     font-size:0.35rem;
@@ -60,6 +67,9 @@
     list-style:none;
     float:left;
     width:20%;
+}
+.camera{
+    margin-top: 3%;
 }
 .foot-nav li p{
     font-size:0.25rem;

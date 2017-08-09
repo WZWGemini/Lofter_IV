@@ -30,6 +30,8 @@ export default {
 </script>
 
 <style>
+@import "assets/common.scss";
+
   html,body,#app{
     height: 100%;
   }
