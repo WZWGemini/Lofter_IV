@@ -1,11 +1,18 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+<<<<<<< HEAD
 import index from '@/view/index'
 import login from '@/view/login'
 import register from '@/view/register'
 import lofter from '@/view/lofter'
 import user from '@/components/user'
 import home from '@/components/home'
+=======
+import index from '@/components/index'
+import login from '@/components/login'
+import register from '@/components/register'
+import user from '@/components/user'
+>>>>>>> fdf29ea986931b9270ff08949b73697bfd949bc9
 Vue.use(Router)
 
 export default new Router({
@@ -23,6 +30,7 @@ export default new Router({
       path: '/register',
       name: 'register',
       component: register
+<<<<<<< HEAD
     }, {
       path: '/lofter/:path',
       name: 'lofter',
@@ -33,6 +41,8 @@ export default new Router({
           { path: '/lofter/discover', component: user },
           { path: '/lofter/mine', component: index }
       ]
+=======
+>>>>>>> fdf29ea986931b9270ff08949b73697bfd949bc9
     },
     {
       path: '/user',
