@@ -8,6 +8,9 @@
     </mt-header>
     <div class="content">
       <div class="heading">
+          <div class="heading-bg">
+            <img src="../assets/img/user_bg.jpg" alt="">
+          </div>
           <div class="heading-Info">
               <img class="replace-2x" src="../assets/img/user_head.jpg" alt="img" width="100">
               <h3>啊哈哈</h3>
