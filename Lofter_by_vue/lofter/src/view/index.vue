@@ -1,4 +1,5 @@
 <template>
+  <!--登陆 注册引导页  -->
   <div class="index">
     <div class="index_img animated fadeOut" v-show="showIndexImg">
          {{showIndexLater}}   

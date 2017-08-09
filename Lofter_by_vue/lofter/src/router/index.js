@@ -8,7 +8,7 @@ import register from '@/view/register'
 // app主页面（app内部页面）
 import lofter from '@/view/lofter'
 // 个人主页
-import user from '@/components/user'
+import user from '@/view/user'
 // app内部首页
 import home from '@/components/home'
 // import homeFollow from '@/components/home/follow'

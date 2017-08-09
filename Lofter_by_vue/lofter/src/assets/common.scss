@@ -2,6 +2,9 @@
 
 $baseColor:#398185;
 
+$topic_color:#336162;
+$topic_hcolor:#488283;
+
 @mixin boxSize($with:100%,$height:100%){
     width: $with;
     height:$height;
@@ -33,5 +36,3 @@ $baseColor:#398185;
         color: red;
     }
 }
-$topic_color:#336162;
-$topic_hcolor:#488283;

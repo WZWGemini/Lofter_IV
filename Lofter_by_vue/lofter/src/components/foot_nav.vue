@@ -1,4 +1,5 @@
 <template>
+    <!--公共底部  -->
     <div class='foot-nav'>
         <ul>
             <li>
@@ -25,7 +26,7 @@
                 </router-link>
             </li>
             <li>
-                <router-link to='/lofter/mine'>
+                <router-link to='/user'>
                     <span class='icon-user'></span>
                     <p>我的</p>
                 </router-link>

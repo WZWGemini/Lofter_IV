@@ -1,4 +1,5 @@
 <template>
+  <!--主页  -->
     <div class="home">
          <header>
           <ul class="head-ul">
@@ -32,7 +33,6 @@
 <style scoped lang='scss'>
 .home{
   height: 100%;
-  padding:0 3%;
 }
 .home header{
   font-size: 0.5rem;

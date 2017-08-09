@@ -1,4 +1,5 @@
 <template>
+  <!--登陆界面  -->
   <div class="login">
     <mt-header fixed title="登录LOFTER" class="top-nav">
       <router-link to="/" slot="left">
@@ -63,6 +64,11 @@ export default {
     margin-left:auto;
     margin-right:auto;
     padding-top:1.8rem;
+  }
+
+  .bottom-txt{
+    margin-bottom:50px;
+    text-align:center;
   }
 
   .welcome-text h3{

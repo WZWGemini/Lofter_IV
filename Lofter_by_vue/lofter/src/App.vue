@@ -21,21 +21,40 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 @import "assets/common.scss";
 
   html,body,#app{
     height: 100%;
     margin: 0;
   }
-  ul{
+  ul,dl{
     padding:0;
     margin: 0;
+    font-family:'STKaiti', sans-serif;
+  }
+  a, ul, li {
+    text-decoration:none;list-style:none;
+  }
+  .clear {
+    clear: both;
   }
   .fade-enter-active, .fade-leave-active {
     transition: opacity .5s
   }
   .fade-enter, .fade-leave-to /* .fade-leave-active in below version 2.1.8 */ {
     opacity: 0
+  }
+  .a-class {
+    font-family:'STFangsong', sans-serif;
+    font-weight: 600;
+    font-size: .25rem;
+    margin-right: .2rem;
+    color: #555;
+    text-align:center;
+  }
+  a:focus, a:hover {
+    color: $topic_color;
+    text-decoration:none;
   }
 </style>

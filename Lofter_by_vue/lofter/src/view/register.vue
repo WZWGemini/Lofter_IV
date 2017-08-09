@@ -1,4 +1,5 @@
 <template>
+  <!--注册界面  -->
   <div class="register">
     <mt-header fixed title="注册LOFTER" class="top-nav">
       <router-link to="/" slot="left">
