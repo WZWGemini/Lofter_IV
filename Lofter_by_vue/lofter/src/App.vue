@@ -28,7 +28,7 @@ export default {
     height: 100%;
     margin: 0;
   }
-  ul,dl{
+  ul,dl,dt,dd,p{
     padding:0;
     margin: 0;
     font-family:'STKaiti', sans-serif;
