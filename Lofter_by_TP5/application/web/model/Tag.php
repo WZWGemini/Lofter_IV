@@ -4,7 +4,8 @@ use think\Model;
 
 class Tag extends Model
 {
-    
+    protected $createTime = false;
+    protected $updateTime = false;
 }
 
 

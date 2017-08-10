@@ -43,7 +43,6 @@ class Index extends Controller{
         //注册samrty变量           
         $this->assign('user_info' ,$user_info );  //用户信息
         if( !empty( $blog_list) ){//渲染页面
-            // echo ajaxRes(0,'发布失败');
             $this->assign('blog_list',$blog_list);  
             }          
         return $this->fetch();
