@@ -9,6 +9,8 @@ import register from '@/view/register'
 import lofter from '@/view/lofter'
 // 个人主页
 import user from '@/view/user'
+// 评论页面
+import comment from '@/view/comment'
 // app内部首页
 import home from '@/components/home'
 // import homeFollow from '@/components/home/follow'
@@ -55,6 +57,11 @@ export default new Router({
       path: '/user',
       name: 'user',
       component: user
+    },
+    {
+      path: '/comment',
+      name: 'comment',
+      component: comment
     }
 
   ]
