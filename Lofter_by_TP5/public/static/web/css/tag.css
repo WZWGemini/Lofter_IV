@@ -1,0 +1,99 @@
+.h1, .h2, .h3, h1, h2, h3 {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+.options a{
+	margin-right: 24px;
+	font-size: 14px;
+}
+#tag{
+	width: 560px;
+	height: 135px;
+	background: #fff;
+	margin-right: 30px;
+	margin-bottom: 20px;
+	position: relative;
+}
+#tag_archive{
+	position: relative;
+	width: 928px;
+	background: white;
+	box-shadow: 1px 1px 2px #ccc;
+}
+#user_information,#archive{
+	width: 944px !important;
+}
+.user-list{
+	width: 216px;
+	height: 272px;
+	margin:0px;
+	margin:0px 0 20px 16px;
+	padding:0px;
+	background: white;
+	display: inline-block;
+	border: none;
+	font-size: 0px;
+}
+.user-footer{
+	background: white;
+	border-top: 1px solid #e7e7e7;
+    padding: 13px 15px;
+    height: 57px;
+    line-height: 30px;
+} 
+.user-footer .name{
+	display: inline-block;
+	font-size: 12px;
+    width: 146px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+#tag_bottom{
+	height: 59px;
+	width: 100%;
+	border-top: 1px solid #e7e7e7;
+    line-height: 17px;
+    padding: 18px 0 22px 30px;
+}
+#tag_top{
+	height: 75px;
+	width: 100%;
+    padding: 22px 0 22px 30px;
+}
+
+#tag_info h2{
+	display: inline-block;
+	font-size: 24px;
+	margin-right: 6px;
+    padding-left: 28px;
+    line-height: 31px;
+}
+.subscription{
+	display: inline-block;
+	
+}
+.subscription a{
+	width: 67px;
+    height: 23px;
+    line-height: 23px;
+    display: inline-block;
+    padding-left: 10px;
+    text-align: left;
+    color: #aaa;
+    background: url(../img/icon4-24.png);
+    background-position: -183px -526px;
+    
+}
+.subscription a:hover{
+	background-position: -94px -526px;
+}
+.change a{
+	position: absolute;
+    right: 30px;
+    top: 18px;
+    width: 110px;
+    height: 40px;
+    background: url(../img/icon7.png);
+    background-position: 0 -60px;
+}

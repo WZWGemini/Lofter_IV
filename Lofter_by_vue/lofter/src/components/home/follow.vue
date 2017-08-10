@@ -61,7 +61,9 @@
                         </dt>
                         <!--循环最新三条评论  -->
                         <dd v-for="comment in item.commentList">
-                          <span>{{comment.name}}:</span>&nbsp;&nbsp;&nbsp;{{comment.comment}}
+                          <span class="comment-user">{{comment.name}}</span>
+                          <span class="comment-colon">:</span>
+                          &nbsp;&nbsp;&nbsp;{{comment.comment}}
                         </dd>
                       </dl>
                     </div>
@@ -146,6 +148,8 @@ export default{
 }
 </script>
 <style lang="scss">
+@import "../../assets/common.scss";
+
 .follow{
   margin-top: 2px;
     height: 100%;
@@ -208,7 +212,7 @@ export default{
           }
           .time{
             color: #ccc;
-             padding-left: 20%; 
+            padding-left: 20%; 
             width: 20%;
             font-size: .15rem;
             line-height: 1rem;
@@ -225,15 +229,15 @@ export default{
         }
         .content{
           margin: 0 3%;
-          border-left: 1px solid red;
+          border-left: 2px solid #ccc;
         }
         .tag{  
           margin: 0 5%;
-          border-bottom: 1px dashed #e0e0e0;
+          border-bottom: 1px dashed #888;
           span{
             padding:0 .1rem;
             font-size: .3rem;
-            color:#e0e0e0;
+            color:#888;
           }
         }
       }
@@ -256,15 +260,20 @@ export default{
         .comment{
           dt{
             margin-left:7%;
-            color:#e0e0e0;
-            font-size:.2rem;
+            color:#777;
+            font-size:.22rem;
           }
           dd{
             margin: .1rem 0;
             margin-left:7%;
             font-size: .25rem;
-            span{
-              color:#26c6da;
+            .comment-user {
+              color: $topic_color;
+              font-weight: 600;
+            }
+            .comment-content, .comment-colon {
+              color: #777;
+              font-size: .23rem;
             }
           }
         }

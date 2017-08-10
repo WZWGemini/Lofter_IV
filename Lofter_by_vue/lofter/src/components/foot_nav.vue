@@ -43,7 +43,9 @@
       }
     }
 </script>
-<style scoped>
+<style scoped lang="scss">
+  @import '../assets/common.scss';
+
 .foot-nav{
     background-color: #f5f5f5;
     font-size:0.58rem;
@@ -67,6 +69,7 @@
     list-style:none;
     float:left;
     width:20%;
+    padding-top: .1rem;
 }
 .camera{
     height: .78rem;
@@ -82,9 +85,19 @@
     display:inline-block;
     margin-top: .16rem;
 }
+.icon-camera {
+    padding: .13rem;
+    border-radius: 50%;
+    border: .03rem solid $topic_hcolor;
+}
 .foot-nav li p{
     font-size:0.25rem;
     margin:0;
+    color: $topic_hcolor;
+}
+
+.foot-nav li span{
+    color: $topic_hcolor;
 }
 
 </style>

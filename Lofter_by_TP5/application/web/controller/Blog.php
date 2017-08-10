@@ -16,44 +16,55 @@ class Blog extends Controller{
     
     //插入操作
     public function insertBlog(){
-        // 把tag_arr拿出来
-        $tag_arr = isset( self::$_data["tag_arr"] )? self::$_data["tag_arr"] : "";
-        $tag_arr = explode("," ,$tag_arr);
-        // 参数处理
-        self::$_data['article_title']=isset($_POST['article_title'])?$_POST['article_title']:"";
-        self::$_data['article_img']=isset($_POST['article_img'])?$_POST['article_img']:"";
-        self::$_data['article_content']=isset($_POST['article_content'])?$_POST['article_content']:""; 
-        //用户没有登录就会报错           
-        self::$_data['user_id']=session("user_info")["user_id"];
-        unset(self::$_data['content']);
-        unset(self::$_data['tag_arr']);
-        //返回博文内容
-        $articleModel = model("article");
-        $blog_save = $articleModel->save(self::$_data);
-        if($blog_save){
-            $id=$articleModel->getLastInsID();
-            $blog = $articleModel->where("article_id=$id")->find();
+        //判断登录
+        if(empty(session('user_info'))){
+            return ['status'=>0,"msg"=>"发布失败,请先登录"];
         }
-        //返回插入标签
-        $tag = array();
-        for( $i =0 ; $i < count($tag_arr) ; $i++ ){
-            $tagArticleModel = model("tagArticle");
-            $tagArticleModel->save(['article_id'=>$blog['article_id'],'tag_id'=>$tag_arr[$i]]);
-            $result_tag = $tagArticleModel->where("tag_article_id =".$tagArticleModel->getLastInsID())->find();
-            // 查询tag内容
-            $tag_data = model("tag")->where("tag_id = ".$result_tag['tag_id'])->find();
-            // 往数组里面插入数据
-            $tag[$i] = $tag_data ;
-        }
-        $blog["user_info"] = empty(session("user_info"))?"":session("user_info");
-        $blog["tag"]  = $tag;
-        if( empty( $blog) ){
+        $data =[
+            'user_id'=> session("user_info")["user_id"],
+            'article_title'=> self::$_data['article_title'],
+            'article_img' => self::$_data['article_img'],
+            'article_content' => self::$_data['article_content'],
+            'article_time' => time()
+        ];
+        $tag_arr = empty(self::$_data['tag_arr'])?null:explode(",",self::$_data['tag_arr']);
+        $tag_insert=[];
+        $article_id =null;
+        // 启动事务
+        Db::startTrans();
+        try{
+            //保存博客
+            $db_article = Db::name('article');
+            $db_article->insert($data);
+            $article_id = $db_article->getLastInsID();
+            //保存标签
+            $db_tagArticle = Db::name('tagArticle');
+            if($tag_arr != null){
+                foreach ($tag_arr as $key => $value) {
+                    $tag_insert[$key] = ['article_id'=>$article_id, 'tag_id'=>$value];
+                }
+                $db_tagArticle->insertAll($tag_insert);;
+            }   
+            // 提交事务
+            Db::commit();    
+        } catch (Exception $e) {
+            // 回滚事务
+            Db::rollback();
             return ['status'=>0,"msg"=>"发布失败"];
-        }else{
-            $this->assign('blog_list' ,[$blog]) ;//注册变量 blog  
-            $html = $this->fetch();//发布文章的html模版
-            return ['status'=>1,"msg"=>"发布成功","html"=>$html,"data"=>[$blog]];
-        }  
+        }
+        //查询博客的所有内容
+        $blog = $db_article->where("article_id=$article_id")->find();
+        //查询该博客的标签
+        $tag = $db_tagArticle->alias("ta")
+                ->join("tag t","t.tag_id = ta.tag_id")
+                ->where("ta.article_id=$article_id")
+                ->select();
+        $blog["tag"]  = $tag;
+        $blog["user_id"] = session("user_info")['user_id'];
+        $blog["user_head"] = session("user_info")['user_head'];
+        $this->assign('blog_list' ,[$blog]) ;//注册变量 blog  
+        $html = $this->fetch();//发布文章的html模版
+        return ['status'=>1,"msg"=>"发布成功","html"=>$html,"data"=>[$blog]];
     }
 
     //删除
@@ -61,6 +72,7 @@ class Blog extends Controller{
        // 启动事务
         Db::startTrans();
         try{
+            Db::table('lofter_tag_article')->where("article_id=".self::$_data['article_id'])->delete();
             Db::table('lofter_comment')->where("article_id=".self::$_data['article_id'])->delete();
             Db::table('lofter_article')->where("article_id=".self::$_data['article_id'])->delete();
             // 提交事务
@@ -70,64 +82,85 @@ class Blog extends Controller{
             Db::rollback();
             return ['status'=>0,"msg"=>"删除失败"];
         }
+        $user_article_num = session('user_info')['user_article_num'];
+        session('user_info')['user_article_num'] = $user_article_num-1;
         return ['status'=>1,"msg"=>"删除成功"];
     }
     
     //更新编辑内容
     public function updateBlog(){
-        $article_id = self::$_data["article_id"];
-         // 把tag_arr拿出来
-        $tag_arr = isset( self::$_data["tag_arr"] )? self::$_data["tag_arr"] : "";
-        $tag_arr = explode("," ,$tag_arr);
-        // 参数处理
-        self::$_data['article_title']=isset($_POST['article_title'])?$_POST['article_title']:"";
-        self::$_data['article_img']=isset($_POST['article_img'])?$_POST['article_img']:"";
-        self::$_data['article_content']=isset($_POST['article_content'])?$_POST['article_content']:""; 
-        //用户没有登录就会报错           
-        self::$_data['user_id']=session("user_info")["user_id"];
-        unset(self::$_data['content']);
-        unset(self::$_data['tag_arr']);
-        unset(self::$_data['article_id']);
-        unset(self::$_data['article_time']);
-        //返回博文内容
-        $articleModel = model("article");
-        $blog_save = $articleModel->where("article_id = $article_id")->update(self::$_data);
-        //返回插入标签
-        $tag = array();
-        for( $i =0 ; $i < count($tag_arr) ; $i++ ){
-            $tagArticleModel = model("tagArticle");
-            $tagArticleModel->save(['article_id'=>$article_id,'tag_id'=>$tag_arr[$i]]);
-            $result_tag = $tagArticleModel->where("tag_article_id =".$tagArticleModel->getLastInsID())->find();
-            // 查询tag内容
-            $tag_data = model("tag")->where("tag_id = ".$result_tag['tag_id'])->find();
-            // 往数组里面插入数据
-            $tag[$i] = $tag_data ;
+        //判断登录
+        if(empty(session('user_info'))){
+            return ['status'=>0,"msg"=>"更新失败,请先登录"];
         }
-        $blog["user_info"] = empty(session("user_info"))?"":session("user_info");
+        $data =[
+            'article_title'=> self::$_data['article_title'],
+            'article_img' => self::$_data['article_img'],
+            'article_content' => self::$_data['article_content']
+        ];
+        $tag_arr = empty(self::$_data['tag_arr'])?null:explode(",",self::$_data['tag_arr']);
+        $tag_insert=[];
+        $article_id = self::$_data["article_id"];
+        // 启动事务
+        Db::startTrans();
+        try{
+            //更新博客
+            $db_article = Db::name('article');
+            $db_article->where("article_id=$article_id")->update($data);
+            $db_tagArticle = Db::name('tagArticle');
+            //删除原有标签
+            $db_tagArticle->where("article_id=$article_id")->delete();
+            //保存标签            
+            if($tag_arr != null){
+                foreach ($tag_arr as $key => $value) {
+                    $tag_insert[$key] = ['article_id'=>$article_id, 'tag_id'=>$value];
+                }
+                $db_tagArticle->insertAll($tag_insert);
+            }   
+            // 提交事务
+            Db::commit();    
+        } catch (Exception $e) {
+            // 回滚事务
+            Db::rollback();
+            return ['status'=>0,"msg"=>"更新失败"];
+        }
+        //查询博客的所有内容
+        $blog = $db_article->where("article_id=$article_id")->find();
+        //查询该博客的标签
+        $tag = $db_tagArticle->alias("ta")
+                ->join("tag t","t.tag_id = ta.tag_id")
+                ->where("ta.article_id=$article_id")
+                ->select();
         $blog["tag"]  = $tag;
-        if( empty( $blog) ){
-            return ['status'=>0,"msg"=>"失败"];
-        }else{
-            return ['status'=>1,"msg"=>"成功","data"=>[$blog]];
-        }  
+        $blog["user_id"] = session("user_info")['user_id'];
+        $blog["user_head"] = session("user_info")['user_head'];
+        return ['status'=>1,"msg"=>"更新成功","html"=>"","data"=>[$blog]];
     }
 
 
     //个人博客
     public function personalBlog(){
-    //     $user_id=self::$_data['user_id'];
-    //     $userModel = model("user")->alias("us");
-    //     $result = $userModel->join("article a");
-    //     $sql = " SELECT * from lofter_user INNER JOIN lofter_article on lofter_article.user_id = lofter_user.user_id where lofter_user.user_id = $user_id ";
-    //     // 对所有$result 进行数据排除
-    //     $result = $this->fetchAll($sql);
-    //     foreach($result as $val){
-    //         unset($val["user_pwd"]);
-    //         unset($val['create_time']);
-    //     }
-    //     // var_dump($result);
-    //     return $result;
-    // }
+        $user_id=self::$_data['user_id'];
+        $userModel = model("user")->alias("u");
+        $result = $userModel->join("article a","a.user_id = u.user_id")->where("u.user_id = $user_id")->select();
+
+        //返回插入标签
+        $tag = array();
+        // 对所有$result 加入标签
+        foreach($result as $val){
+            $val['tag'] = model("tagArticle")->alias("ta")
+                        ->join("tag t","ta.tag_id = t.tag_id")
+                        ->where("ta.article_id=".$val['article_id'])
+                        ->select();
+        }
+        if( empty( $result) ){
+            return ['status'=>0,"msg"=>"失败"];
+        }else{
+            $this->assign('blog_list' ,$result) ;//注册变量 blog
+            $html = $this->fetch('insertBlog');//发布文章的html模版
+            return ['status'=>1,"msg"=>"成功",'html'=>$html,"data"=>$result];
+        }  
+    }
 
 }
 
