@@ -1,0 +1,99 @@
+       *{margin: 0;padding: 0;}
+         a{text-decoration: none;cursor: pointer;} 
+        .reg-page{
+            font-family: "Hiragino Sans GB","Microsoft YaHei","微软雅黑",tahoma,arial,simsun,"宋体";
+           
+        }
+        .reg-page .logo{
+            padding: 30px 0 0; 
+            background: #24292C;
+        }
+        .reg-page .reg-header{
+            width: 184px;
+            height: 82px;
+            margin: 0 auto;
+            background: url(../img/hd24.png) no-repeat 999px 999px;
+            background-position: -1px 0;
+            text-indent: -9999px;
+        }
+        .reg-insert{
+            width: 724px;
+            background: #fff;
+            margin: 0 auto;
+        }
+        .reg-insert .insert-box{
+            padding: 40px 187px 0;
+            text-align: left;
+            min-height: 296px;
+        }
+        .reg-insert .insert-box h2{
+             padding-left: 48px; 
+            margin: 30px 0 26px;
+            font-size: 32px;
+            line-height: 50px;
+            letter-spacing: 1px;
+            background: url(../img/regnew24.png) no-repeat;
+            background-position: 0px -87px;        
+        }
+        .insert-box .insert-input p{
+             margin-bottom: 15px;
+        }
+        .insert-box .insert-input form{
+            position: relative;
+            zoom: 1;
+            padding: 0 0 70px;
+        }
+        .insert-box  form .form-input{
+            width: 316px;
+            padding: 7px 16px 8px;
+        }
+        .insert-box form .form-input {
+            width: 310px;
+            padding: 7px 16px 8px;
+            line-height: 22px;
+            font-size: 16px;
+            border: 1px solid #cececf;
+            outline: none;
+            margin-bottom: 20px;
+        }
+        .insert-box form .form-input input{
+            height: 22px;
+            font-size: 16px;
+            line-height: 22px;
+            border: 0;
+            outline: none;
+            background: #fff;
+        }
+
+        .insert-box form .input-sure a{
+            display: inline-block;
+            width: 350px;
+            line-height: 40px;
+
+            color: #fff;
+            background: url(../img/regnew24.png)  0 -234px no-repeat;
+            text-shadow: -1px -1px 0px #779e00; 
+            text-align: center;
+        }
+        .insert-box form .input-sure a:hover{
+            background-position: 0 -290px;
+        }
+        .bottombg{
+            width: 724px;
+            height: 10px;
+            margin: 0 auto;
+            background: url(../img/regnewbgbt24.png) 0 0 no-repeat;
+        }
+        /* 提示信息 */
+        .insert-box .insert-input form span.info{
+            position: absolute;
+            left: 360px;
+            top: 130px;
+            width: 100px;
+            color: red;
+            font-size: 14px;
+            line-height: 14px;
+            /* display:none; */
+        }
+
+        
