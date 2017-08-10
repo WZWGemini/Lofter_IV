@@ -23,6 +23,25 @@ $(function(){
 		}
 	});
 
+	// 音乐搜索
+	let time;
+	let $music_publish=$("#search_music");
+	$music_publish.on("keyup",function(e){
+		time=e.timeStamp;
+		setTimeout(function(){
+			if(time-e.timeStamp==0){
+				let $music_list = $("#music_list");
+				let article_music=$music_publish.val();
+				if(article_music){
+					blog.music_publish(article_music);
+					$music_list.show(300);
+				}else{
+					$music_list.hide(300);
+					return;
+				}
+			}
+		},500);		
+	});
 	
 	//评论显示
 	$("#information").on('click','.options .comment',function(e){
@@ -116,6 +135,77 @@ window.blog={
 		let user_info = sessionStorage.getItem('user_info');
 		user_info = JSON.parse(user_info);
 	})(),
+	music_publish:function(article_music){
+		$.getJSON("http://s.music.163.com/search/get/?version=1&src=lofter&type=1&filterDj=false&s="+article_music+"&limit=8&offset=0&callback=?",function(data){
+			let str="";
+			let objUl=$("#music_list");
+			let music_data=data.result.songs;
+
+			music_data.forEach((item,i)=>{
+				str+='<li class="'+i+'">'+
+						'<span class="singer">'+item.name+'</span>'+
+						'<span>——</span>'+
+						'<span class="song-info">'+item.album.name+'</span>'+
+					'</li>'
+			});
+
+			let audio=music_data[0].audio,
+			music_pic=music_data[0].album.picUrl,
+			music_id=music_data[0].id,
+			album=music_data[0].artists[0].name;
+			
+			
+			objUl.children('#music_list_ul').html(str);
+
+			objUl.on("click","li",function() {
+				let $music_text=$("#music_text"),
+				$search_music=$("#search_music"),
+				$confirm_music_box=$(".confirm-music-box"),
+				$music=$("#music");
+				
+				let src=music_pic+"?param=150x150x1";
+
+				$(".mimg>img").attr("src",src);
+
+				$music.attr('src',audio);
+				
+				objUl.hide(300);
+				$search_music.val('');
+				$search_music.hide(300);
+				$confirm_music_box.show(300);
+				$music_text.show(300);
+
+				$('.music-close').on('click',function(){
+					$confirm_music_box.hide(300);
+					$search_music.show(300);
+					$music.attr("src","");
+				});
+
+			});
+		});
+	},
+	music_public:function(){
+		let ue=UE.getEditor('container_music');
+		let data=$("#music_form_modal").get(0);
+		let music_pic=$("#music_pic").attr('src');
+		let article_music=$("#music").attr('src');
+		// console.log(music_pic);
+		let form=new FormData(data);
+		form.append('article_img',music_pic);
+		form.append('article_music',article_music);
+		$.ajax({
+			url:"index.php?c=music&a=insert_music",
+			type:"POST",
+			data:form,
+			processData:false,
+			contentType:false,
+			success:function(data){
+				data = JSON.parse(data);
+				$("#information").prepend(data.html);
+				$("#music_modal").modal('hide');
+			}
+		})		
+	},
 	publish:function(){
 		if(sessionStorage.user_info == null){
 			alert("请先登录");
