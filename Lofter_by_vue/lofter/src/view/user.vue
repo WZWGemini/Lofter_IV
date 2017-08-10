@@ -121,6 +121,11 @@
                 <span class="comment-colon">:</span>
                 <span class="comment-content">哈哈哈</span>
               </li>
+              <li>
+                <span class="comment-user">测试</span>
+                <span class="comment-colon">:</span>
+                <span class="comment-content">哈哈哈</span>
+              </li>
             </ul>
           </div>
         </div>
@@ -193,13 +198,15 @@ export default {
     font-family:'STXinwei', sans-serif;
     display:block;
     text-align:center;
-    padding-top: 0.8rem;
-    font-size:0.4rem;
+    padding-top: 1rem;
+    font-size: 0.4rem;
   }
 
   .heading-function {
     display:block;
     text-align:center;
+    font-size: .25rem;
+    margin-top: .1rem;
   }
 
   // 博文内容盒子
@@ -254,6 +261,7 @@ export default {
     margin-bottom: .2rem;
   }
   .article-title {
+    margin: 0 0 .2rem;
     font-size: .35rem;
   }
   .article-content {
@@ -282,18 +290,17 @@ export default {
   }
   .tag-box ul li, .btn-box ul li {
     float: left;
+    font-size: .25rem;
   }
   .li-class {
     color: #999;
   }
   .tag-box ul .tag-li-a {
     color: #888;
-    font-size: .25rem;
     font-weight: 900;
   }
   .tag-box ul .tag-li, .btn-box ul li {
     width: .8rem;
-    font-size: .25rem;
     text-align: center;
   }
 
@@ -309,16 +316,20 @@ export default {
   }
   .comment-list {
     padding: 0;
+    font-size: .25rem;
     margin: 0 .3rem;
-    li .comment-user {
-      color: $topic_color;
-      font-family:'STFangsong', sans-serif;
-      font-weight: 600;
+    li {
+      margin: .1rem 0;
       font-size: .25rem;
-    }
-    li .comment-content, li .comment-colon {
-      color: #777;
-      font-size: .23rem;
+      .comment-user {
+        color: $topic_color;
+        font-family:'STFangsong', sans-serif;
+        font-weight: 600;
+      }
+      .comment-content, li .comment-colon {
+        color: #777;
+        font-size: .23rem;
+      }
     }
   }
 </style>

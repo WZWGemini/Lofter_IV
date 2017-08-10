@@ -15,6 +15,8 @@ import comment from '@/view/comment'
 import home from '@/components/home'
 // import homeFollow from '@/components/home/follow'
 import homeDesert from '@/components/home/desert'
+// app内部 消息页面
+import message from '@/components/message'
 Vue.use(Router)
 
 export default new Router({
@@ -32,7 +34,8 @@ export default new Router({
       path: '/register',
       name: 'register',
       component: register
-    }, {
+    },
+    {
       path: '/lofter',
       name: 'lofter',
       component: lofter,
@@ -46,6 +49,16 @@ export default new Router({
             { path: 'follow', component: require('../components/home/follow') },
             { path: 'desert', component: homeDesert }
           ]
+        },
+        // 发现子路由
+        { path: 'message',
+          component: message
+          // 在子路由中需要定义 动态 、 消息 、 聊天 子路由
+          // children: [
+          //   { path: 'dynamic', component: require('../components/message/dynamic') }
+            // { path: 'news', component: require('../components/message/news') },
+            // { path: 'chat', component: require('../components/message/chat') }
+          // ]
         },
         // 发现子路由
           { path: 'discover', component: user },
