@@ -21,13 +21,13 @@
 
 			<!-- 头部导航 -->
 			<div id="header" class="float-left">
-				<ul class="header-ul">
+				<ul class="header-ul box-shadow">
 					<li class="t1">					
 						 <img src="__PUBLIC_UPLOAD__/{$user_info.user_head}" alt=""> 
 					</li>
 					<li class="t2"><a href="#text_modal" data-toggle="modal"></a></li>
-					<li class="t3"></li>
-					<li class="t4"></li>
+					<li class="t3"><a href="#text_modal" data-toggle="modal"></a></li>
+					<li class="t4"><a href="#music_modal" data-toggle="modal"></a></li>
 					<li class="t5"></li>
 					<li class="t6"><a href=""></a></li>
 				</ul>			
@@ -86,7 +86,7 @@
 	    </div>  
 	</div>
 
-		<!-- 文字编辑弹窗 -->
+	<!-- 文字编辑弹窗 -->
 	<div class="modal fade" id="edit_modal"> 
 	    <div class="modal-dialog" role="document">  
 	        <div class="modal-content">
@@ -148,6 +148,148 @@
 	    </div>  
 	</div>
 
+	<!-- 音乐弹窗 -->
+	<div class="modal fade" id="music_modal"> 
+	    <div class="modal-dialog" role="document">  
+	        <div class="modal-content">
+	        <form action="" id="music_form_modal"> 
+	            <div class="modal-header">  
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">  
+	                    <span aria-hidden="true">×</span>  
+	                </button>  
+	                <h4 class="modal-title" id="modal_name">
+						<{$user_info['user_name']}>
+					</h4>
+	            </div>  
+	            <div class="modal-body">  
+		            <div class="form-group search_music">
+						<input type="text" id="search_music" class="form-control" placeholder="请用歌名、专辑、艺术家搜索">
+					</div>
+					<div class="confirm-music-box">
+						<div class="confirm-music">
+							<div class="mimg">
+								<img id="music_pic" class="img" src="http://p1.music.126.net/MTezDI43DEgzxCtfvr_xvg==/109951162880873120.jpg?param=150x150x1">
+							</div>
+							<div class="music">
+								<audio id="music" src="http://music.163.com/song/media/outer/url?id=108242" type="" controls="controls"></audio>
+							</div>
+							<a class="music-close" title="关闭"></a>
+						</div>
+					</div>
+					<div id="music_list">
+						<ul id="music_list_ul">
+							<!-- <li>
+								<span class="singer">侧田</span>
+								<span>————</span>
+								<span class="song-info">[DJ节目]你個名的DJ节目 第14期</span>
+							</li>	 -->						
+						</ul>
+						<div id="page_flip">
+							<a href="#" class="previous-page">上一页</a>
+							<a href="#" class="next-page">下一页</a>
+							<span>
+								共有
+								<span class="song-list">486</span>
+								首相关歌曲（来自
+								<a target="_blank" href="http://music.163.com">网易云音乐</a>)
+							</span>
+						</div>
+					</div>					
+					<div id="music_text">
+						<div class="form-group" id="ueditor">
+							<script id="container_music" name="article_content" type="text/plain"></script>
+						</div>
+						<div  class="form-group">
+							<div id="tags_area">
+								<div class="tag_lists"></div>
+								<input type="text" id="log_name" class="tag-add" placeholder="添加相关标签，用逗号或回车分隔">
+							</div>
+							<div id="tags_hide">
+
+							</div>
+						</div>
+					</div>				
+				</div>
+				</form>           
+	            <div class="modal-footer">  
+	                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>  
+	                <button type="button" class="btn btn-success" onclick="blog.music_public()">发布</button>  
+	            </div>  
+	        </div>  
+	    </div>  
+	</div>
+
+	<!-- 视频弹窗 -->
+	<div class="modal fade" id="vedio_modal"> 
+	    <div class="modal-dialog" role="document">  
+	        <div class="modal-content">
+	        <form action="" id="video_form_modal"> 
+	            <div class="modal-header">  
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">  
+	                    <span aria-hidden="true">×</span>  
+	                </button>  
+	                <h4 class="modal-title" id="modal_name">
+						<{$user_info['user_name']}>
+					</h4>
+	            </div>  
+	            <div class="modal-body">  
+		            <div class="form-group search_music">
+						<input type="text" id="search_music" class="form-control" placeholder="请用歌名、专辑、艺术家搜索">
+					</div>
+					<div class="confirm-music-box">
+						<div class="confirm-music">
+							<div class="mimg">
+								<img id="music_pic" class="img" src="http://p1.music.126.net/MTezDI43DEgzxCtfvr_xvg==/109951162880873120.jpg?param=150x150x1">
+							</div>
+							<div class="music">
+								<audio id="music" src="http://music.163.com/song/media/outer/url?id=108242" type="" controls="controls"></audio>
+							</div>
+							<a class="music-close" title="关闭"></a>
+						</div>
+					</div>
+					<div id="music_list">
+						<ul id="music_list_ul">
+							<!-- <li>
+								<span class="singer">侧田</span>
+								<span>————</span>
+								<span class="song-info">[DJ节目]你個名的DJ节目 第14期</span>
+							</li>	 -->						
+						</ul>
+						<div id="page_flip">
+							<a href="#" class="previous-page">上一页</a>
+							<a href="#" class="next-page">下一页</a>
+							<span>
+								共有
+								<span class="song-list">486</span>
+								首相关歌曲（来自
+								<a target="_blank" href="http://music.163.com">网易云音乐</a>)
+							</span>
+						</div>
+					</div>					
+					<div id="music_text">
+						<div class="form-group" id="ueditor">
+							<script id="container_music" name="article_content" type="text/plain"></script>
+						</div>
+						<div  class="form-group">
+							<div id="tags_area">
+								<div class="tag_lists"></div>
+								<input type="text" id="log_name" class="tag-add" placeholder="添加相关标签，用逗号或回车分隔">
+							</div>
+							<div id="tags_hide">
+
+							</div>
+						</div>
+					</div>				
+				</div>
+				</form>           
+	            <div class="modal-footer">  
+	                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>  
+	                <button type="button" class="btn btn-success" onclick="blog.music_public()">发布</button>  
+	            </div>  
+	        </div>  
+	    </div>  
+	</div>
+
 
 
 </body>
@@ -165,6 +307,11 @@
 	// 编辑的
 	var ue_edit=UE.getEditor('container_edit',{
         initialFrameHeight: 270
+	});
+	// 音乐的
+	var ue_music=UE.getEditor('container_music',{
+		initialFrameHeight: 190,
+		toolbars:[['snapscreen','italic','bold','superscript','spechars','horizontal','time','date','preview','undo']]
 	});
 </script>
 <style>

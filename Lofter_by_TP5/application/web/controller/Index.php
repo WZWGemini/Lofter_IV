@@ -13,7 +13,7 @@ class Index extends Controller{
         'user_message_num' => 0,
         'user_attention_num' => 0
     );
-
+    
     //主页显示
     public function index(){
         ///采集用户信息:判断是否有用户登录？采用默认值
@@ -58,5 +58,27 @@ class Index extends Controller{
     public function register(){//ok
         return $this->fetch();
     }
+
+    // 浏览页面显示
+    public function browse() {
+        return $this->fetch("order/browse");
+    }
+
+    // app页面显示
+    public function app() {
+        return $this->fetch("order/app");
+    }
+
+    // 摄影课堂页面显示
+    public function potoshop() {
+        return $this->fetch("order/potoshop");
+    }
+
+    // 个人主页页面显示
+    public function userHome() {
+        return $this->fetch("order/userHome");
+    }
+
 }
+
 ?>
