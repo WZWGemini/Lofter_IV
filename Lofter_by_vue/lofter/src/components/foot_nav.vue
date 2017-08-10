@@ -3,7 +3,7 @@
     <div class='foot-nav'>
         <ul>
             <li>
-                <router-link to='/lofter/home'>
+                <router-link to='/lofter/home/follow'>
                     <span class='icon-home'></span>
                     <p>首页</p>
                 </router-link>  
@@ -69,7 +69,18 @@
     width:20%;
 }
 .camera{
-    margin-top: 3%;
+    height: .78rem;
+}
+.camera a{
+    display:inline-block;
+    border: 1px solid #9e9e9e;
+    border-radius:50%; 
+    width: .75rem;
+    height: .75rem;
+}
+.camera a span{
+    display:inline-block;
+    margin-top: .16rem;
 }
 .foot-nav li p{
     font-size:0.25rem;

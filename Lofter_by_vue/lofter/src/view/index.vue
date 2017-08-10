@@ -23,7 +23,9 @@
           注册
         </router-link>
       </div>
-      <p>稍后再说</p>
+      <p>
+        <router-link to="/lofter/home/follow">稍后再说</router-link>
+      </p>
     </div>  
   </div>
 </template>
@@ -98,7 +100,7 @@ export default {
     border:2px solid #fff;
     border-radius:20px;
   }
-  p{
+  .index p{
     margin:0 auto;
     margin-top:10%;
     font-size:0.2rem;
@@ -106,8 +108,10 @@ export default {
     background-color: #398185;
     width: 20%;
     text-align:center;
-    color:#fff;
     border-radius:10px;
+  }
+  .index p a{
+    color:#fff;
   }
   .index_img{
     height: 100%;
