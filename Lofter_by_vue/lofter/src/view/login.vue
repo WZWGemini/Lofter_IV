@@ -17,14 +17,14 @@
         <ul class="login-ul">
           <li class="login-li">
             <label for="user_name">用户名</label>
-            <input type="text" id='user_name'/>
+            <input type="text" id='user_name' v-model="user_name"/>
           </li>
           <li class="login-li">
-            <label for="password">密&nbsp;&nbsp;码</label>
-            <input type="password" id='user_password'/>
+            <label for="user_password">密&nbsp;&nbsp;码</label>
+            <input type="password" id='user_password' v-model="user_pwd"/>
           </li>
         </ul>
-        <input type="submit" class="form-control btn btn-success btn-login" value="登录"/>
+          <router-link to="/lofter/home/follow" class="form-control btn btn-success btn-login">登录</router-link>
       </div>
         <p class="bottom-text">2017. Welcome to Lofter</p>
     </div>
@@ -32,11 +32,56 @@
 </template>
 
 <script>
+import axios from 'axios'
+// 单独引入mapMutations 辅助函数
+import {mapMutations, mapState} from 'vuex'
 export default {
   name: 'login',
   data () {
     return {
-
+      user_name: '',
+      user_pwd: ''
+    }
+  },
+  computed: {
+    ...mapState(['hasLogin', 'uinfo'])
+  },
+  methods: {
+    // 使用辅助函数  (传入参数为对象，将setUinfo映射到setname上)
+    ...mapMutations({
+      setname: 'setUinfo'
+    })
+  },
+  // 使用导航钩子 检查跳转
+  beforeRouteLeave (to, from, next) {
+    console.log(to)
+    console.log(from)
+    if (to.path === '/lofter/home/follow') {
+      // 发送请求
+      axios.get('/api/user', {
+        // 使用get方法必须先将参数放在params里面，否则无法传输数据
+        // 而使用post方法  无需将参数放在params
+        params: {
+          user_name: this.user_name,
+          user_pwd: this.user_pwd
+        }
+      }).then((response) => {
+        console.log(response)
+        if (response.data.status === 1) {
+          this.setname(response.data.info.user_name)
+          if (this.hasLogin) {
+            next()
+          } else {
+            next(false)
+          }
+        }
+        this.$toast(response.data.msg)
+      }).catch((error) => {
+        console.log(error)
+      })
+    }
+    if (to.path === '/') {
+      next()
     }
   }
 }
@@ -167,7 +212,7 @@ export default {
     position: relative;
     z-index: 2;
     float: left;
-    width: 100%;
+    width: 90%;
     margin-bottom: 0
   }
 

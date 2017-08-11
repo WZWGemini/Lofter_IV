@@ -23,7 +23,7 @@
           <!-- 头部用户信息栏 -->
           <div class="heading-info">
               <div class="heading-user"></div>
-              <p class="heading-username">啊哈哈</p>
+              <p class="heading-username">{{uinfo}}</p>
 
               <!-- 头部功能栏 -->
               <div class="heading-function">
@@ -52,7 +52,7 @@
             <div class="article-content">内容</div>
           </div>
 
-          <router-link to="/user" active-class="show-article">显示全文</router-link>
+          <router-link to="/user" class="show-article">显示全文</router-link>
           <!-- 标签盒子 -->
           <div class="tag-box">
             <ul>
@@ -88,7 +88,7 @@
             <div class="article-content">内容</div>
           </div>
 
-          <router-link to="/user" active-class="show-article">显示全文</router-link>
+          <router-link to="/" class="show-article">显示全文</router-link>
           <!-- 标签盒子 -->
           <div class="tag-box">
             <ul>
@@ -117,26 +117,56 @@
             </div>
             <ul class="comment-list">
               <li>
+                <span class="comment-user">测试</span>&nbsp;
+                <span class="comment-colon">:</span>
+                <span class="comment-content">哈哈哈</span>
+              </li>
+              <li>
                 <span class="comment-user">测试</span>
                 <span class="comment-colon">:</span>
                 <span class="comment-content">哈哈哈</span>
               </li>
             </ul>
           </div>
-        </div>
-        
+        </div>     
       </div>
+    </div>
+    <!--解决底部导航栏挡住内容问题  -->
+    <div style="height:1rem">
     </div>
   </div>
 </template>
 
 <script>
+// 单独引入 辅助函数
+import {mapState} from 'vuex'
+// import axios from 'axios'
 export default {
   name: 'user',
   data () {
     return {
 
     }
+  },
+  methods: {
+
+  },
+  computed: {
+    ...mapState(['hasLogin', 'uinfo'])
+  },
+  beforeRouteEnter (to, from, next) {
+    // 由于beforeRouteEnter钩子 在组件被创造之前被调用，所以无法使用this获取组件定义的方法计算属性等
+    // 要使用next(vm => {}) 就可以获取
+    next(vm => {
+      if (to.path === '/lofter/mine') {
+        if (vm.hasLogin) {
+          // axios.
+          next()
+        } else {
+          next({ path: '/login' })
+        }
+      }
+    })
   }
 }
 </script>
@@ -193,13 +223,15 @@ export default {
     font-family:'STXinwei', sans-serif;
     display:block;
     text-align:center;
-    padding-top: 0.8rem;
-    font-size:0.4rem;
+    padding-top: 1rem;
+    font-size: 0.4rem;
   }
 
   .heading-function {
     display:block;
     text-align:center;
+    font-size: .25rem;
+    margin-top: .1rem;
   }
 
   // 博文内容盒子
@@ -254,6 +286,7 @@ export default {
     margin-bottom: .2rem;
   }
   .article-title {
+    margin: 0 0 .2rem;
     font-size: .35rem;
   }
   .article-content {
@@ -282,25 +315,24 @@ export default {
   }
   .tag-box ul li, .btn-box ul li {
     float: left;
+    font-size: .25rem;
   }
   .li-class {
     color: #999;
   }
   .tag-box ul .tag-li-a {
     color: #888;
-    font-size: .25rem;
     font-weight: 900;
   }
   .tag-box ul .tag-li, .btn-box ul li {
     width: .8rem;
-    font-size: .25rem;
     text-align: center;
   }
 
   // 交互列表
   .mutual-top {
     padding: 0;
-    margin: 0 .3rem;
+    margin: .0 .3rem;
     color: #777;
     font-size: .25rem;
       .read-count {
@@ -309,16 +341,20 @@ export default {
   }
   .comment-list {
     padding: 0;
+    font-size: .25rem;
     margin: 0 .3rem;
-    li .comment-user {
-      color: $topic_color;
-      font-family:'STFangsong', sans-serif;
-      font-weight: 600;
+    li {
+      margin: .1rem 0;
       font-size: .25rem;
-    }
-    li .comment-content, li .comment-colon {
-      color: #777;
-      font-size: .23rem;
+      .comment-user {
+        color: $topic_color;
+        font-family:'STFangsong', sans-serif;
+        font-weight: 600;
+      }
+      .comment-content, li .comment-colon {
+        color: #777;
+        font-size: .23rem;
+      }
     }
   }
 </style>

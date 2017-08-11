@@ -26,6 +26,7 @@ export default {
 
   html,body,#app{
     height: 100%;
+    font-family:'STKaiti', sans-serif;
     margin: 0;
   }
   ul,dl,dt,dd,p{

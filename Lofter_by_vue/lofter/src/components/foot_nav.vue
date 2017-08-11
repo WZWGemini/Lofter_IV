@@ -26,7 +26,7 @@
                 </router-link>
             </li>
             <li>
-                <router-link to='/user'>
+                <router-link to='/lofter/mine'>
                     <span class='icon-user'></span>
                     <p>我的</p>
                 </router-link>
@@ -47,7 +47,7 @@
   @import '../assets/common.scss';
 
 .foot-nav{
-    background-color: #f5f5f5;
+    background-color: #fff;
     font-size:0.58rem;
     width: 100%;
     padding:4px 0;
@@ -76,14 +76,12 @@
 }
 .camera a{
     display:inline-block;
-    border: 1px solid #9e9e9e;
     border-radius:50%; 
     width: .75rem;
     height: .75rem;
 }
 .camera a span{
-    display:inline-block;
-    margin-top: .16rem;
+    display: inline-block;
 }
 .icon-camera {
     padding: .13rem;

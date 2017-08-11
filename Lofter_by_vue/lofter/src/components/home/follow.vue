@@ -199,14 +199,19 @@ export default{
             }
           }
           .head-img{
-            width: .9rem;
-            height: .9rem;
+            width: .7rem;
+            height: 0;
+            padding-bottom: .7rem;
+            margin-top: .15rem;
             border-radius: 50%;
             overflow: hidden;
+            img {
+              width: .7rem;
+            }
           }
           .user-name{
             width: 30%;
-            padding-left:10%; 
+            padding-left:5%; 
             font-size: .3rem;
             line-height: 1rem;
           }
@@ -214,8 +219,9 @@ export default{
             color: #ccc;
             padding-left: 20%; 
             width: 20%;
-            font-size: .15rem;
+            font-size: .2rem;
             line-height: 1rem;
+            float: right;
           }
         }
       }
