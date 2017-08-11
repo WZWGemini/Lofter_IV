@@ -31,6 +31,7 @@
 </script>
 
 <style scoped lang='scss'>
+@import '../assets/common';
 .home{
   height: 100%;
 }
@@ -56,9 +57,13 @@
 }
 .active{
   border-bottom: 2px solid #ccc;
+  color: $topic_color;
+  font-weight: 600;
 }
 .head-ul span{
   display: inline-block;
+  color: $topic_color;
+  margin-top:3%; 
   margin-left:10%; 
   font-size: 0.4rem;
 }  
