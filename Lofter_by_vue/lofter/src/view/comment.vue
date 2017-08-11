@@ -56,7 +56,7 @@ export default {
   name: 'comment',
   data () {
     return {
-
+      comment_content: ''
     }
   }
 }

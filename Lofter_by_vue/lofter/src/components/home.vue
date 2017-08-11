@@ -10,11 +10,11 @@
               <router-link to="/lofter/home/desert" active-class='active'>订阅</router-link>
             </li>
               <router-link to="/lofter/addFollow"><span class="icon-user-plus"></span></router-link>
-          </ul>        
+          </ul>
          </header> 
           <transition name="fade" mode="out-in">
             <router-view>
-
+              
             </router-view>
           </transition>
     </div>

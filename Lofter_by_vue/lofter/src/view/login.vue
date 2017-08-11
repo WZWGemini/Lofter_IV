@@ -17,14 +17,16 @@
         <ul class="login-ul">
           <li class="login-li">
             <label for="user_name">用户名</label>
-            <input type="text" id='user_name'/>
+            <input type="text" id='user_name' v-model="user_name"/>
           </li>
           <li class="login-li">
-            <label for="password">密&nbsp;&nbsp;码</label>
-            <input type="password" id='user_password'/>
+            <label for="user_password">密&nbsp;&nbsp;码</label>
+            <input type="password" id='user_password' v-model="user_pwd"/>
           </li>
         </ul>
-        <input type="submit" class="form-control btn btn-success btn-login" value="登录"/>
+        <div @click="login()">
+          <router-link to="/lofter/home/follow" class="form-control btn btn-success btn-login">登录</router-link>
+        </div>
       </div>
         <p class="bottom-text">2017. Welcome to Lofter</p>
     </div>
@@ -32,11 +34,48 @@
 </template>
 
 <script>
+import axios from 'axios'
+// 单独引入mapMutations 辅助函数
+import {mapMutations, mapState} from 'vuex'
 export default {
   name: 'login',
+  beforeRouteLeave (to, from, next) {
+    console.log(to)
+    console.log(this.hasLogin)
+    if (this.hasLogin) {
+      next()
+    } else {
+      next(false)
+    }
+  },
   data () {
     return {
-
+      user_name: '',
+      user_pwd: ''
+    }
+  },
+  computed: {
+    ...mapState(['hasLogin', 'uinfo'])
+  },
+  methods: {
+    ...mapMutations({
+      setname: 'setUinfo'
+    }),
+    login: function () {
+      axios.get('/api/user', {
+        params: {
+          user_name: this.user_name,
+          user_pwd: this.user_pwd
+        }
+      }).then((response) => {
+        console.log(response)
+        if (response.data.status === 1) {
+          this.setname(response.data.info.user_name)
+        }
+        this.$toast(response.data.msg)
+      }).catch((error) => {
+        console.log(error)
+      })
     }
   }
 }
@@ -167,7 +206,7 @@ export default {
     position: relative;
     z-index: 2;
     float: left;
-    width: 100%;
+    width: 90%;
     margin-bottom: 0
   }
 

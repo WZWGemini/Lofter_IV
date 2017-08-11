@@ -117,14 +117,13 @@
             </div>
             <ul class="comment-list">
               <li>
-                <span class="comment-user">测试</span>
+                <span class="comment-user">测试</span>&nbsp;
                 <span class="comment-colon">:</span>
                 <span class="comment-content">哈哈哈</span>
               </li>
             </ul>
           </div>
-        </div>
-        
+        </div>     
       </div>
     </div>
   </div>
@@ -300,7 +299,7 @@ export default {
   // 交互列表
   .mutual-top {
     padding: 0;
-    margin: 0 .3rem;
+    margin: .0 .3rem;
     color: #777;
     font-size: .25rem;
       .read-count {
@@ -309,14 +308,14 @@ export default {
   }
   .comment-list {
     padding: 0;
-    margin: 0 .3rem;
+    margin: .0 .3rem;
     li .comment-user {
       color: $topic_color;
       font-family:'STFangsong', sans-serif;
       font-weight: 600;
       font-size: .25rem;
     }
-    li .comment-content, li .comment-colon {
+    li .comment-content, li.comment-colon {
       color: #777;
       font-size: .23rem;
     }

@@ -3,7 +3,9 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-// import { Swipe, SwipeItem } from 'mint-ui'
+// 将定义好好的store引入
+import store from './store'
+// from 后面的路径如果在moudel中无需加./
 import MintUI from 'mint-ui'
 import 'mint-ui/lib/style.css'
 import 'animate.css/animate.min.css'
@@ -11,9 +13,7 @@ import '../src/assets/style.css'
 // 关闭生产环境时错误提示
 Vue.config.productionTip = false
 Vue.use(MintUI);
-// Vue.component(Swipe.name, Swipe)
-// Vue.component(SwipeItem.name, SwipeItem);
-// 移动端配置自适应font-size
+// 移动端配置自适应font-sizex`
 (function (doc, win) {
   var docEl
   docEl = doc.documentElement
@@ -34,6 +34,7 @@ Vue.use(MintUI);
 new Vue({
   el: '#app',
   router,
+  store,
   template: '<App/>',
   components: { App }
 })
