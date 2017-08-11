@@ -25,6 +25,16 @@ a:hover{
 img{width:100%;vertical-align: top;height: 100%;}
 
 /***********工具箱*********/
+/*阴影*/
+.box-shadow{
+	box-shadow: 1px 2px 4px #cbcbcb;
+}
+/*文字溢出隐藏*/
+.text-hidden{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
 .container {
 	width: 930px !important;
 	padding: 0;
@@ -165,7 +175,9 @@ li.small{
 	background: white;
 	margin-bottom: 16px;
 }
-
+.header-ul{
+	overflow: hidden;
+}
 .header-ul li {
 	float: left;
 	cursor: pointer;
@@ -253,15 +265,16 @@ li.small{
 /********信息列表**********/
 
 .list_box{
-	width: 670px;	
-
+	width: 670px;
 	clear: both;
 	margin-bottom: 20px;
 }
 
 .head-portrait {
-	width: 110px;
+	width: 64px;
+	margin-right: 46px;
 	display: inline-block;
+	overflow: hidden;
 }
 
 .head-portrait img {
@@ -331,7 +344,9 @@ li.small{
 .commment{	
 	line-height: 80px;
 }
-
+/*#send{	
+	line-height: 80px;
+}*/
 .comment-text {
 	height: 38px;
 	width: 380px;
@@ -524,6 +539,127 @@ span.count_article{
 #tags_hide {
 	height: 40px;
 	display: none;
+}
+/**************音乐弹窗**************/
+#music_list{
+	height: 324px;
+	overflow: hidden;
+	border: 1px solid #eee;
+	border-bottom: none;
+	display: none;
+}
+#music_list ul li{
+	height: 35px;
+	line-height: 35px;
+	color: #333;
+	background: #fff;
+	padding:0px 30px;
+}
+#music_list ul li:hover{
+	background: #333;
+	color: #fff;
+	cursor: pointer;
+}
+#page_flip{
+	border: 1px solid #eee;
+	height: 40px;	
+}
+.previous-page,.next-page{
+	height: 40px;
+	width: 80px;
+	text-align: center;
+	line-height: 40px;
+	display: inline-block;
+	border-right: 1px solid #eee;
+}
+#music_text{
+	display: none;
+}
+.confirm-music{
+	height: 100px;
+	background: white;
+	position: relative;	
+}
+.mimg{
+	width: 100px;
+	height: 100px;
+	display: inline-block;
+	float: left;
+}
+.music{
+	display: inline-block;
+	padding: 32px 0 0 20px;
+	/*float: left;*/
+}
+.music-close{
+	position: absolute;
+	top: 40px;
+	right: 10%;
+	width: 17px;
+	height: 17px;
+	line-height: 100px;
+    background: url(../img/apbicon.png) no-repeat 0px -32px;
+}
+.confirm-music-box{
+	height: 120px;
+	padding: 10px;
+	background: #EDEDED;
+	display: none;
+}
+/***************************/
+
+
+.btn-link, .btn-link:active, .btn-link:focus, .btn-link:hover {
+    border-color: none;
+}
+.btn-link, .btn-link.active, .btn-link:active, .btn-link[disabled], fieldset[disabled] .btn-link {
+    background-color: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+.btn-link {
+    color: #aaa;
+}
+.btn {
+    display: inline-block;
+    padding: 0;
+}
+/*******************标签盒子*****************/
+#tags_hide{
+	height: 40px;
+	display: none;
+}
+/*************tab选项卡***************/
+.bro-tab{
+	background: white;
+	width: 100%;
+	height: 90px;
+	margin:-20px auto 50px auto;
+}
+.bro-tab-ul{	
+	height: 90px;
+}
+.bro-tab-ul li{
+	float:left;
+	width: 20%;
+	height: 100%;
+	text-align: center;
+}
+.bro-tab-ul li a{
+	width: 100%;
+	height: 87px;
+	line-height: 90px;
+	font-size: 20px;
+	color:#333;
+	display: inline-block;
+	border-bottom: 3px solid #fff;
+}
+.bro-tab-ul li a:hover{
+	border-bottom: 3px solid #9AC600;
+}
+/****************鼠标经过弹窗************************/
+.window-show{
+	background: #191919;
 }
 
 /*weibo文本内容*/

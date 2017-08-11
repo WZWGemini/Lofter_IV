@@ -3,11 +3,11 @@
 	{foreach $blog_list as $art}
 		<div class="list_box" data-index="{$art.article_id}">
 			<!-- 头像 -->
-			<div class="head-portrait float-left">
+			<div class="head-portrait float-left box-shadow">
 				<img src="__PUBLIC_UPLOAD__/{$art.user_info.user_head}">
 			</div>
 			<!-- 信息列表 -->
-			<div id="info_list" data-article="{$art.article_id}">
+			<div id="info_list" class="box-shadow" data-article="{$art.article_id}">
 				<div class="list-img float-left">
 					<?php $art['img']=json_decode($art['article_img']); ?>
 					{foreach $art.img  as $img}

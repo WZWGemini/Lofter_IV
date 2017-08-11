@@ -24,7 +24,7 @@
             <input type="password" id='user_password' v-model="user_pwd"/>
           </li>
         </ul>
-        <div @click="login()">
+        <div>
           <router-link to="/lofter/home/follow" class="form-control btn btn-success btn-login">登录</router-link>
         </div>
       </div>
@@ -39,15 +39,6 @@ import axios from 'axios'
 import {mapMutations, mapState} from 'vuex'
 export default {
   name: 'login',
-  beforeRouteLeave (to, from, next) {
-    console.log(to)
-    console.log(this.hasLogin)
-    if (this.hasLogin) {
-      next()
-    } else {
-      next(false)
-    }
-  },
   data () {
     return {
       user_name: '',
@@ -60,8 +51,12 @@ export default {
   methods: {
     ...mapMutations({
       setname: 'setUinfo'
-    }),
-    login: function () {
+    })
+  },
+  beforeRouteLeave (to, from, next) {
+    console.log(to)
+    console.log(this.hasLogin)
+    if (to.path === '/lofter/home/follow') {
       axios.get('/api/user', {
         params: {
           user_name: this.user_name,
@@ -76,6 +71,11 @@ export default {
       }).catch((error) => {
         console.log(error)
       })
+    }
+    if (this.hasLogin) {
+      next()
+    } else {
+      next(false)
     }
   }
 }
