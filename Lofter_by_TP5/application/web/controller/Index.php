@@ -79,6 +79,12 @@ class Index extends Controller{
         return $this->fetch("order/userHome");
     }
 
+    // 长文章页面显示
+    public function lognArticle() {
+        return $this->fetch("order/lognArticle");
+    }
+
+
 }
 
 ?>

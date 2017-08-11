@@ -124,10 +124,14 @@ $(function(){
 		}
 	}
 
+	// $(".list_box").hover(function() {
+	// 	console.log(1);
+	// }, function() {
+	// 	console.log(2);
+	// });
+
+
 })
-
-
-
 
 window.blog={
 	weibo_id : null,
