@@ -53,17 +53,11 @@ export default new Router({
         // 发现子路由
         { path: 'message',
           component: message
-          // 在子路由中需要定义 动态 、 消息 、 聊天 子路由
-          // children: [
-          //   { path: 'dynamic', component: require('../components/message/dynamic') }
-            // { path: 'news', component: require('../components/message/news') },
-            // { path: 'chat', component: require('../components/message/chat') }
-          // ]
         },
         // 发现子路由
           { path: 'discover', component: user },
           // 我的子路由
-          { path: 'mine', component: index }
+          { path: 'mine', component: user }
       ]
     },
     {

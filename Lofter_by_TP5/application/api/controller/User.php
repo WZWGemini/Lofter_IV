@@ -17,7 +17,9 @@ class User extends Controller
         if(count($user_info)==0){
             return json(['status'=>0,"msg"=>"登录失败"]);
         }
-        return json(['status' => 1, 'msg' => '登录成功','info'=>"$user_info"]);
+        // 将需要的名字 id 头像 存入数组返回
+        $rtnInfo = array('user_name'=>$user_info['user_name'],'user_id'=>$user_info['user_id'],'user_head'=>$user_info['user_head']);
+        return json(['status' => 1, 'msg' => '登录成功','info'=>$rtnInfo]);
     }
 
 //    read get user/:id

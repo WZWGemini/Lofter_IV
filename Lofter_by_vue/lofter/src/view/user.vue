@@ -23,7 +23,7 @@
           <!-- 头部用户信息栏 -->
           <div class="heading-info">
               <div class="heading-user"></div>
-              <p class="heading-username">啊哈哈</p>
+              <p class="heading-username">{{uinfo}}</p>
 
               <!-- 头部功能栏 -->
               <div class="heading-function">
@@ -52,7 +52,7 @@
             <div class="article-content">内容</div>
           </div>
 
-          <router-link to="/user" active-class="show-article">显示全文</router-link>
+          <router-link to="/user" class="show-article">显示全文</router-link>
           <!-- 标签盒子 -->
           <div class="tag-box">
             <ul>
@@ -88,7 +88,7 @@
             <div class="article-content">内容</div>
           </div>
 
-          <router-link to="/user" active-class="show-article">显示全文</router-link>
+          <router-link to="/" class="show-article">显示全文</router-link>
           <!-- 标签盒子 -->
           <div class="tag-box">
             <ul>
@@ -131,16 +131,42 @@
         </div>     
       </div>
     </div>
+    <!--解决底部导航栏挡住内容问题  -->
+    <div style="height:1rem">
+    </div>
   </div>
 </template>
 
 <script>
+// 单独引入 辅助函数
+import {mapState} from 'vuex'
+// import axios from 'axios'
 export default {
   name: 'user',
   data () {
     return {
 
     }
+  },
+  methods: {
+
+  },
+  computed: {
+    ...mapState(['hasLogin', 'uinfo'])
+  },
+  beforeRouteEnter (to, from, next) {
+    // 由于beforeRouteEnter钩子 在组件被创造之前被调用，所以无法使用this获取组件定义的方法计算属性等
+    // 要使用next(vm => {}) 就可以获取
+    next(vm => {
+      if (to.path === '/lofter/mine') {
+        if (vm.hasLogin) {
+          // axios.
+          next()
+        } else {
+          next({ path: '/login' })
+        }
+      }
+    })
   }
 }
 </script>

@@ -26,7 +26,7 @@
                 </router-link>
             </li>
             <li>
-                <router-link to='/user'>
+                <router-link to='/lofter/mine'>
                     <span class='icon-user'></span>
                     <p>我的</p>
                 </router-link>
