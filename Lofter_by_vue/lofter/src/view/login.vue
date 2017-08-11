@@ -54,8 +54,6 @@ export default {
   },
   // 使用导航钩子 检查跳转
   beforeRouteLeave (to, from, next) {
-    console.log(to)
-    console.log(from)
     if (to.path === '/lofter/home/follow') {
       // 发送请求
       axios.get('/api/user', {
@@ -68,7 +66,7 @@ export default {
       }).then((response) => {
         console.log(response)
         if (response.data.status === 1) {
-          this.setname(response.data.info.user_name)
+          this.setname(response.data.info)
           if (this.hasLogin) {
             next()
           } else {
