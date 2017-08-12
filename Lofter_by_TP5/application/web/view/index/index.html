@@ -22,14 +22,16 @@
 			<!-- 头部导航 -->
 			<div id="header" class="float-left">
 				<ul class="header-ul box-shadow">
-					<li class="t1">					
-						 <img src="__PUBLIC_UPLOAD__/{$user_info.user_head}" alt=""> 
+					<li href="" class="t1">
+						<a href="{:url('userHome')}">		
+						 <img src="__PUBLIC_UPLOAD__/{$user_info.user_head}" alt="">
+						</a>
 					</li>
 					<li class="t2"><a href="#text_modal" data-toggle="modal"></a></li>
 					<li class="t3"><a href="#text_modal" data-toggle="modal"></a></li>
 					<li class="t4"><a href="#music_modal" data-toggle="modal"></a></li>
-					<li class="t5"></li>
-					<li class="t6"><a href=""></a></li>
+					<li href="#vedio_modal" class="t5" data-toggle="modal"></li>
+					<li class="t6"><a href="{:url('lognArticle')}"></a></li>
 				</ul>			
 			</div>				
 
@@ -45,6 +47,56 @@
 			
 		</div>
 
+	</div>
+
+	<!-- 鼠标经过显示 -->
+	<div id="window_show" style="display: none;">
+		<div class="show-box">
+			<div class="show-top">
+				<div class="show-header">
+					<a class="span-img float-left">
+						<img src="../public/img/sc4-4.png" class="img">
+					</a>					
+					<span class="txt a-text">Lofter摄影达人</span>
+					<span class="txt a-text">
+						<a class="" href="" target="_blank">文章</a>
+						<a class="" href="" target="_blank">喜欢</a>
+						<a class="" href="" target="_blank">关注</a>
+					</span>
+					<a class="user-care">
+						<b>+</b>
+						<span>关注</span>
+					</a>
+				</div>
+				<div class="show-body">
+					<ul class="show-body-ul">
+						<li>
+							<a href="" class="show-img">
+								<img src="../public/img/lofter.jpg" class="img">
+							</a>
+						</li>
+						<li>
+							<a href="" class="show-img">
+								<img src="../public/img/lofter.jpg" class="img">
+							</a>
+						</li>
+						<li>
+							<a href="" class="show-img">
+								<img src="../public/img/lofter.jpg" class="img">
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="show-footer">
+				<div class="m-daren">
+				<span class="moredr">更多相似达人：</span>
+					<a class="text-hidden" href="" target="_blank" onclick="">上官追月</a>、
+					<a class="text-hidden" href="" target="_blank" onclick="">猎影人</a>、
+					<a class="text-hidden" href="" target="_blank" onclick="">LOFTER手帐文具...</a>
+				</div>
+			</div>
+		</div>
 	</div>
 
 	<!-- 文字弹窗 -->
@@ -290,8 +342,6 @@
 	    </div>  
 	</div>
 
-
-
 </body>
 </html>
 <script src="__PUBLIC_LOFTER__/lib/ueditor/ueditor.config.js"></script>
@@ -302,7 +352,7 @@
 <script>
 	// 添加的
 	var ue=UE.getEditor('container',{
-        initialFrameHeight: 270
+        initialFrameHeight: 270,
 	});
 	// 编辑的
 	var ue_edit=UE.getEditor('container_edit',{

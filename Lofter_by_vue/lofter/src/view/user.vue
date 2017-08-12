@@ -23,7 +23,7 @@
           <!-- 头部用户信息栏 -->
           <div class="heading-info">
               <div class="heading-user"></div>
-              <p class="heading-username">啊哈哈</p>
+              <p class="heading-username">{{uinfo.user_name}}</p>
 
               <!-- 头部功能栏 -->
               <div class="heading-function">
@@ -33,26 +33,28 @@
               </div>
           </div>
       </div>
-
       <!-- 博文内容盒子 -->
       <div class="blog-list">
-        <mt-cell title="3篇文章">
+        <mt-cell>
+          <div>
+            {{totalArtNum}}篇文章
+          </div>
           <mt-cell icon="more"></mt-cell>
         </mt-cell>
-        <div class="blog-box">
+        <div class="blog-box" v-for="item in uarticle">
           <div class="blog-top">
             <div class="user-header"><img src="../assets/img/user_head.jpg"></div>
-            <span class="user-name">啊哈哈</span>
+            <span class="user-name">{{uinfo.user_name}}</span>
             <span class="create-time">1天前</span>
           </div>
 
           <!-- 文章内容 -->
           <div class="blog-article clear">
-            <h4 class="article-title">标题</h4>
-            <div class="article-content">内容</div>
+            <h4 class="article-title">{{item.article_title}}</h4>
+            <div class="article-content">{{item.article_content}}</div>
           </div>
 
-          <router-link to="/user" active-class="show-article">显示全文</router-link>
+          <router-link to="/user" class="show-article">显示全文</router-link>
           <!-- 标签盒子 -->
           <div class="tag-box">
             <ul>
@@ -73,70 +75,63 @@
             </ul>
             
           </div>
-        </div>
-
-        <div class="blog-box">
-          <div class="blog-top">
-            <div class="user-header"><img src="../assets/img/user_head.jpg"></div> 
-            <span class="user-name">啊哈哈</span>
-            <span class="create-time">1天前</span>
-          </div>
-
-          <!-- 文章内容 -->
-          <div class="blog-article clear">
-            <h4 class="article-title">标题</h4>
-            <div class="article-content">内容</div>
-          </div>
-
-          <router-link to="/user" active-class="show-article">显示全文</router-link>
-          <!-- 标签盒子 -->
-          <div class="tag-box">
-            <ul>
-              <li class="tag-li-a">#</li>
-              <li class="tag-li"><router-link to="/" active-class="li-class">标签</router-link></li>
-              <li class="tag-li"><router-link to="/" active-class="li-class">测试</router-link></li>
-              <li class="tag-li"><router-link to="/" active-class="li-class">样式</router-link></li>
-            </ul>
-          </div>
-
-          <!-- 功能按钮 -->
-          <div class="btn-box">
-            <ul>
-              <li class="btn-li"><router-link to="/" active-class="li-class"><span class="icon-heart"></span></router-link></li>
-              <li class="btn-li"><router-link to="/" active-class="li-class"><span class="icon-bubble2"></span></router-link></li>
-              <li class="btn-li"><router-link to="/" active-class="li-class"><span class="icon-redo2"></span></router-link></li>
-              <li class="btn-li"><router-link to="/" active-class="li-class"><span class="icon-like"></span></router-link></li>
-            </ul>
-          </div>
-
-          <!-- 交互列表：评论和阅读情况 -->
-          <div class="mutual-list">
-            <div class="mutual-top">
-              <span class="comment-count">1条评论</span>
-              <span class="read-count">147次阅读</span>
-            </div>
-            <ul class="comment-list">
-              <li>
-                <span class="comment-user">测试</span>
-                <span class="comment-colon">:</span>
-                <span class="comment-content">哈哈哈</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-        
+        </div>    
       </div>
+    </div>
+    <!--解决底部导航栏挡住内容问题  -->
+    <div style="height:1rem">
     </div>
   </div>
 </template>
 
 <script>
+// 单独引入 辅助函数
+import {mapState, mapMutations} from 'vuex'
+// 为了获取用户个人发表文章引入axios
+import axios from 'axios'
 export default {
   name: 'user',
   data () {
     return {
 
     }
+  },
+  methods: {
+    ...mapMutations(['setUarticle'])
+  },
+  computed: {
+    ...mapState(['hasLogin', 'uinfo', 'uarticle', 'totalArtNum'])
+  },
+  beforeRouteEnter (to, from, next) {
+    // 由于beforeRouteEnter钩子 在组件被创造之前被调用，所以无法使用this获取组件定义的方法计算属性等
+    // 要使用next(vm => {}) 就可以获取
+    next(vm => {
+      if (to.path === '/lofter/mine') {
+        // console.log(vm.hasLogin)
+        // 判断是否有登录
+        if (vm.hasLogin) {
+          // 判断在store中是否已经有文章，无则请求，有则不请求
+          if (vm.uarticle.length === 0) {
+            axios.get('api/article', {
+              params: {
+                user_id: vm.uinfo.user_id
+              }
+            }).then((response) => {
+              console.log(vm.uarticle)
+              // 调用 mutations的setUarticle方法，将获取到的文章添加到uarticle
+              vm.setUarticle(response.data.$user_article.data)
+              next()
+            }).catch((error) => {
+              console.log(error)
+            })
+          } else {
+            next()
+          }
+        } else {
+          next({ path: '/login' })
+        }
+      }
+    })
   }
 }
 </script>
@@ -193,13 +188,15 @@ export default {
     font-family:'STXinwei', sans-serif;
     display:block;
     text-align:center;
-    padding-top: 0.8rem;
-    font-size:0.4rem;
+    padding-top: 1rem;
+    font-size: 0.4rem;
   }
 
   .heading-function {
     display:block;
     text-align:center;
+    font-size: .25rem;
+    margin-top: .1rem;
   }
 
   // 博文内容盒子
@@ -254,6 +251,7 @@ export default {
     margin-bottom: .2rem;
   }
   .article-title {
+    margin: 0 0 .2rem;
     font-size: .35rem;
   }
   .article-content {
@@ -282,25 +280,24 @@ export default {
   }
   .tag-box ul li, .btn-box ul li {
     float: left;
+    font-size: .25rem;
   }
   .li-class {
     color: #999;
   }
   .tag-box ul .tag-li-a {
     color: #888;
-    font-size: .25rem;
     font-weight: 900;
   }
   .tag-box ul .tag-li, .btn-box ul li {
     width: .8rem;
-    font-size: .25rem;
     text-align: center;
   }
 
   // 交互列表
   .mutual-top {
     padding: 0;
-    margin: 0 .3rem;
+    margin: .0 .3rem;
     color: #777;
     font-size: .25rem;
       .read-count {
@@ -309,16 +306,20 @@ export default {
   }
   .comment-list {
     padding: 0;
+    font-size: .25rem;
     margin: 0 .3rem;
-    li .comment-user {
-      color: $topic_color;
-      font-family:'STFangsong', sans-serif;
-      font-weight: 600;
+    li {
+      margin: .1rem 0;
       font-size: .25rem;
-    }
-    li .comment-content, li .comment-colon {
-      color: #777;
-      font-size: .23rem;
+      .comment-user {
+        color: $topic_color;
+        font-family:'STFangsong', sans-serif;
+        font-weight: 600;
+      }
+      .comment-content, li .comment-colon {
+        color: #777;
+        font-size: .23rem;
+      }
     }
   }
 </style>

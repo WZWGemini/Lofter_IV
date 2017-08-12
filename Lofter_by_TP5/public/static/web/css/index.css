@@ -658,9 +658,94 @@ span.count_article{
 	border-bottom: 3px solid #9AC600;
 }
 /****************鼠标经过弹窗************************/
-.window-show{
-	background: #191919;
+.page{
+	position: relative;
+	overflow: hidden;
 }
+#window_show{
+	background: #191919;
+	width: 450px;
+	color: #888;
+	overflow: hidden;
+	position: absolute;
+	top:120px;
+	left:120px;
+	z-index: 99999999;
+}
+#window_show .show-header{	
+	overflow: hidden;
+	padding-bottom: 20px;
+}
+#window_show a{
+	color: #888;
+	font-size: 12px;
+}
+#window_show a:hover{
+	color: #fff;
+}
+#window_show .show-header .span-img{
+	background: white;
+}
+#window_show .show-body-ul{
+	overflow: hidden;
+	width: 420px;
+}
+#window_show .show-body-ul li{
+	float: left;
+}
+#window_show .show-body-ul .show-img{
+	width: 130px;
+	height: 100px;
+	display: inline-block;
+	margin-right: 10px;
+}
+#window_show .show-top{
+	padding:20px;
+}
+#window_show .show-footer{
+	overflow: hidden;
+	padding-bottom: 20px;
+	border-top: 1px solid #202020;
+}
+#window_show .show-footer .m-daren{
+    height: 13px;
+    line-height: 13px;
+    padding: 20px 5px 21px 19px;
+    text-align: left;
+    color: #666;
+    font-size: 12px;
+}
+#window_show .show-header .a-text{
+	width: 250px;
+}
+#window_show .user-care{
+	float: right;
+	width: 66px;
+	height: 30px;
+	background: -webkit-linear-gradient(top,#84af00 0%,#79a200 100%);
+	background: -moz-linear-gradient(top, #84af00 0%,#79a200 100%);
+	border-radius: 2px;
+	letter-spacing: 2px;
+	line-height: 30px;
+	text-align: center;
+	position: relative;
+	top: -12px;
+	right: 0px;
+}
+#window_show .user-care b{
+	color: #fff;
+	font-family: arial;
+	font-size: 24px;
+	font-weight: bold;
+	text-shadow: 0 1px 0 #759b00;
+}
+#window_show .user-care span{
+	font-size: 16px;
+	color: #fff;
+	text-shadow: 0 1px 0 rgba(117,155,0,0.65);
+	vertical-align: 2px;
+}
+/*******************************************************/
 
 /*weibo文本内容*/
 .article_content>p{

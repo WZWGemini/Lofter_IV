@@ -15,6 +15,8 @@ import comment from '@/view/comment'
 import home from '@/components/home'
 // import homeFollow from '@/components/home/follow'
 import homeDesert from '@/components/home/desert'
+// app内部 消息页面
+import message from '@/components/message'
 Vue.use(Router)
 
 export default new Router({
@@ -23,7 +25,8 @@ export default new Router({
       path: '/',
       name: 'index',
       component: index
-    }, {
+    },
+    {
       path: '/login',
       name: 'login',
       component: login
@@ -32,7 +35,8 @@ export default new Router({
       path: '/register',
       name: 'register',
       component: register
-    }, {
+    },
+    {
       path: '/lofter',
       name: 'lofter',
       component: lofter,
@@ -48,9 +52,13 @@ export default new Router({
           ]
         },
         // 发现子路由
+        { path: 'message',
+          component: message
+        },
+        // 发现子路由
           { path: 'discover', component: user },
           // 我的子路由
-          { path: 'mine', component: index }
+          { path: 'mine', component: user }
       ]
     },
     {
