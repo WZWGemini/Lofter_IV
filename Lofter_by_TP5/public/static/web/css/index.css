@@ -422,7 +422,7 @@ li.small{
 	margin-bottom: 20px;
 	z-index: 999;
 }
-#user_name{
+#user_home{
 	height: 55px !important;
 	background:#F3F3F3;
 }
@@ -622,7 +622,7 @@ span.count_article{
 }
 .btn {
     display: inline-block;
-    padding: 0;
+    /* padding: 0; */
 }
 /*******************标签盒子*****************/
 #tags_hide{
