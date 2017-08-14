@@ -61,6 +61,7 @@ class Index extends Controller{
 
     // 浏览页面显示
     public function browse() {
+        
         return $this->fetch("order/browse");
     }
 

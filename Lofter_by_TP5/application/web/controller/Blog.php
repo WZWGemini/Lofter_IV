@@ -139,6 +139,19 @@ class Blog extends Controller{
         return ['status'=>1,"msg"=>"更新成功","html"=>"","data"=>[$blog]];
     }
 
+    // 查询
+    public function selectBlog(){
+        $blog_list = model('user')->alias('u')->join("article a","a.user_id = u.user_id")
+                        ->field('u.user_name, u.user_head, u.user_id, a.article_id, a.article_img, a.article_content')->limit(15)->select();
+        if(!empty($blog_list)){
+            $this->assign('blog_list',$blog_list);
+            // $html=$this->fetch('element/ele-browseQS');
+            return ['status'=>1,"msg"=>"获取成功","html"=>"","data"=>$blog_list];
+        }else{
+            return ['status'=>0,"msg"=>"获取失败","html"=>"","data"=>""];
+        }
+        
+    }
 
     //个人博客
     public function personalBlog(){
