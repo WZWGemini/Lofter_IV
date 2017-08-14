@@ -195,16 +195,16 @@ window.blog={
 		let article_music=$("#music").attr('src');
 		// console.log(music_pic);
 		let form=new FormData(data);
-		form.append('article_img',music_pic);
+		form.append('article_img',JSON.stringify([music_pic]));
 		form.append('article_music',article_music);
+		form.append("tag_arr" ,tag_save);
 		$.ajax({
-			url:"index.php?c=music&a=insert_music",
+			url:"/Lofter_by_TP5/public/web/blog/insertBlog",
 			type:"POST",
 			data:form,
 			processData:false,
 			contentType:false,
 			success:function(data){
-				data = JSON.parse(data);
 				$("#information").prepend(data.html);
 				$("#music_modal").modal('hide');
 			}
@@ -261,7 +261,7 @@ window.blog={
 		$("edit_modal").hide();
 		//清空标签
 		tag_save = [];
-//		location.reload();
+		location.reload();
 	},
 	getArticleId:function(){
 		blog.weibo_id = $(this).parents(".list_box").attr("data-index");
