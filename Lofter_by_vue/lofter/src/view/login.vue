@@ -68,7 +68,7 @@ export default {
       }).then((response) => {
         console.log(response)
         if (response.data.status === 1) {
-          this.setname(response.data.info.user_name)
+          this.setname(response.data.info)
           if (this.hasLogin) {
             next()
           } else {
@@ -224,5 +224,8 @@ export default {
     text-align:center;
     padding-top:1.5rem;
     font-size:.2rem;
+  }
+  .login{
+    padding: 0;
   }
 </style>

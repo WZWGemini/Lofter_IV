@@ -187,4 +187,7 @@ export default {
     padding-top: .5rem;
     font-size:.2rem;
   }
+  .register{
+    padding: 0;
+  }
 </style>
