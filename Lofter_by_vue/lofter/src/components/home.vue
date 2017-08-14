@@ -9,7 +9,7 @@
             <li>
               <router-link to="/lofter/home/desert" active-class='active' class="home-nav">订阅</router-link>
             </li>
-              <router-link to="/lofter/addFollow"><span class="icon-user-plus"></span></router-link>
+               <router-link to="/lofter/addFollow"><span class="icon-user-plus"></span></router-link> 
           </ul>
          </header> 
           <transition name="fade" mode="out-in">
@@ -20,14 +20,14 @@
     </div>
 </template>
 <script>
-    export default{
-      name: 'home',
-      data () {
-        return {
+export default{
+  name: 'home',
+  data () {
+    return {
 
-        }
-      }
     }
+  }
+}
 </script>
 
 <style scoped lang='scss'>
