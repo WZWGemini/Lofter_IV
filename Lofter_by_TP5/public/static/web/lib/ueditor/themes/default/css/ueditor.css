@@ -124,14 +124,14 @@ div.edui-box { position: relative; display: -moz-inline-box!important; display: 
 /* 百度编辑器  工具栏UI调整 */
 .edui-editor{border:none;_zoom:1;}
 .edui-editor .edui-editor-toolbarbox{height:36px;}
-.edui-editor .edui-editor-toolbarbox .edui-editor-toolbarboxouter{/*overflow:hidden;*/width:650px;height:36px;padding:0;border:none;background:#fff;}
+.edui-editor .edui-editor-toolbarbox .edui-editor-toolbarboxouter{overflow:hidden;/*width:650px;*/height:36px;padding:0;border:none;background:#fff;}
 .edui-editor .edui-editor-toolbarbox .edui-editor-toolbarboxinner{padding:0;}
 .edui-editor .edui-editor-toolbarbox .edui-toolbar{text-align:left;cursor:default;-webkit-user-select:none;-webkit-user-select:none;}
 
 .edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-button-body{padding:1px;}
 
 .edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-menubutton,
-.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-button{padding:0;/*overflow:hidden;*/}
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-button{padding:0;overflow:hidden;}
 .edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-box .edui-icon{width:34px;height:34px;background-image:url(http://l.bst.126.net/rsc/js/ueditor4longpost/themes/loftskin/images/toolbar.png);}
 
 

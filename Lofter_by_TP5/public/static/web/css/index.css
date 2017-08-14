@@ -7,7 +7,8 @@ body, html, ul, li {
 body {
 	font-size: 16px;
 	font-family: "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", tahoma,
-		arial, simsun, "宋体"
+	arial, simsun, "宋体";
+	background: #EDEDEF;
 }
 
 li {
@@ -34,6 +35,9 @@ img{width:100%;vertical-align: top;height: 100%;}
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+}
+.modal-footer .btn{
+	padding: 6px 12px !important;
 }
 .container {
 	width: 930px !important;
@@ -269,28 +273,69 @@ li.small{
 	clear: both;
 	margin-bottom: 20px;
 }
-
+.list_box .box-shadow {
+    box-shadow: -1px 2px 4px #cbcbcb;
+}
+.head-portrait-box{
+	width: 110px;
+	height: 100px;
+	overflow: hidden;
+}
 .head-portrait {
 	width: 64px;
 	margin-right: 46px;
 	display: inline-block;
 	overflow: hidden;
 }
-
 .head-portrait img {
 	width: 64px;
 	height: 64px;
 }
-
 #info_list {
 	width: 560px;
 	padding: 30px;
+	padding-top: 0px;
 	padding-bottom: 60px;
 	background: white;
 	display: inline-block;
 	position: relative;
 }
-
+.info-list{
+	width: 560px;
+	padding: 30px;
+	padding-top: 0px;
+	padding-bottom: 60px;
+	background: white;
+	display: inline-block;
+	position: relative;
+}
+.isay {
+    height: 24px;
+    width: 583px;
+    overflow: hidden;
+    top: -1px;
+    position: relative;
+    background: url(../img/isay24.png) no-repeat 999px 999px;
+    background-position: 0 0;
+    left: -53px;
+}
+.index-userHome{
+	float: right;
+	display: inline-block;
+    width: 21px;
+    height: 20px;
+    overflow: hidden;
+    background: url(../img/isay24.png) no-repeat 999px 999px;
+    background-position: -668px 0;
+}
+.info-list:hover .index-userHome{
+	background-color: #EDEDEF; 
+    background-position: -787px 0;
+}
+.index-userHome:hover{
+	background-color: #EDEDEF; 
+    background-position: -901px 0 !important;
+}
 .list-img {
 	width: 164px;
 	margin-right: 20px;
@@ -487,8 +532,9 @@ span.count_article{
 
 /**********弹窗************/
 .modal-content {
-	width: 560px;
+	width: 600px;
 	height: auto;
+	overflow: hidden;
 }
 
 .modal-body {
@@ -521,7 +567,7 @@ span.count_article{
 #tags_area input {
 	border: none;
 	padding: 0 5px;
-	/* width: 245px; */
+	width: 110px;
 }
 #tags_area input:focus{
 	outline: none;
@@ -606,6 +652,7 @@ span.count_article{
 	background: #EDEDED;
 	display: none;
 }
+
 /***************************/
 
 

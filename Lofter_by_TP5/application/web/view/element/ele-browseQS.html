@@ -1,0 +1,26 @@
+
+{foreach $blog_list as $water}
+<div class="waterfall-box">
+	<div class="waterfall-user">
+		<a class="span-img float-left">
+			<img src="{$water.user_head}" class="img">
+		</a>
+		<a>
+			<span class="txt bro-txt">{$water.user_name}</span>
+		</a>
+		<a href="" class="bro-follow">关注</a>
+	</div>
+	<div class="waterfall-img">
+		<img src="{$water.article_img}" class="img">
+	</div>
+	<div class="waterfall-content">
+		<div class="content-txt">
+			<p>{$water.article_content}</p>
+		</div>
+	</div>
+	<div class="waterfall-likeIt">
+		<a class="bro-likeIt"></a>
+		<span>58人喜欢</span>
+	</div>
+</div>
+{/foreach}

@@ -2,8 +2,7 @@ $(function(){
 	
 	let obj=$('#page_center').children('div'),
 	$nav_obj=$('.bro-tab-ul li'),
-	$waterfall=$('.waterfall-col'),
-	height_arr=[],
+	$waterfall=$('.waterfall-col'),	
 	flag=true,
 	$doc=$(document);
 
@@ -22,19 +21,26 @@ $(function(){
 		let screen_h=$(window).height();	//浏览器窗口高度
 		let scroll_h=$doc.scrollTop();		//滚动条高度
 		let height=page_h - screen_h;		
-		if(page_h - screen_h - scroll_h <= 300){			
+		if(page_h - screen_h - scroll_h <= 200){			
 			if (flag) {
 				flag=false;
 				// 调用接口，获取数据数组
-				$.post("",function(data){
-					
-					if (data) {
+				$.post("/Lofter_by_TP5/public/web/blog/selectBlog",function(rtnData){
+					console.log(rtnData.html);
+					if (rtnData.status==1) {
 						// 如果有数据,添加到最小索引的列
-						flag=true;
-					}else if(data){
+						flag=true;						
+						rtnData.data.forEach(function(val,item){							
+							setTimeout(function(){
+								let index = min_index();
+								let obj=rtnString(val);
+								$waterfall.eq(index).append(obj);
+							},item*500)
+						});
+					}else if(rtnData.status==0){
 						// 如果返回一个空数据数组,flag=false,永远关闭，不会再请求接口
 						flag=false;
-					}					
+					}				
 				})
 			}else{
 				return;
@@ -44,15 +50,16 @@ $(function(){
 
 	// 获取每列高度返回最小索引
 	function min_index(){
+		let height_arr=[];
 		$waterfall.each(function(index, el) {
 			height_arr[height_arr.length]=$(el).height();					
 		});
-		let result_index = compare();
+		let result_index = compare(height_arr);
 		return result_index;
 	}
 
 	// 比较返回最小索引
-	function compare(){
+	function compare(height_arr){
 		let result=height_arr[0];
 		let result_index=0;
 		$.each(height_arr,function(index, arr) {			
@@ -63,5 +70,34 @@ $(function(){
 		});
 		height_arr=[];
 		return result_index;
+	}
+
+	function rtnString(water){
+		let img = JSON.parse(water.article_img);
+		// console.log(img);
+		let str='<div class="waterfall-box">'+
+					'<div class="waterfall-user">'+
+						'<a class="span-img float-left">'+
+							'<img src="'+water.user_head+'" class="img">'+
+						'</a>'+
+						'<a>'+
+							'<span class="txt bro-txt">'+water.user_name+'</span>'+
+						'</a>'+
+						'<a href="" class="bro-follow">关注</a>'+
+					'</div>'+
+					'<div class="waterfall-img">'+
+						'<img src="'+img[0]+'" class="img">'+
+					'</div>'+
+					'<div class="waterfall-content">'+
+						'<div class="content-txt">'+
+							'<p>'+water.article_content+'</p>'+
+						'</div>'+
+					'</div>'+
+					'<div class="waterfall-likeIt">'+
+						'<a class="bro-likeIt"></a>'+
+						'<span>58人喜欢</span>'+
+					'</div>'+
+				'</div>'
+		return str;
 	}
 })
