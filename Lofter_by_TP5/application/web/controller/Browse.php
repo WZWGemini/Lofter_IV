@@ -65,7 +65,7 @@ class Browse extends Controller
                         ->join("article a","a.article_id = ta.article_id")
                         ->where("t.tag_content='".$key['tag_content']."'")
                         ->where("a.article_img != '[]'")
-                        ->order("a.article_id")
+                        ->order("a.article_id desc")
                         ->field("a.article_img")
                         ->limit(1)
                         ->find();

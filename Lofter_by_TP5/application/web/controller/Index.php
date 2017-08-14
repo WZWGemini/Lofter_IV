@@ -71,7 +71,11 @@ class Index extends Controller{
 
     // 摄影课堂页面显示
     public function potoshop() {
-        return $this->fetch("order/potoshop");
+        $file = $_SERVER['DOCUMENT_ROOT']."/Lofter_by_TP5/application/bin/pic.json";
+        $pic_json = file_get_contents($file);
+        $pic_arr = json_decode($pic_json,true);
+        $this->assign('pic_arr',$pic_arr);
+        return $this->fetch();
     }
 
     // 个人主页页面显示
@@ -86,7 +90,10 @@ class Index extends Controller{
 
     // 数据采集
     public function collectPic() {
-        exec("node ../../bin/sheying http://699pic.com/people.html");
+        $path = $_SERVER['DOCUMENT_ROOT']."/Lofter_by_TP5/application/bin/sheying";
+        $file = $_SERVER['DOCUMENT_ROOT']."/Lofter_by_TP5/application/bin/pic.json";
+        exec("node $path http://699pic.com/people.html");
+        return $pic_json = file_get_contents($file);
     }
 
 

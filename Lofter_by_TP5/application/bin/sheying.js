@@ -25,7 +25,8 @@ superagent.get(url)
 			var pic_arr = [];
 			$lis.each(function(index,item){
 				var pic_title = $(item).find(">a").attr("title");
-				var pic_img = $(item).find(".lazy").attr('src');
+				var pic_img = $(item).find(".lazy").attr('data-original');
+				console.log($(item).find(".lazy").attr('data-original'));
 				pic_arr.push({pic_title,pic_img});
 			});
 			//把数据存储到文件中
