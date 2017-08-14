@@ -6,17 +6,19 @@ class Article extends Controller
 //    index  get  user
     public function index()
     {
-        
+        $inputData = input();
+        unset($inputData['page']);
         $user_article = model("article")->alias("a")
-                    ->where(input())
+                    ->where($inputData)
                     ->paginate(2);
         $tag = model("tag");
         foreach ($user_article as $key => $value) {
             $atricleTag = $tag->alias('t')->join('tagArticle ta','ta.tag_id=t.tag_id')
                               ->where("ta.article_id=".$value['article_id'])
-                              ->field('t.tag_content')
+                              ->field('t.tag_content,t.tag_id')
                               ->select();
-            $value['atricleTag']=$atricleTag;
+            $value['articleTag']=$atricleTag;
+            $value['article_time']=date('Y-m-d H:i:s',$value['article_time']); 
         }
         return json(['status' => 1, 'msg' => '请求成功！','$user_article'=>$user_article]);
     }

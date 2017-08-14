@@ -223,4 +223,7 @@ export default {
     padding-top:1.5rem;
     font-size:.2rem;
   }
+  .login{
+    padding: 0;
+  }
 </style>

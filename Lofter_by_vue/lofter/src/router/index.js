@@ -1,7 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-// app启动加载引导登陆注册页面
+// app启动加载页面
 import index from '@/view/index'
+// 注册登录引导页面
+import guide from '@/view/guide'
 // 登陆注册页面
 import login from '@/view/login'
 import register from '@/view/register'
@@ -70,6 +72,11 @@ export default new Router({
       path: '/comment',
       name: 'comment',
       component: comment
+    },
+    {
+      path: '/guide',
+      name: 'guide',
+      component: guide
     }
 
   ]

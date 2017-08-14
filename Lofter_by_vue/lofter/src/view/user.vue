@@ -41,46 +41,50 @@
           </div>
           <mt-cell icon="more"></mt-cell>
         </mt-cell>
-        <div class="blog-box" v-for="item in uarticle">
-          <div class="blog-top">
-            <div class="user-header"><img src="../assets/img/user_head.jpg"></div>
-            <span class="user-name">{{uinfo.user_name}}</span>
-            <span class="create-time">1天前</span>
-          </div>
+        <ul
+        v-infinite-scroll="loadMore"
+        infinite-scroll-disabled="loading"
+        infinite-scroll-distance="10">
+          <li class="blog-box" v-for="item in uarticle">
+            <div class="blog-top">
+              <div class="user-header"><img src="../assets/img/user_head.jpg"></div>
+              <span class="user-name">{{uinfo.user_name}}</span>
+              <span class="create-time">{{item.article_time}}</span>
+            </div>
 
-          <!-- 文章内容 -->
-          <div class="blog-article clear">
-            <h4 class="article-title">{{item.article_title}}</h4>
-            <div class="article-content">{{item.article_content}}</div>
-          </div>
+            <!-- 文章内容 -->
+            <div class="blog-article clear">
+              <h4 class="article-title">{{item.article_title}}</h4>
+              <div class="article-content">{{item.article_content}}</div>
+            </div>
 
-          <router-link to="/user" class="show-article">显示全文</router-link>
-          <!-- 标签盒子 -->
-          <div class="tag-box">
-            <ul>
-              <li class="tag-li-a">#</li>
-              <li class="tag-li"><router-link to="/" active-class="li-class">标签</router-link></li>
-              <li class="tag-li"><router-link to="/" active-class="li-class">测试</router-link></li>
-              <li class="tag-li"><router-link to="/" active-class="li-class">样式</router-link></li>
-            </ul>
-          </div>
+            <router-link to="/user" class="show-article">显示全文</router-link>
+            <!-- 标签盒子 -->
+            <div class="tag-box">
+              <ul>
+                <li class="tag-li-a">#</li>
+                <li class="tag-li" v-for="tag in item.articleTag"><router-link to="/" active-class="li-class">{{tag.tag_content}}</router-link></li>
+              </ul>
+            </div>
 
-          <!-- 功能按钮 -->
-          <div class="btn-box">
-            <ul>
-              <li class="btn-li"><router-link to="/" active-class="li-class"><span class="icon-heart"></span></router-link></li>
-              <li class="btn-li"><router-link to="/" active-class="li-class"><span class="icon-bubble2"></span></router-link></li>
-              <li class="btn-li"><router-link to="/" active-class="li-class"><span class="icon-redo2"></span></router-link></li>
-              <li class="btn-li"><router-link to="/" active-class="li-class"><span class="icon-like"></span></router-link></li>
-            </ul>
-            
-          </div>
-        </div>    
+            <!-- 功能按钮 -->
+            <div class="btn-box">
+              <ul>
+                <li class="btn-li"><router-link to="/" active-class="li-class"><span class="icon-heart"></span></router-link></li>
+                <li class="btn-li"><router-link to="/" active-class="li-class"><span class="icon-bubble2"></span></router-link></li>
+                <li class="btn-li"><router-link to="/" active-class="li-class"><span class="icon-redo2"></span></router-link></li>
+                <li class="btn-li"><router-link to="/" active-class="li-class"><span class="icon-like"></span></router-link></li>
+              </ul>
+              
+            </div>
+          </li>
+      </ul>      
       </div>
     </div>
     <!--解决底部导航栏挡住内容问题  -->
     <div style="height:1rem">
     </div>
+    
   </div>
 </template>
 
@@ -91,13 +95,35 @@ import {mapState, mapMutations} from 'vuex'
 import axios from 'axios'
 export default {
   name: 'user',
+  created () {
+
+  },
   data () {
     return {
-
+      showLoading: false,
+      pageNum: 2
     }
   },
   methods: {
-    ...mapMutations(['setUarticle'])
+    ...mapMutations(['setUarticle']),
+    loadMore () {
+      this.loading = true
+      setTimeout(() => {
+        // 滚动到底部请求数据
+        axios.get('api/article', {
+          params: {
+            page: 2
+          }
+        }).then((response) => {
+          console.log(this.uarticle)
+          // 调用 mutations的setUarticle方法，将获取到的文章添加到uarticle
+          this.setUarticle(response.data.$user_article.data)
+        }).catch((error) => {
+          console.log(error)
+        })
+        this.loading = false
+      }, 1000)
+    }
   },
   computed: {
     ...mapState(['hasLogin', 'uinfo', 'uarticle', 'totalArtNum'])
@@ -117,7 +143,7 @@ export default {
                 user_id: vm.uinfo.user_id
               }
             }).then((response) => {
-              console.log(vm.uarticle)
+              // console.log(vm.uarticle)
               // 调用 mutations的setUarticle方法，将获取到的文章添加到uarticle
               vm.setUarticle(response.data.$user_article.data)
               next()
@@ -209,7 +235,6 @@ export default {
   }
   
   .blog-box {
-    // height: 4rem;
     background-color: #fff;
     margin-bottom: 0.3rem;
   }
