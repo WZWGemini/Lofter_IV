@@ -1,0 +1,78 @@
+<div class="ran-box box-shadow">
+    <!-- 随机标签盒子 -->
+    <div class="ran-center">
+        <ul class="ran-center-ul">
+            <li>
+                {foreach $tag_pic as $key}
+                <?php $img=json_decode($key['article_img']); ?>
+                <div class="list-img ran-item">
+                    <a href="">
+                        <img src="{$img[0]}" class="img">
+                        <span>{$key.tag_content}</span>
+                    </a>
+                </div>
+                {/foreach}
+            </li>
+        </ul>
+    </div>
+    <div class="tags-user-list">
+        <ul class="tags-user-title">
+            <li>
+                <div class="title-list title-list-first">
+                    推荐标签
+                </div>
+                <div class="title-list">
+                    <a href="">活跃度</a>
+                </div>
+                <div class="title-list">
+                    最近更新
+                </div>
+                <div class="title-list">
+                    资深用户
+                </div>
+            </li>
+        </ul>
+        <ul class="tags-user-info">
+            <li class="tags-li-bg">
+                <div class="title-list title-list-first">
+                    <a href="">婚礼</a>
+                </div>
+                <div class="title-list">
+                    <span class="">活跃度</span>
+                </div>
+                <div class="title-list">
+                    <a href="" class="small-img float-left">
+										<img src="../public/img/lofter.jpg" class="img">
+									</a>
+                    <a href="" class="tags-user-name text-hidden">遥岚</a>
+                </div>
+                <div class="title-list">
+                    <a href="" class="small-img float-left">
+										<img src="../public/img/lofter.jpg" class="img">
+									</a>
+                    <a href="" class="tags-user-name text-hidden">SONGYANG PRODUCTION</a>
+                </div>
+            </li>
+            <li class="">
+                <div class="title-list title-list-first">
+                    <a href="">婚礼</a>
+                </div>
+                <div class="title-list">
+                    <span class="">活跃度</span>
+                </div>
+                <div class="title-list">
+                    <a href="" class="small-img float-left">
+										<img src="../public/img/lofter.jpg" class="img">
+									</a>
+                    <a href="" class="tags-user-name text-hidden">遥岚</a>
+                </div>
+                <div class="title-list">
+                    <a href="" class="small-img float-left">
+										<img src="../public/img/lofter.jpg" class="img">
+									</a>
+                    <a href="" class="tags-user-name text-hidden">SONGYANG PRODUCTION</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>

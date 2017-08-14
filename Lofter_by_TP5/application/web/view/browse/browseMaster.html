@@ -1,0 +1,77 @@
+<div id="daren">
+    <header>
+        <ul>
+            <li class="active">
+                <a href="#">领域达人</a>
+            </li>
+            <li>
+                <a href="#">标签达人</a>
+            </li>
+            <li>
+                <a href="#">我关注的人
+									<span>(12)</span>
+								</a>
+            </li>
+            <li>
+                <a href="#">寻找好友</a>
+            </li>
+        </ul>
+        <a href="#" class="apply-btn">申请lofter认证</a>
+    </header>
+    <section>
+        <div class="left">
+            <ul id="blog" class="content-list">
+                {foreach $user_master as $key=>$value}
+                <li class="itm">
+                    <div class="itmc">
+                        <div class="user-info">
+                            <a class="user-info-head">
+                                <img src="__PUBLIC_UPLOAD__/{$value.user_head}">
+                            </a>
+                            <h3 class="user-name">
+                                <a href="#">{$value.user_name}</a>
+                                <span class="orther"></span>
+                            </h3>
+                            <a class="user-care">
+												<b>+</b>
+												<span>关注</span>
+											</a>
+                            <div class="user-info-tag">
+                                <ul>
+                                    {foreach $value['tag'] as $key2=>$value2}
+                                    <li><a href="#" data-tagId="{$value2.tag_id}">{$value2.tag_content}</a></li>
+                                    {/foreach}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="photo">
+                        <ul>
+                            {foreach $value['article_img'] as $key3=>$value3}
+                            <?php $value3['article_img']=json_decode($value3['article_img']); ?>
+                            <li><img src="{$value3['article_img'][0]}"></li>
+                            {/foreach}
+                        </ul>
+                    </div>
+                </li>
+                {/foreach}
+            </ul>
+        </div>
+        <div class="right">
+            <ul>
+                <li class="first">
+                    <a href="#">猜你喜欢</a>
+                </li>
+                <li>
+                    <a href="#">热门</a>
+                </li>
+                <li>
+                    <a href="#">女神</a>
+                </li>
+                <li>
+                    <a href="#">明星</a>
+                </li>
+            </ul>
+        </div>
+    </section>
+</div>

@@ -84,6 +84,11 @@ class Index extends Controller{
         return $this->fetch("order/lognArticle");
     }
 
+    // 数据采集
+    public function collectPic() {
+        exec("node ../../bin/sheying http://699pic.com/people.html");
+    }
+
 
 }
 
