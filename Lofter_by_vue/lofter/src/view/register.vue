@@ -52,7 +52,8 @@ export default {
     doReg: function () {
       Axios.post('/api/user', {
         user_name: this.user_name,
-        user_pwd: this.user_pwd
+        user_pwd: this.user_pwd,
+        user_repwd: this.user_repwd
       }).then(function (rtnData) {
         Toast(rtnData.data.msg)
       })

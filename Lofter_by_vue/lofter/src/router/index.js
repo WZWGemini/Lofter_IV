@@ -17,6 +17,9 @@ import home from '@/components/home'
 import homeDesert from '@/components/home/desert'
 // app内部 消息页面
 import message from '@/components/message'
+// app内部 发布页面
+// import issue from '@/components/issue'
+import text from '@/components/issue/text'
 Vue.use(Router)
 
 export default new Router({
@@ -51,10 +54,14 @@ export default new Router({
             { path: 'desert', component: homeDesert }
           ]
         },
-        // 发现子路由
+        // 消息子路由
         { path: 'message',
           component: message
         },
+        // // 发布子路由
+        // { path: 'issue',
+        //   component: issue
+        // },
         // 发现子路由
           { path: 'discover', component: user },
           // 我的子路由
@@ -70,6 +77,11 @@ export default new Router({
       path: '/comment',
       name: 'comment',
       component: comment
+    },
+    {
+      path: '/text',
+      name: 'text',
+      component: text
     }
 
   ]
