@@ -16,13 +16,15 @@ class Blog extends Controller{
     
     //插入操作
     public function insertBlog(){
+        // return var_dump(input());
         //判断登录
         if(empty(session('user_info'))){
             return ['status'=>0,"msg"=>"发布失败,请先登录"];
         }
         $data =[
             'user_id'=> session("user_info")["user_id"],
-            'article_title'=> self::$_data['article_title'],
+            'article_title'=> empty(self::$_data['article_title'])?"":self::$_data['article_title'],
+            'article_music'=> empty(self::$_data['article_music'])?"":self::$_data['article_music'],            
             'article_img' => self::$_data['article_img'],
             'article_content' => self::$_data['article_content'],
             'article_time' => time()

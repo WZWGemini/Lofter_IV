@@ -4,9 +4,9 @@
       <!-- 顶部固定导航栏 可滑动 -->
       <div class="top-nav">
          <ul>
-          <li><router-link @click.native.prevent="active = 'tab-dynamic'" to="" active-class="nav-class">动态</router-link></li>
-          <li><router-link @click.native.prevent="active = 'tab-news'" to="" active-class="nav-class">消息</router-link></li>
-          <li><router-link @click.native.prevent="active = 'tab-chat'" to="" active-class="nav-class">聊天</router-link></li>
+          <li><span @click.prevent="active = 'tab-dynamic'" >动态</span></li>
+          <li><span @click.prevent="active = 'tab-news'" >消息</span></li>
+          <li><span @click.prevent="active = 'tab-chat'" >聊天</span></li>
         </ul> 
       </div>  
       
@@ -48,6 +48,12 @@ export default{
     NewsContent,
     ChatContent
   }
+  // data: {
+  //   classObject: {
+  //     'tab-class':true,
+  //     'tab-choice':false
+  //   }
+  // }
 }
 </script>
 
@@ -70,7 +76,7 @@ export default{
       line-height: .9rem;
       border-bottom: 1px solid #eee;
       .nav-class {
-      border-bottom: 2px solid $topic_color;
+        border-bottom: 2px solid $topic_color;
         color: $topic_color;
         display: inline-block;
         width: 100%;

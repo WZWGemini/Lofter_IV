@@ -121,6 +121,7 @@
     color: $topic_color;
     text-align: center;
     display: block;
+    font-weight: 600;
   }
     
 }

@@ -61,6 +61,7 @@ class User extends Controller
     //退出
     public function logout(){
         session("user_info",null);
+        return ['status'=>1,"msg"=>"退出成功"];
     }
 
     //查询用户是否存在
@@ -72,6 +73,27 @@ class User extends Controller
         }else{
             return ['status'=>0,"msg"=>"用户存在"];
         }
+    }
+
+    //个人主页
+    public function goUserHome(){
+        $uid = input("uid");
+        //查询文章信息
+        $blog = model("article")->where("user_id=$uid")->order("article_id desc")->select();
+        //文章插入标签
+        foreach($blog as $key){
+            $tag = model("tagArticle")->alias('ta')
+                 ->join('tag t','ta.tag_id = t.tag_id')
+                 ->field("t.tag_content")
+                 ->where("ta.article_id=".$key['article_id'])
+                 ->select();
+            $key['tag']=$tag;
+        }
+        //查询用户信息
+        $user = model('user')->where("user_id=$uid")->find();
+        $this->assign('blog',$blog);
+        $this->assign('user',$user);
+        return $this->fetch("userHome");
     }
 
 }

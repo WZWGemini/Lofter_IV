@@ -72,6 +72,7 @@ $(function(){
 		return result_index;
 	}
 
+<<<<<<< HEAD
 	function rtnString(water){
 		let img = JSON.parse(water.article_img);
 		// console.log(img);
@@ -100,4 +101,23 @@ $(function(){
 				'</div>'
 		return str;
 	}
+=======
+	//点击返回标签模板页
+	$(".bq").on('click',function(){
+		$.post("/Lofter_by_TP5/public/web/browse/browseTags",function(res){
+			if(res.status == 1){
+				$("#random-tags").html(res.html);
+			}
+		})
+	})
+	//点击返回达人模板页
+	$(".dr").on('click',function(){
+		$.post("/Lofter_by_TP5/public/web/browse/browseMaster",function(res){
+			if(res.status == 1){
+				$("#master").html(res.html);
+			}
+		})
+	})
+
+>>>>>>> 8ff235ff9946589e368f804034b8425a5fb4e9f5
 })

@@ -16,19 +16,18 @@
       <div class="register-form">
         <ul class="register-ul">
           <li class="register-li">
-            <label for="user_name">用户名</label>
-            <input type="text" id='user_name'/>
+            <mt-field label="用户名" v-model="user_name" class="username-class"></mt-field>
           </li>
           <li class="register-li">
-            <label for="password">密&nbsp;&nbsp;码</label>
-            <input type="password" id='user_password'/>
+            <mt-field label="密码" :type="switch_value ? 'password' : ''" v-model="user_pwd"></mt-field>
+             <mt-switch v-model="switch_value" class="switch"></mt-switch> 
           </li>
           <li class="register-li">
-            <label for="password">确认密码</label>
-            <input type="password" id='user_repassword'/>
+            <mt-field label="确认密码" :type="switch_revalue ? 'password' : ''" v-model="user_repwd"></mt-field>
+            <mt-switch v-model="switch_revalue" class="switch"></mt-switch>
           </li>
         </ul>
-        <input type="submit" class="form-control btn-register" value="注册"/>
+        <mt-button type="default" size="large" class="btn-register" :disabled="user_name=='' || user_pwd == '' || user_repwd == ''" v-on:click="doReg()">注册</mt-button>
       </div>
         <p class="bottom-text">2017. Welcome to Lofter</p>
     </div>
@@ -36,18 +35,35 @@
 </template>
 
 <script>
+import Axios from 'axios'
+import {Toast} from 'mint-ui'
 export default {
   name: 'register',
   data () {
     return {
-
+      user_name: '',
+      user_pwd: '',
+      user_repwd: '',
+      switch_value: true,
+      switch_revalue: true
+    }
+  },
+  methods: {
+    doReg: function () {
+      Axios.post('/api/user', {
+        user_name: this.user_name,
+        user_pwd: this.user_pwd,
+        user_repwd: this.user_repwd
+      }).then(function (rtnData) {
+        Toast(rtnData.data.msg)
+      })
     }
   }
 }
 </script>
 
 <!-- 添加scoped属性限制这个style的作用范围只作用于本组件 -->
-<style scoped lang="scss">
+<style lang="scss">
   @import '../assets/common.scss';
   /* CSS Document */
 
@@ -77,8 +93,7 @@ export default {
     font-weight:300;
     text-align:center;
     text-transform:uppercase;
-    margin-top:20px;
-    margin-bottom:50px;
+    margin: .3rem 0;
   }
 
   .welcome-text p{
@@ -98,22 +113,32 @@ export default {
   }
   .register-ul {
     padding: 0;
-    margin: .5rem 0;
+    margin: .3rem 0 .5rem;
+    float: left;
   }
   .register-li {
-    height: .6rem;
-    border-bottom: 2px solid #efefef;
-    margin-bottom: .2rem;
+    border-bottom: .03rem solid #efefef;
     font-size:.25rem;
-  }
+    float: left;
+    width: 100%;
+    padding-bottom: .01rem;
+    .username-class {width: 100% !important;}
+    .mint-cell {
+      width: 79%;
+      float: left;
+      .mint-cell-title {
+        width: 1.3rem;
+        color: $topic_color;
 
-  .register-li label {
-    text-align:center;
-    display:inline-block;
-    width: 25%;
-    margin-right: 0.15rem;
+      }
+    }
+    
+    input {
+      font-size: .4rem;
+      color: #9d9d9d;
+      font-family:'STKaiti', sans-serif;
+    }
   }
-
   .register-li input {
     border: none;
     height: .55rem;
@@ -123,52 +148,34 @@ export default {
     color: #9d9d9d;
   }
 
+  .switch {
+    // right: .2rem;
+    opacity: .5;
+    position: relative;
+    top: .2rem;
+    float: left;
+    span {
+      background-color: $topic_color !important;
+      // border-color: $topic_color;
+    }
+  }
   .btn-register {
     height: .6rem;
     color: #fff;
-    background-color: #336162;
-    border-color: #4cae4c
+    background-color: $topic_color;
+    font-family:'STKaiti', sans-serif;
+    border-color: #4cae4c;
   }
   .btn-register.focus,
   .btn-register:focus {
     color: #fff;
-    background-color: #488283;
-    border-color: #488283
+    background-color: $topic_hcolor;
+    border-color: $topic_hcolor
   }
   .btn-register:hover {
     color: #fff;
-    background-color: #488283;
-    border-color: #488283
-  }
-
-  .btn {
-    display: inline-block;
-    padding: 6px 12px;
-    margin-bottom: 0;
-    font-size: .28rem;
-    font-weight: 400;
-    line-height: 1.42857143;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    -ms-touch-action: manipulation;
-    touch-action: manipulation;
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    background-image: none;
-    border: 1px solid transparent;
-    border-radius: 4px
-  }
-
-  .form-control {
-    position: relative;
-    z-index: 2;
-    float: left;
-    width: 100%;
-    margin-bottom: 0
+    background-color: $topic_hcolor;
+    border-color: $topic_hcolor
   }
 
   .bottom-text{
@@ -177,7 +184,10 @@ export default {
     text-transform:uppercase;
     float:none;
     text-align:center;
-    padding-top:1.5rem;
+    padding-top: .5rem;
     font-size:.2rem;
+  }
+  .register{
+    padding: 0;
   }
 </style>

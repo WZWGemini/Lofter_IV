@@ -1,7 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-// app启动加载引导登陆注册页面
+// app启动加载页面
 import index from '@/view/index'
+// 注册登录引导页面
+import guide from '@/view/guide'
 // 登陆注册页面
 import login from '@/view/login'
 import register from '@/view/register'
@@ -17,6 +19,7 @@ import home from '@/components/home'
 import homeDesert from '@/components/home/desert'
 // app内部 消息页面
 import message from '@/components/message'
+
 Vue.use(Router)
 
 export default new Router({
@@ -25,7 +28,8 @@ export default new Router({
       path: '/',
       name: 'index',
       component: index
-    }, {
+    },
+    {
       path: '/login',
       name: 'login',
       component: login
@@ -50,7 +54,7 @@ export default new Router({
             { path: 'desert', component: homeDesert }
           ]
         },
-        // 发现子路由
+        // 消息子路由
         { path: 'message',
           component: message
         },
@@ -69,6 +73,16 @@ export default new Router({
       path: '/comment',
       name: 'comment',
       component: comment
+    },
+    {
+      path: '/guide',
+      name: 'guide',
+      component: guide
+    },
+    {
+      path: '/lofter/issue/text',
+      name: 'text',
+      component: require('../components/issue/text')
     }
 
   ]

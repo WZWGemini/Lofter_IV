@@ -4,10 +4,10 @@
          <header>
           <ul class="head-ul">
             <li>
-              <router-link to="/lofter/home/follow" active-class='active'>关注</router-link>
+              <router-link to="/lofter/home/follow" active-class='active' class="home-nav">关注</router-link>
             </li>
             <li>
-              <router-link to="/lofter/home/desert" active-class='active'>订阅</router-link>
+              <router-link to="/lofter/home/desert" active-class='active' class="home-nav">订阅</router-link>
             </li>
               <router-link to="/lofter/addFollow"><span class="icon-user-plus"></span></router-link>
           </ul>
@@ -31,6 +31,7 @@
 </script>
 
 <style scoped lang='scss'>
+@import '../assets/common';
 .home{
   height: 100%;
 }
@@ -56,9 +57,16 @@
 }
 .active{
   border-bottom: 2px solid #ccc;
+  color: $topic_color;
+  font-weight: 600;
+}
+.home-nav {
+  color: $topic_color;
 }
 .head-ul span{
   display: inline-block;
+  color: $topic_color;
+  margin-top:3%; 
   margin-left:10%; 
   font-size: 0.4rem;
 }  
