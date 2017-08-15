@@ -44,7 +44,20 @@ class Article extends Controller
 //    save post user
     public function save()
     {
-        return json(['status' => 1, 'msg' => 'save']);
+        if(validate('article')->check(input())){
+
+			$article_arr = array(
+                'user_id' => input('user_id'),
+                'article_title' => input('article_title'),
+                'article_content' => input('article_content'),
+                'article_time' => time());
+            
+			$article_info = model('article')->save($article_arr);
+			return json(['status'=>1,'msg'=>'发布成功']);
+		}else{
+			return json(['status'=>0,'msg'=>validate('article')->getError()]);
+		}
+        // return json(['status' => 1, 'msg' => 'save']);
     }
 
 //    update put user/:id
