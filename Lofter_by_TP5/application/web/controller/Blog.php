@@ -16,13 +16,15 @@ class Blog extends Controller{
     
     //插入操作
     public function insertBlog(){
+        // return var_dump(input());
         //判断登录
         if(empty(session('user_info'))){
             return ['status'=>0,"msg"=>"发布失败,请先登录"];
         }
         $data =[
             'user_id'=> session("user_info")["user_id"],
-            'article_title'=> self::$_data['article_title'],
+            'article_title'=> empty(self::$_data['article_title'])?"":self::$_data['article_title'],
+            'article_music'=> empty(self::$_data['article_music'])?"":self::$_data['article_music'],            
             'article_img' => self::$_data['article_img'],
             'article_content' => self::$_data['article_content'],
             'article_time' => time()
@@ -137,6 +139,19 @@ class Blog extends Controller{
         return ['status'=>1,"msg"=>"更新成功","html"=>"","data"=>[$blog]];
     }
 
+    // 查询
+    public function selectBlog(){
+        $blog_list = model('user')->alias('u')->join("article a","a.user_id = u.user_id")
+                        ->field('u.user_name, u.user_head, u.user_id, a.article_id, a.article_img, a.article_content')->limit(15)->select();
+        if(!empty($blog_list)){
+            $this->assign('blog_list',$blog_list);
+            // $html=$this->fetch('element/ele-browseQS');
+            return ['status'=>1,"msg"=>"获取成功","html"=>"","data"=>$blog_list];
+        }else{
+            return ['status'=>0,"msg"=>"获取失败","html"=>"","data"=>""];
+        }
+        
+    }
 
     //个人博客
     public function personalBlog(){

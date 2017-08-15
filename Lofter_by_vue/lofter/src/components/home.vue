@@ -4,12 +4,12 @@
          <header>
           <ul class="head-ul">
             <li>
-              <router-link to="/lofter/home/follow" active-class='active'>关注</router-link>
+              <router-link to="/lofter/home/follow" active-class='active' class="home-nav">关注</router-link>
             </li>
             <li>
-              <router-link to="/lofter/home/desert" active-class='active'>订阅</router-link>
+              <router-link to="/lofter/home/desert" active-class='active' class="home-nav">订阅</router-link>
             </li>
-              <router-link to="/lofter/addFollow"><span class="icon-user-plus"></span></router-link>
+               <router-link to="/lofter/addFollow"><span class="icon-user-plus"></span></router-link> 
           </ul>
          </header> 
           <transition name="fade" mode="out-in">
@@ -20,14 +20,14 @@
     </div>
 </template>
 <script>
-    export default{
-      name: 'home',
-      data () {
-        return {
+export default{
+  name: 'home',
+  data () {
+    return {
 
-        }
-      }
     }
+  }
+}
 </script>
 
 <style scoped lang='scss'>
@@ -59,6 +59,9 @@
   border-bottom: 2px solid #ccc;
   color: $topic_color;
   font-weight: 600;
+}
+.home-nav {
+  color: $topic_color;
 }
 .head-ul span{
   display: inline-block;

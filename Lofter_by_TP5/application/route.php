@@ -13,12 +13,15 @@ return [
     '__pattern__' => [
         'name' => '\w+',
     ],
+<<<<<<< HEAD
+=======
      '__rest__'=>[
         // 指向index模块的blog控制器
         'user'=>'api/user',
         'article'=>'api/article',
         'tag'=>'api/tag'
     ],
+>>>>>>> 8ff235ff9946589e368f804034b8425a5fb4e9f5
     '[hello]'     => [
         ':id'   => ['index/hello', ['method' => 'get'], ['id' => '\d+']],
         ':name' => ['index/hello', ['method' => 'post']],

@@ -1,17 +1,19 @@
 <template>
     <div class="text">
         <div class="text-nav">
-            <router-link to="/lofter/follow" class="nav-cancel">取消</router-link>
+            <router-link to="/lofter/home/follow" class="nav-cancel">取消</router-link>
             <div class="user-info">
                 <div class="user-head"><img src="../../assets/img/user_head.jpg"></div>
-                <span class="user-name">{{uinfo}}</span>
+                <span class="user-name">{{uinfo.user_name}}</span>
             </div>
         </div>
         <div class="article-box">
             <mt-field placeholder="文章标题（可不填）" v-model="articleTitle" class="article-title"></mt-field>
             <mt-field placeholder="说点什么" type="textarea" v-model="articleContent" rows="10" class="article-content"></mt-field>
             <div class="add-tag">    
-                <mt-field placeholder="添加标签" type="textarea" v-model="addTag" rows="1" class="article-tag"><span class="icon-price-tag article-icon"></span></mt-field>
+                <mt-field placeholder="添加标签" v-model="tag" rows="1" class="article-tag" @keyup.native="addTags($event)">
+                  <span class="icon-price-tag article-icon"></span>
+                </mt-field>
             </div>
             
         </div>
@@ -37,15 +39,21 @@ export default{
   },
   methods: {
     issueText: function () {
-      // console.log(this.uinfo)
       Axios.post('/api/article', {
         article_title: this.articleTitle,
-        article_content: this.articleContent
-        // user_id: this.uinfo
+        article_content: this.articleContent,
+        user_id: this.uinfo.user_id
       }).then(function (rtnData) {
         Toast(rtnData.data.msg)
       })
     }
+    // addTags: function (e) {
+    //   if (e.keyCode === 13) {
+    //     console.log('2333')
+    //   } else if (e.keyCode === 8) {
+    //     console.log('delete')
+    //   }
+    // }
   }
 }
 </script>

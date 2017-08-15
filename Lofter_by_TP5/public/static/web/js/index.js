@@ -124,11 +124,59 @@ $(function(){
 		}
 	}
 
-	// $(".list_box").hover(function() {
-	// 	console.log(1);
-	// }, function() {
-	// 	console.log(2);
-	// });
+// 鼠标滑过显示弹窗
+	eleHover();
+	let obj2=$("#window_show");
+	function eleHover(){
+		let obj=$(".head-portrait-box");
+		obj.on("mouseover",function(e){
+			eleEvent(e,obj,'picture');
+		}).on("mouseout",function(){
+			objHide();
+		})
+	}	
+
+	function eleEvent(e,obj,obj1){
+		let $curr=$(e.target);
+		if($curr.hasClass(obj1)){			
+			let	img_h=$curr.height(),
+				h=$curr.offset().top,
+				w=$curr.offset().left,
+				obj2_w=obj2.width();
+			
+			obj.mousemove(function(ev){
+				let e=ev||event;
+				let x=e.pageX;
+				let y=e.pageY;
+				
+				let a=(x < w + obj2_w) && (x > w);
+				let b=(y > h) && (y < h + img_h +20);
+
+				if(a && b){
+					objShow();
+				} 
+			})
+
+			obj2.css({
+				left: w+'px',
+				top: h+img_h+20+'px'
+			}).stop().show(100);
+		}				
+	}
+
+	obj2.on('mouseover',function(){
+		objShow();
+	}).on('mouseout',function(){
+		objHide();
+	})
+
+	function objHide(){
+		obj2.stop().hide(100);
+	}
+
+	function objShow(){
+		obj2.stop().show(100);
+	}
 
 
 })
@@ -195,16 +243,16 @@ window.blog={
 		let article_music=$("#music").attr('src');
 		// console.log(music_pic);
 		let form=new FormData(data);
-		form.append('article_img',music_pic);
+		form.append('article_img',JSON.stringify([music_pic]));
 		form.append('article_music',article_music);
+		form.append("tag_arr" ,tag_save);
 		$.ajax({
-			url:"index.php?c=music&a=insert_music",
+			url:"/Lofter_by_TP5/public/web/blog/insertBlog",
 			type:"POST",
 			data:form,
 			processData:false,
 			contentType:false,
 			success:function(data){
-				data = JSON.parse(data);
 				$("#information").prepend(data.html);
 				$("#music_modal").modal('hide');
 			}
@@ -261,7 +309,7 @@ window.blog={
 		$("edit_modal").hide();
 		//清空标签
 		tag_save = [];
-//		location.reload();
+		location.reload();
 	},
 	getArticleId:function(){
 		blog.weibo_id = $(this).parents(".list_box").attr("data-index");
