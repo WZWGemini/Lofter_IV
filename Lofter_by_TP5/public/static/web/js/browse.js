@@ -72,7 +72,6 @@ $(function(){
 		return result_index;
 	}
 
-<<<<<<< HEAD
 	function rtnString(water){
 		let img = JSON.parse(water.article_img);
 		// console.log(img);
@@ -101,7 +100,7 @@ $(function(){
 				'</div>'
 		return str;
 	}
-=======
+
 	//点击返回标签模板页
 	$(".bq").on('click',function(){
 		$.post("/Lofter_by_TP5/public/web/browse/browseTags",function(res){
@@ -118,6 +117,4 @@ $(function(){
 			}
 		})
 	})
-
->>>>>>> 8ff235ff9946589e368f804034b8425a5fb4e9f5
 })

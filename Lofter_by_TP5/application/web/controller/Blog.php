@@ -2,7 +2,8 @@
 namespace app\web\controller;
 use think\Controller;
 use think\Db;
-
+use think\Request;
+use app\web\model\Article as BlogModel;
 
 class Blog extends Controller{
 
@@ -16,12 +17,11 @@ class Blog extends Controller{
     
     //插入操作
     public function insertBlog(){
-        // return var_dump(input());
         //判断登录
         if(empty(session('user_info'))){
             return ['status'=>0,"msg"=>"发布失败,请先登录"];
         }
-        $data =[
+          $data =[
             'user_id'=> session("user_info")["user_id"],
             'article_title'=> empty(self::$_data['article_title'])?"":self::$_data['article_title'],
             'article_music'=> empty(self::$_data['article_music'])?"":self::$_data['article_music'],            
@@ -54,7 +54,7 @@ class Blog extends Controller{
             Db::rollback();
             return ['status'=>0,"msg"=>"发布失败"];
         }
-        //查询博客的所有内容
+       //查询博客的所有内容
         $blog = $db_article->where("article_id=$article_id")->find();
         //查询该博客的标签
         $tag = $db_tagArticle->alias("ta")
@@ -68,7 +68,7 @@ class Blog extends Controller{
         $html = $this->fetch();//发布文章的html模版
         return ['status'=>1,"msg"=>"发布成功","html"=>$html,"data"=>[$blog]];
     }
-
+    
     //删除
     public function deleteBlog(){
        // 启动事务
@@ -176,7 +176,7 @@ class Blog extends Controller{
             return ['status'=>1,"msg"=>"成功",'html'=>$html,"data"=>$result];
         }  
     }
-
+    
 }
 
 ?>

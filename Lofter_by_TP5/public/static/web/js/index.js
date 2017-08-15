@@ -1,5 +1,5 @@
 $(function(){
-  
+	//个人页面
 	$("#menu").click(function(e){
 		var curr=$(e.target);
 		if(curr.hasClass("wz")){
@@ -130,33 +130,48 @@ $(function(){
 	function eleHover(){
 		let obj=$(".head-portrait-box");
 		obj.on("mouseover",function(e){
-			eleEvent(e,obj,'picture');
+			eleEvent(e,obj2,'picture');
+			// 显示并请求
+			var user_id = $(this).data("user");
+			console.log(user_id);
+			$.get("/Lofter_by_TP5/public/web/user/hoverShow",
+				  {user_id},
+				  function(data){
+					// 需要一个预加载
+					obj2.html(data.html);
+				  }
+			);
 		}).on("mouseout",function(){
 			objHide();
 		})
 	}	
-
+	// 弹窗显示位置调整
 	function eleEvent(e,obj,obj1){
 		let $curr=$(e.target);
-		if($curr.hasClass(obj1)){			
+		if($curr.hasClass(obj1)){
+			//获取鼠标经过的目标对象的高 
 			let	img_h=$curr.height(),
+			// 获取目标对象到顶部的距离
 				h=$curr.offset().top,
+			// 获取目标对象到左边的距离
 				w=$curr.offset().left,
+			// 弹窗对象本身的宽度
 				obj2_w=obj2.width();
 			
 			obj.mousemove(function(ev){
 				let e=ev||event;
+				// 获取鼠标移动的坐标想x,y
 				let x=e.pageX;
 				let y=e.pageY;
-				
+				// a：左右可以移动的范围（弹窗不会消失）
 				let a=(x < w + obj2_w) && (x > w);
+				// b：上下可以移动的范围（弹窗不会消失）
 				let b=(y > h) && (y < h + img_h +20);
-
+				
 				if(a && b){
 					objShow();
 				} 
-			})
-
+			});
 			obj2.css({
 				left: w+'px',
 				top: h+img_h+20+'px'
@@ -309,7 +324,7 @@ window.blog={
 		$("edit_modal").hide();
 		//清空标签
 		tag_save = [];
-		location.reload();
+//		location.reload();
 	},
 	getArticleId:function(){
 		blog.weibo_id = $(this).parents(".list_box").attr("data-index");
@@ -343,7 +358,6 @@ window.blog={
 		$("#text_modal .tag_lists").children().each(function(index ,val){
 			tag_arr.push($(val).data("id"));
 		});
-		
 		tag_arr = tag_arr.join(",");
 		//提交用的form表单
 		var form=new FormData(obj);		
@@ -352,7 +366,6 @@ window.blog={
 		form.append('article_content',ue.body.innerText);
 		form.append("tag_arr" ,tag_save);
 		if(article_id){
-
 			form.append('article_id',article_id);
 		}
 

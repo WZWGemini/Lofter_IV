@@ -2,7 +2,8 @@
 <form action="">
 			<div id="menu" class="float-right">			
 				<ul>
-					<li id="user_home" data-uid="{$user_info.user_id}">
+					<li id="user_home" data-uid='{$user_info.user_id}' onclick='user.goUserHome(this)'>
+						<!-- 用选中的还是用比标签 -->
 						<span href="" class="txt bg1">
 							{$user_info.user_name}
 						</span>

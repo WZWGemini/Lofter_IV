@@ -3,9 +3,11 @@
 	{foreach $blog_list as $art}
 		<div class="list_box" data-index="{$art.article_id}">
 			<!-- 头像 -->
-			<div class="head-portrait-box float-left">
+			<div class="head-portrait-box float-left" data-user="{$art.user_info.user_id}">
 				<div class="head-portrait float-left box-shadow">
-					<img src="__PUBLIC_UPLOAD__/{$art.user_info.user_head}" class="picture">
+					<a href="{:url('userHome')}">		
+						<img src="__PUBLIC_UPLOAD__/{$art.user_info.user_head}" class="picture">
+					</a>
 				</div>
 			</div>
 			<!-- 信息列表 -->
@@ -16,6 +18,7 @@
 				<div class="list-img float-left">
 					<?php $art['img']=json_decode($art['article_img']); ?>
 					{foreach $art.img  as $img}
+						<!-- 这里要加跳转 -->
 						<img src="{$img}">
 					{/foreach}
 				</div>
@@ -25,7 +28,7 @@
 						<p>{$art.article_title}</p>
 					</div>
 					{if $art['article_music']!=null}
-					<audio src="__PUBLIC_UPLOAD__/{$art.article_music}" preload="none" controls="controls"></audio>
+					<audio src="{$art.article_music}" preload="none" controls="controls"></audio>
 					{/if}
 					<div class="article_content">
 						<p>{$art.article_content}</p>
@@ -37,7 +40,7 @@
 					<!-- 标签 -->
 					<div class="labels inline-block float-left">
 						{foreach $art.tag as $tag}
-							<a data-id="{$tag.tag_id}">#{$tag.tag_content}</a>
+							<a data-id="{$tag.tag_id}" href="../tag.html">#{$tag.tag_content}</a>
 						{/foreach}
 					</div>
 					<!-- 功能按钮 -->
@@ -70,3 +73,17 @@
 			
 	{/foreach}
 </form>
+<script>
+	$(".list_box").on("mouseover",function(e){
+		let $curr=$(e.target);
+		if($curr.hasClass('img')){
+			console.log($curr);
+		}
+	}).on("mouseout",function(e){
+
+	})
+
+	// function eleClass(){
+
+	// }
+</script>

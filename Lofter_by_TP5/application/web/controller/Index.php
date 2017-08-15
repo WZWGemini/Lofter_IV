@@ -70,14 +70,10 @@ class Index extends Controller{
         return $this->fetch("order/app");
     }
 
-    // 摄影课堂页面显示
-    public function potoshop() {
-        $file = $_SERVER['DOCUMENT_ROOT']."/Lofter_by_TP5/application/bin/pic.json";
-        $pic_json = file_get_contents($file);
-        $pic_arr = json_decode($pic_json,true);
-        $this->assign('pic_arr',$pic_arr);
-        return $this->fetch();
-    }
+    // // 摄影课堂页面显示
+    // public function potoshop() {
+    //     return $this->fetch("order/potoshop");
+    // }
 
     // 个人主页页面显示
     public function userHome() {
@@ -88,7 +84,14 @@ class Index extends Controller{
     public function lognArticle() {
         return $this->fetch("order/lognArticle");
     }
-
+     // 摄影课堂页面显示
+    public function potoshop(){
+        $file = $_SERVER['DOCUMENT_ROOT']."/Lofter_by_TP5/application/bin/pic.json";
+        $pic_json = file_get_contents($file);
+        $pic_arr = json_decode($pic_json,true);
+        $this->assign('pic_arr',$pic_arr);
+        return $this->fetch();
+    }
     // 数据采集
     public function collectPic() {
         $path = $_SERVER['DOCUMENT_ROOT']."/Lofter_by_TP5/application/bin/sheying";
@@ -96,8 +99,6 @@ class Index extends Controller{
         exec("node $path http://699pic.com/people.html");
         return $pic_json = file_get_contents($file);
     }
-
-
 }
 
 ?>

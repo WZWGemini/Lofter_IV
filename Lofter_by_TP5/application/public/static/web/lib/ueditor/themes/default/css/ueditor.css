@@ -1,0 +1,311 @@
+@charset "utf-8";
+/* common layer */
+.edui-box { border: none; padding: 0; margin: 0; /*overflow: hidden;*/ }
+a.edui-box { display: block; text-decoration: none; color: black; }
+a.edui-box:hover { text-decoration: none; }
+a.edui-box:active { text-decoration: none; }
+table.edui-box { border-collapse: collapse; }
+ul.edui-box { list-style-type: none; }
+div.edui-box { position: relative; display: -moz-inline-box!important; display: inline-block!important; vertical-align: top;  }
+.edui-clearfix { zoom:1 }
+.edui-clearfix:after { content: '\20'; display: block; clear: both; }
+* html div.edui-box { display: inline!important; }
+*:first-child+html div.edui-box { display: inline!important; }
+
+/* control layout */
+.edui-button-body, .edui-splitbutton-body, .edui-menubutton-body, .edui-combox-body { position: relative; }
+.edui-popup { position: absolute; -webkit-user-select: none; -moz-user-select: none; }
+.edui-popup .edui-shadow { position: absolute; z-index: -1; }
+.edui-popup .edui-bordereraser { position: absolute; overflow: hidden; }
+.edui-tablepicker .edui-canvas { position: relative; }
+.edui-tablepicker .edui-canvas .edui-overlay { position: absolute; }
+.edui-dialog-modalmask, .edui-dialog-dragmask { position: absolute; left: 0; top: 0; width: 100%; height: 100%; }
+.edui-toolbar { position: relative; }
+
+/* 百度开源编辑器 */
+.edui-editor .edui-editor-iframeholder{position:relative;z-index:10;height:500px;background:#fff;}
+.edui-editor .edui-for-source,
+.edui-editor .edui-for-unlink,
+.edui-editor .edui-for-fullscreen{display:none;display:none!important;}
+#edui_fixedlayer .edui-bubble{display:none;}/* 隐藏链接提示层  */
+
+/* popup */
+.edui-popup {
+    z-index: 3000;
+}
+.edui-popup .edui-shadow {
+    display:none;
+}
+
+
+/* menu (影响有序列表无序列表的下拉选择) */
+.edui-menu {
+    z-index: 3000;
+}
+
+.edui-menu-body {
+    _width: 150px;
+    min-width: 150px;
+    background: url("images/menu/sparator_v.png") repeat-y 25px;
+}
+.edui-menuitem-body {
+}
+.edui-menuitem {
+    height: 20px;
+    cursor: default;
+    vertical-align: top;
+}
+.edui-menuitem .edui-icon {
+    width: 20px;
+    height: 20px;
+    background: url(images/icons.png) 0 -40px;
+    background: url(images/icons.gif) 0 -40px\9;
+}
+
+.edui-menuitem .edui-label {
+    font-size: 12px;
+    line-height: 20px;
+    height: 20px;
+    padding-left: 10px;
+    padding-right: 20px;
+}
+.edui-state-checked .edui-menuitem-body {
+    background: url("images/icons-all.gif") no-repeat 6px -205px;
+}
+.edui-state-disabled .edui-menuitem-label {
+    color: gray;
+}
+
+
+/* toolbar */
+.edui-toolbar .edui-state-hover .edui-splitborder{
+    width: 1px;
+    border-left: 0px solid #dcac6c;
+}
+
+.edui-toolbar .edui-state-opened .edui-splitborder{
+    width: 1px;
+    border: 0;
+}
+
+.edui-state-disabled .edui-arrow{
+    opacity: 0.3;
+    -ms-filter: 'alpha(opacity=30)';
+    _filter: alpha(opacity=30);
+}
+
+
+.edui-for-insertorderedlist .edui-bordereraser,
+.edui-for-lineheight .edui-bordereraser,
+.edui-for-rowspacingtop .edui-bordereraser,
+.edui-for-rowspacingbottom .edui-bordereraser,
+.edui-for-insertunorderedlist .edui-bordereraser {
+    background-color: white;
+}
+/* 解决嵌套导致的图标问题 */
+.edui-for-insertorderedlist .edui-popup-body .edui-icon,
+.edui-for-lineheight .edui-popup-body .edui-icon,
+.edui-for-rowspacingtop .edui-popup-body .edui-icon,
+.edui-for-rowspacingbottom .edui-popup-body .edui-icon,
+.edui-for-insertunorderedlist .edui-popup-body .edui-icon {
+    background-position: 0 -40px;
+}
+
+/* toolbar colorbutton */
+.edui-toolbar .edui-colorbutton .edui-colorlump {
+    position: absolute;
+    overflow: hidden;
+    bottom: 1px;
+    left: 1px;
+    width: 18px;
+    height: 4px;
+}
+
+/* 百度编辑器  工具栏UI调整 */
+.edui-editor{border:none;_zoom:1;}
+.edui-editor .edui-editor-toolbarbox{height:36px;}
+.edui-editor .edui-editor-toolbarbox .edui-editor-toolbarboxouter{overflow:hidden;/*width:650px;*/height:36px;padding:0;border:none;background:#fff;}
+.edui-editor .edui-editor-toolbarbox .edui-editor-toolbarboxinner{padding:0;}
+.edui-editor .edui-editor-toolbarbox .edui-toolbar{text-align:left;cursor:default;-webkit-user-select:none;-webkit-user-select:none;}
+
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-button-body{padding:1px;}
+
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-menubutton,
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-button{padding:0;overflow:hidden;}
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-box .edui-icon{width:34px;height:34px;background-image:url(http://l.bst.126.net/rsc/js/ueditor4longpost/themes/loftskin/images/toolbar.png);}
+
+
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-button .edui-state-hover .edui-icon,
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-combox .edui-state-hover .edui-combox-body,
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-menubutton .edui-state-hover .edui-menubutton-body{background-color:#eee;}
+
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-separator{width:36px;height:36px;background:url(http://l.bst.126.net/rsc/js/ueditor4longpost/themes/loftskin/images/splitline.png) center 11px no-repeat;}
+
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-for-undo{}
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-for-undo .edui-icon{background-position:0 0;}
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-for-undo .edui-state-hover .edui-icon{}
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-for-undo .edui-state-checked .edui-icon{background-position:-145px 0;}
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-for-undo .edui-state-disabled .edui-icon{background-position:-73px 0;}
+
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-for-redo{}
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-for-redo .edui-icon{background-position:0 -36px;}
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-for-redo .edui-state-hover .edui-icon{}
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-for-redo .edui-state-checked .edui-icon{background-position:-145px -36px;}
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-for-redo .edui-state-disabled .edui-icon{background-position:-73px -36px;}
+
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-for-bold{}
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-for-bold .edui-icon{background-position:0 -72px;}
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-for-bold .edui-state-hover .edui-icon{}
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-for-bold .edui-state-checked .edui-icon{background-position:-145px -72px;}
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-for-bold .edui-state-disabled .edui-icon{background-position:-73px -72px;}
+
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-for-italic{}
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-for-italic .edui-icon{background-position:0 -109px;}
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-for-italic .edui-state-hover .edui-icon{}
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-for-italic .edui-state-checked .edui-icon{background-position:-145px -109px;}
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-for-italic .edui-state-disabled .edui-icon{background-position:-73px -109px;}
+
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-for-underline{}
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-for-underline .edui-icon{background-position:0 -144px;}
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-for-underline .edui-state-hover .edui-icon{}
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-for-underline .edui-state-checked .edui-icon{background-position:-145px -144px;}
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-for-underline .edui-state-disabled .edui-icon{background-position:-73px -144px;}
+
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-for-horizontal{}
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-for-horizontal .edui-icon{background-position:0 -252px;}
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-for-horizontal .edui-state-hover .edui-icon{}
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-for-horizontal .edui-state-checked .edui-icon{background-position:-145px -252px;}
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-for-horizontal .edui-state-disabled .edui-icon{background-position:-73px -252px;}
+
+
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-for-blockquote{}
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-for-blockquote .edui-icon{background-position:0 -287px;}
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-for-blockquote .edui-state-hover .edui-icon{}
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-for-blockquote .edui-state-checked .edui-icon{background-position:-145px -287px;}
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-for-blockquote .edui-state-disabled .edui-icon{background-position:-73px -287px;}
+
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-for-link{}
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-for-link .edui-icon{background-position:0 -359px;}
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-for-link .edui-state-hover .edui-icon{}
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-for-link .edui-state-checked .edui-icon{background-position:-145px -359px;}
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-for-link .edui-state-disabled .edui-icon{background-position:-73px -359px;}
+
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-for-insertimage{}
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-for-insertimage .edui-icon{background-position:0 -395px;}
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-for-insertimage .edui-state-hover .edui-icon{}
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-for-insertimage .edui-state-checked .edui-icon{background-position:-145px -395px;}
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-for-insertimage .edui-state-disabled .edui-icon{background-position:-73px -395px;}
+
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-for-insertvideo{}
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-for-insertvideo .edui-icon{background-position:0 -430px;}
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-for-insertvideo .edui-state-hover .edui-icon{}
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-for-insertvideo .edui-state-checked .edui-icon{background-position:-145px -430px;}
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-for-insertvideo .edui-state-disabled .edui-icon{background-position:-73px -430px;}
+
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-for-insertunorderedlist{}
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-for-insertunorderedlist .edui-icon{background-position:1px -180px;}
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-for-insertunorderedlist .edui-state-hover .edui-icon{}
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-for-insertunorderedlist .edui-state-checked .edui-icon{background-position:-145px -180px;}
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-for-insertunorderedlist .edui-state-disabled .edui-icon{background-position:-72px -180px;}
+
+
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-for-insertorderedlist{}
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-for-insertorderedlist .edui-icon{background-position:1px -216px;}
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-for-insertorderedlist .edui-state-hover .edui-icon{}
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-for-insertorderedlist .edui-state-checked .edui-icon{background-position:-145px -216px;}
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-for-insertorderedlist .edui-state-disabled .edui-icon{background-position:-72px -216px;}
+
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-splitborder{display:none;width:0px;overflow:hidden;}
+
+
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-menubutton .edui-arrow{width:11px;height:36px;padding-right:1px;background:url(http://l.bst.126.net/rsc/js/ueditor4longpost/themes/loftskin/images/arrow.png) 3px 16px no-repeat;}
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-menubutton .edui-state-active .edui-menubutton-body{}
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-menubutton .edui-state-opened .edui-menubutton-body{background-color:#fff;border-left:1px solid #ddd;border-right:1px solid #ddd;padding:0;}
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-menubutton .edui-state-opened .edui-button-body{padding:1px 1px 1px 0;}
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-menubutton .edui-state-opened .edui-arrow{padding-right:0;background-color:#cacaca;}
+
+/*  menu  */
+.edui-menu .edui-bordereraser{background-color:#fff;height:1px;}
+.edui-anchor-topleft .edui-bordereraser{left:1px;top:0;}
+.edui-anchor-topleft .edui-bordereraser:after{content:'';float:right;display:block;width:11px;height:1px;background:#cacaca;}
+.edui-menu .edui-popup-content{border:1px solid #ddd;background:#fff;}
+.edui-menu .edui-popup-content .edui-menu-body{width:100px;min-width:100px;text-align:left;background:none;}
+
+.edui-menu .edui-menuitem{height:25px;line-height:25px;}
+.edui-menu .edui-menuitem .edui-icon{display:none;width:0px;overflow:hidden;}
+.edui-menu .edui-menuitem .edui-label{height:25px;line-height:25px;padding:0 20px 0 9px;color:#999;font-size:12px;}
+.edui-menu .edui-menu-body .edui-state-hover{background:#eee;}
+.edui-menu .edui-state-checked .edui-menuitem-body{background:none;/*background:#eee;*/}
+
+/*  标题，正文选择  */
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-for-paragraph .edui-combox-body{border:none;}
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-for-paragraph .edui-arrow{width:11px;height:36px;padding-right:1px;border:none;background:url(/rsc/js/ueditor4longpost/themes/loftskin/images/arrow.png) 3px 16px no-repeat;}
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-for-paragraph .edui-button-body{width:34px;height:34px;line-height:34px;color:#999;font-size:12px;text-align:center;}
+
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-for-paragraph .edui-state-active .edui-combox-body{}
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-for-paragraph .edui-state-opened .edui-combox-body{background-color:#fff;border-left:1px solid #ddd;border-right:1px solid #ddd;padding:0;}
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-for-paragraph .edui-state-opened .edui-button-body{padding:1px 1px 1px 0;}
+.edui-editor .edui-editor-toolbarbox .edui-toolbar .edui-for-paragraph .edui-state-opened .edui-arrow{padding-right:0;background-color:#cacaca;}
+
+/*  段落及标题选择下拉列表  */
+.edui-for-paragraph .edui-bordereraser{background-color:#fff;height:1px;}
+.edui-for-paragraph .edui-popup-content{border:1px solid #ddd;background:#fff;}
+.edui-for-paragraph .edui-popup-content .edui-list-body{width:100px;min-width:100px;color:#999;font-size:12px;text-align:left;background:none;}
+
+.edui-for-paragraph .edui-list-body .edui-listitem{}
+.edui-for-paragraph .edui-list-body .edui-listitem .edui-listitem-body{}
+.edui-for-paragraph .edui-list-body .edui-listitem .edui-listitem-label{height:25px;line-height:25px;padding:0 0 0 9px;cursor:default;}
+.edui-for-paragraph .edui-list-body .edui-state-hover .edui-listitem-label{background:#eee;}
+.edui-for-paragraph .edui-list-body .edui-state-active .edui-listitem-label{}
+.edui-for-paragraph .edui-list-body .edui-state-opened .edui-listitem-label{background:#eee;}
+
+/*  弹出浮层  */
+.edui-dialog{position:absolute;z-index:9999;}
+.edui-dialog{/*transition:all 0.5s ease-out;-webkit-transition:all 0.5s ease-out;-moz-transition:all 0.5s ease-out;-o-transition:all 0.5s ease-out;*/}
+.edui-dialog iframe{border:0;padding:0;margin:0;vertical-align:top;background:#fff;}
+.edui-dialog-modalmask{position:absolute;background-color:#000;opacity:0.25;filter:alpha(opacity=25);}
+.edui-dialog-dragmask {position: absolute;/*z-index: 2001;*/background-color: transparent;cursor: move;}
+
+.edui-dialog .edui-dialog-wrap{z-index:9999;border:1px solid #bcc1c8;text-align:left;background:#fff;box-shadow:0 22px 50px -35px #000;-webkit-box-shadow:0 22px 50px -35px #000;-moz-box-shadow:0 22px 50px -35px #000;-o-box-shadow:0 22px 50px -35px #000;}
+.edui-dialog .edui-dialog-wrap .edui-dialog-body{position:relative;_zoom:1;}
+.edui-dialog .edui-dialog-body .edui-dialog-shadow{display:none;}
+.edui-dialog .edui-dialog-body .edui-dialog-titlebar{position:relative;}
+.edui-dialog .edui-dialog-titlebar .edui-dialog-draghandle{height:30px;line-height:30px;padding:20px;color:#888;text-align:center;cursor:move;}
+.edui-dialog .edui-dialog-titlebar .edui-dialog-caption{font-size:16px;font-weight:normal;}
+.edui-dialog .edui-dialog-titlebar .edui-dialog-closebutton{display:none !important;visibility:hidden;position:absolute;right:16px;top:16px;}
+.edui-dialog .edui-dialog-titlebar .edui-dialog-closebutton .edui-button-body{width:12px;height:12px;overflow:hidden;background:url(/rsc/img/icon2-8.png?031) no-repeat 0 0;cursor:pointer;}
+.edui-dialog .edui-dialog-titlebar .edui-dialog-closebutton .edui-state-hover .edui-button-body{background-position:-88px 0;}
+
+.edui-dialog .edui-dialog-body .edui-dialog-foot{height:36px;line-height:36px;padding:20px;margin:0;}
+
+.edui-dialog .edui-dialog-foot .edui-dialog-buttons{position:absolute;left:50%;width:124px;margin-left:-62px;}
+.edui-dialog .edui-dialog-buttons .edui-button{width:40px;height:36px;line-height:36px;margin:0;font-size:16px;cursor:pointer;}
+.edui-dialog .edui-dialog-buttons .edui-button .edui-button-body{width:40px;height:36px;line-height:36px;text-align:center;}
+.edui-dialog .edui-dialog-buttons .edui-okbutton{float:right;}
+.edui-dialog .edui-dialog-buttons .edui-okbutton .edui-button-body{color:#97cc00;background:none;}
+.edui-dialog .edui-dialog-buttons .edui-cancelbutton{float:left;}
+.edui-dialog .edui-dialog-buttons .edui-cancelbutton .edui-button-body{color:#999;background:none;}
+
+/* 弹层  */
+#edui_fixedlayer{}
+/*  超链接弹层  */
+#edui_fixedlayer .edui-for-link{}
+.edui-for-link .edui-dialog-content{width:480px;height:110px;overflow: hidden;}
+.edui-for-link .edui-dialog-titlebar .edui-dialog-caption{font-size:20px;color:#333;}
+.edui-for-link .edui-dialog-body .edui-dialog-foot{}
+
+/*  插入图片弹层  */
+.edui-for-insertimage .edui-dialog-content{width:480px;height:192px;overflow: hidden;}
+.edui-for-insertimage .edui-dialog-titlebar .edui-dialog-caption{font-size:20px;color:#333;}
+.edui-for-insertimage .edui-dialog-body .edui-dialog-foot{display:none;}
+
+/*  LOF-3139:长文章增加插入视频功能  */
+.edui-editor-toolbarmsg{display:none;}
+/*  插入视频弹层  */
+.edui-for-insertvideo .edui-dialog-content{width:480px;height:192px;overflow: hidden;}
+.edui-for-insertvideo .edui-dialog-titlebar .edui-dialog-caption{font-size:20px;color:#333;}
+.edui-for-insertvideo .edui-dialog-body .edui-dialog-foot{display:none;}
+
+
+/*  工具栏hover提示  */
+

@@ -1,0 +1,55 @@
+
+.more-menu{
+  position: absolute;
+    top: 79%;
+    left: -56px;
+    z-index: 1000;
+    display: none;
+    float: left;
+    width: 226px;
+    margin-bottom:-2px;
+    padding: 0;
+    font-size: 14px;
+    text-align: left;
+    list-style: none;
+    background-color: #333;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    border: 1px solid #ccc;
+    border: 1px solid rgba(0,0,0,.15);
+    border-radius: 4px;
+    -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
+    box-shadow: 0 6px 12px rgba(0,0,0,.175);
+}
+.more-menu .more-list{
+    width: 224px;
+    position: relative;
+    z-index: 2;
+    zoom: 1;
+    width: 100%;
+    margin: -1px 0 1px;
+    border-top: 1px solid #202020;
+    border-bottom: 1px solid #0c0c0c;
+    background-color: #191919;
+    line-height: 24px;
+}
+.more-menu .more-list span{
+    position: absolute;
+    left: 15px;
+    top: 13px;
+    font-size: 17px;
+    /* line-height: 40px; */
+}
+.more-menu .more-list a{
+    display: inline-block;
+    width: 224px;
+    padding: 0px 40px;
+    color: #bcbcbc;
+    line-height: 40px;
+    font-size: 14px;
+    text-align: left;
+}
+.more-menu .more-list a:hover{
+     color: #bcbcbc;
+     background-color: #333333;
+}

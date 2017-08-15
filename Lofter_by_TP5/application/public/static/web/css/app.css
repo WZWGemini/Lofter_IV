@@ -1,0 +1,117 @@
+/* 底部样式 */
+footer{
+	color: #74808b;
+	margin-top: 25px;
+	padding-bottom: 20px;
+	text-align: center;
+	width: 928px;
+	margin: 0 auto;
+	font-size: 12px;
+	/* position: absolute;
+	bottom: 0; */
+}
+
+footer a{
+	text-decoration: none;
+	color: #74808b;
+	outline: none;
+}
+footer .m-ft2 span {
+    margin: 0 5px;
+}
+
+/* app 页面主要样式 */
+#app{
+	padding: 0 0 20px;
+	background-color: #F4F4F4;
+}
+#app a {
+    text-decoration: none;
+    color: #444;
+    outline: none;
+}
+#app .m-appbox2-1 {
+    width: 930px;
+    height: 550px;
+    margin: 0 auto;
+}
+#app .m-appbox2-1 .iteml {
+    position: relative;
+    float: left;
+    width: 380px;
+    height: 550px;
+}
+
+#app .m-appbox2-1 .iteml {
+    background: url('../../public/img/AppDownload/bg2-1.png?005') left 145px no-repeat;
+}
+
+#app .m-appbox2-1 .iteml a, .m-appbox2-4 .item a {
+    position: absolute;
+    width: 156px;
+    height: 45px;
+    text-indent: -999px;
+    overflow: hidden;
+}
+#app .m-appbox2-1 .btn1 {
+    left: 210px;
+    top: 200px;
+}
+
+#app .m-appbox2-1 .btn2 {
+    left: 210px;
+    top: 267px;
+}
+#app .m-appbox2-1 .btn3 {
+    left: 210px;
+    top: 334px;
+}
+
+#app .m-appbox2-1 .txt, .m-appbox2-4 .txt {
+    position: absolute;
+    left: 0;
+    top: 418px;
+    width: 376px;
+    font-size: 18px;
+    color: #fff;
+    text-align: center;
+    letter-spacing: 3px;
+}
+#app .m-appbox2-1 .itemr {
+    float: right;
+    width: 545px;
+    height: 550px;
+    margin: 0 -20px 0 0;
+}
+#app .m-appbox2-1 .itemr {
+    background: url('../../public/img/AppDownload/bg2-2.png?005') right 65px no-repeat;
+}
+
+#app .m-appbox2-2 {
+    height: 800px;
+    /* background-color: #2e2e2e; */
+}
+#app .m-appbox2-2 {
+    background: url('../../public/img/AppDownload/bg2-4.png?005') center 75px no-repeat #2e2e2e;
+}
+
+#app .m-appbox2-3 {
+    height: 800px;
+    background: url('../../public/img/AppDownload/bg2-3.jpg?006') center 75px no-repeat;
+}
+
+#app .m-appbox2-4 {
+    height: 820px;
+	/* background-color: #181818; */
+}
+#app .m-appbox2-4 {
+    background: url('../../public/img/AppDownload/bg2-5.png?007') center 80px no-repeat #181818;
+}
+#app .m-appbox2-4 .item {
+    position: relative;
+    width: 376px;
+    margin: 0 auto;
+}
+
+
+

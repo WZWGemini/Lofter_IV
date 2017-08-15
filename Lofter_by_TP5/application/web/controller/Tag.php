@@ -6,7 +6,8 @@ class Tag extends Controller
 {
     private static $_data ;
         
-    function _initialize(){//这个$post就是前端请求的数据，传到这里没做任何修改
+    function _initialize(){
+        //这个$post就是前端请求的数据，传到这里没做任何修改
         self::$_data = $_POST;//接收请求
     }
 

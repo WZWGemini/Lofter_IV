@@ -1,6 +1,8 @@
 <?php
 namespace app\web\controller;
 use think\Controller;
+use think\Request;
+use app\web\model\User as userModel;
 
 class User extends Controller
 {
@@ -61,7 +63,6 @@ class User extends Controller
     //退出
     public function logout(){
         session("user_info",null);
-        return ['status'=>1,"msg"=>"退出成功"];
     }
 
     //查询用户是否存在
@@ -74,7 +75,6 @@ class User extends Controller
             return ['status'=>0,"msg"=>"用户存在"];
         }
     }
-
     //个人主页
     public function goUserHome(){
         $uid = input("uid");
@@ -95,6 +95,27 @@ class User extends Controller
         $this->assign('user',$user);
         return $this->fetch("userHome");
     }
+    //悬停显示数据
+    public function hoverShow(Request $request){
+        $id = $request->get("user_id") ;
+        $user = userModel::get($id,"blogs");
+        //关联查询
+        $search = $user->blogs()->limit(3)->order("article_id DESC")->select();
+
+        $show = array();
+        foreach($search as $key => $val ){
+            $show[] = $val->getdata();
+        }
+                
+        $this->assign("user_info", $user);
+        $this->assign("hover_show", $show);
+        $html = $this->fetch('hoverShow');
+        // return $html;
+        return ["status" => 1 , "msg" => 'haha' ,"html" => $html];
+
+    }
+
+
 
 }
 

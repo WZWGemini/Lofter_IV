@@ -41,7 +41,7 @@ class Browse extends Controller
             $key['article_img']=$article_img;                        
             $key['tag']=$tag;
         }
-        // return json_decode(json_encode($user_master),true);
+        return json_decode(json_encode($user_master),true);
         $this->assign('user_master',$user_master);
         $html = $this->fetch();
         return ['status'=>1, 'html'=>$html];
