@@ -18,6 +18,7 @@
             infinite-scroll-disabled="loading"
             infinite-scroll-distance="10">
               <li v-for="val in allArticle">
+                <!-- 为了方便后续 -->
                 <list :item = val></list>
               </li>
             </ul>
@@ -85,14 +86,12 @@ export default{
   },
    // 使用导航钩子 检查跳转
   beforeRouteEnter (to, from, next) {
-    console.log(to)
-    console.log(from)
     next(vm => {
       if (to.path === '/lofter/home/follow') {
         // 发送请求
         if (vm.totalAllArtNum === 0) {
           axios.get('/api/article', {
-
+            page: 1
           }).then((response) => {
             console.log(response)
             if (response.data.status === 1) {

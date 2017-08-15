@@ -6,7 +6,7 @@ Vue.use(Vuex)
 
 const Store = new Vuex.Store({
   state: {
-    // 用于存储用户信息 ： 用户名 id 头像路径
+    // 用于存储用户信息 ： user_name user_id user_head
     uinfo: [],
     // 用于判断是否已经登录
     hasLogin: false,
@@ -17,7 +17,9 @@ const Store = new Vuex.Store({
     allArticle: [],
     totalAllArtNum: '',
     // 目前点击需要显示的评论
-    curComment: ''
+    curComment: '',
+    curArtId: '',
+    curArticleIndex: ''
   },
   mutations: {
     // 设置用户信息
@@ -42,6 +44,7 @@ const Store = new Vuex.Store({
     // 设置目前点击微博的评论到评论页面
     setCurComment (state, comment) {
       state.curComment = comment
+      console.log(state.curComment)
     }
   }
 })

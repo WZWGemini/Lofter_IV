@@ -14,7 +14,7 @@
 
     <!-- 评论列表 -->
     <ul class="comment-list">
-      <li v-for="item in this.curComment">
+      <li v-for="item in this.curComment.articleComment">
         <div class="user-header"><img src="../assets/img/user_head.jpg"></div>
         <div class="comment-right">
           <div class="comment-top">
@@ -41,7 +41,7 @@
 
 <script>
 import {mapState} from 'vuex'
-// import axios from 'axios'
+import axios from 'axios'
 export default {
   name: 'comment',
   data () {
@@ -50,18 +50,42 @@ export default {
       backUrl: ''
     }
   },
-  props: ['commentList'],
   methods: {
     sendComment: function () {
       if (this.comment_content !== '') {
-        console.log('1')
+        axios.post('/api/comment', {
+          user_id: this.uinfo.user_id,
+          article_id: this.curComment.article_id,
+          comment_content: this.comment_content
+        }).then((response) => {
+          this.$toast(response.data.msg)
+          console.log(response)
+          if (response.data.status === 1) {
+            // 数据库操作成功，则将对应store中的articleComment改变
+            axios.get('/api/comment', {
+              params: {
+                article_id: this.curComment.article_id
+              }
+            }).then((response) => {
+              // console.log(response)
+              // console.log(this.curComment.articleComment)
+              // 将返回的数据赋值给curComment 使评论页面同步
+              this.curComment.articleComment = response.data.rtn
+            }).catch((error) => {
+              console.log(error)
+            })
+          } else {
+          }
+        }).catch((error) => {
+          console.log(error)
+        })
       } else {
         this.$toast('内容不能为空！')
       }
     }
   },
   computed: {
-    ...mapState(['curComment'])
+    ...mapState(['curComment', 'uinfo'])
   },
   beforeRouteEnter (to, from, next) {
     next(vm => {
@@ -132,8 +156,9 @@ export default {
   }
 
   .bottom-box {
+    background-color: #fff; 
   border-top: 1px dotted $topic_hcolor;
-    position: absolute;
+    position: fixed;
     bottom: 0;
     width: 100%;
     .bottom-left {
