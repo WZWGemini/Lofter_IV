@@ -12,63 +12,14 @@
         </header>
           <!--内容  -->
         <div class="fol-list">
-            <ul>
-              <li v-for="item in contentList">
-              <!--每个头像上的灰条  -->
-              <div class="line"></div>
-              <!--内容  -->
-                <div class="content-list-box">
-                  <!--内容顶部  -->
-                  <div class="top">
-                    <ul>
-                      <!--头像 用户名 时间  -->
-                      <li class="head-img">
-                           <img src="../../assets/img/user_head.jpg">    
-                      </li>
-                      <li class="user-name">啊哈哈</li>
-                      <li class="time">一个小时前</li>
-                    </ul>
-                  </div>
-                  <!--内容中部  -->
-                  <div class="mid">
-                    <!--短文 图片  -->
-                    <img :src="item.img">
-                    <div class="content">
-                      内容
-                    </div>
-                    {{item.msg}}
-                    <!--标签  -->
-                    <div class="tag">
-                      <span class="icon-price-tag"></span>
-                      <span v-for="tag in item.tagList">{{tag}}</span>
-                    </div>
-                  </div>
-                  <!--底部  -->
-                  <div class="foot">
-                    <!--5个功能图标  -->
-                    <div class="btn-box">
-                      <span class="icon-heart heart"></span>
-                      <span class="icon-bubble2 bubble"></span>
-                      <span class="icon-redo2 redo"></span>
-                      <span class="icon-like like"></span>
-                      <span class="icon-dots-three-horizontal dot"></span>
-                    </div>
-                    <!--评论  -->
-                    <div class="comment">
-                      <dl>
-                        <dt>
-                          126 热度  5条评论
-                        </dt>
-                        <!--循环最新三条评论  -->
-                        <dd v-for="comment in item.commentList">
-                          <span class="comment-user">{{comment.name}}</span>
-                          <span class="comment-colon">:</span>
-                          &nbsp;&nbsp;&nbsp;{{comment.comment}}
-                        </dd>
-                      </dl>
-                    </div>
-                  </div>
-                </div>
+          <!-- mint 下拉刷新 -->
+            <ul
+            v-infinite-scroll="loadMore"
+            infinite-scroll-disabled="loading"
+            infinite-scroll-distance="10">
+              <li v-for="val in allArticle">
+                <!-- 为了方便后续 -->
+                <list :item = val></list>
               </li>
             </ul>
             <!--解决底部导航栏挡住内容问题  -->
@@ -78,11 +29,19 @@
     </div>    
 </template>
 <script>
+import list from '../content_list'
+import axios from 'axios'
+import {mapMutations, mapState} from 'vuex'
 export default{
   name: 'homeFollow',
+  components: {
+    list
+  },
   data () {
     return {
+      // 头部广告图片
       showHeadImg: true,
+      // actionSheet
       sheetVisible: false,
       actions: [{
         name: '不再显示',
@@ -90,60 +49,63 @@ export default{
           this.closeHeadImg()
         }
       }],
-      contentList: [
-        {
-          msg: '1',
-          img: '/static/user_head.jpg',
-          tagList: ['鱼哈哈', '鱼哈哈'],
-          commentList: [{
-            name: '鱼哈哈1',
-            comment: '鱼哈哈~'
-          },
-          {
-            name: '鱼哈哈1',
-            comment: '鱼哈哈~'
-          },
-          {
-            name: '鱼哈哈1',
-            comment: '鱼哈哈~'
-          }]
-        },
-        {
-          msg: '2',
-          img: '/static/user_head.jpg',
-          tagList: ['鱼哈哈', '鱼哈哈'],
-          commentList: [{
-            name: '鱼哈哈2',
-            comment: '鱼哈哈~'
-          },
-          {
-            name: '鱼哈哈2',
-            comment: '鱼哈哈~'
-          },
-          {
-            name: '鱼哈哈2',
-            comment: '鱼哈哈~'
-          }]
-        },
-        {
-          msg: '3',
-          img: '/static/user_head.jpg',
-          tagList: ['鱼哈哈', '鱼哈哈'],
-          commentList: [{
-            name: '鱼哈哈3',
-            comment: '鱼哈哈~'
-          }]
-        }
-      ]
+      pageNum: 2
     }
   },
+  computed: {
+    ...mapState(['allArticle', 'totalAllArtNum'])
+  },
   methods: {
+    ...mapMutations(['setAllArticle']),
     showSheet () {
       this.sheetVisible = true
     },
     closeHeadImg () {
       this.showHeadImg = false
+    },
+    loadMore () {
+      this.loading = true
+      setTimeout(() => {
+      // 滚动到底部请求数据
+        axios.get('api/article', {
+          params: {
+            page: this.pageNum
+          }
+        }).then((response) => {
+          console.log(this.allArticle)
+          // 调用 mutations的setUarticle方法，将获取到的文章添加到uarticle
+          this.setAllArticle(response.data.$user_article.data)
+          // 将pageNum ++
+          this.pageNum++
+        }).catch((error) => {
+          console.log(error)
+        })
+        this.loading = false
+      }, 1000)
     }
+  },
+   // 使用导航钩子 检查跳转
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      if (to.path === '/lofter/home/follow') {
+        // 发送请求
+        if (vm.totalAllArtNum === 0) {
+          axios.get('/api/article', {
+            page: 1
+          }).then((response) => {
+            console.log(response)
+            if (response.data.status === 1) {
+              vm.setAllArticle(response.data.$user_article.data)
+              next()
+            }
+          }).catch((error) => {
+            console.log(error)
+          })
+        } else {
+          next()
+        }
+      }
+    })
   }
 }
 </script>

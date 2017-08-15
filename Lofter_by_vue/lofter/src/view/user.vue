@@ -3,7 +3,7 @@
   <div class="user">
 
     <!-- 顶部固定导航栏 -->
-    <mt-header fixed class="top-nav" title="啊哈哈" label="ID:Ayu1948">
+    <mt-header fixed class="top-nav" :title="uinfo.user_name">
       <router-link to="/" slot="left">
         <mt-button icon="back"></mt-button>
       </router-link>
@@ -35,48 +35,15 @@
       </div>
       <!-- 博文内容盒子 -->
       <div class="blog-list">
-        <mt-cell>
           <div>
             {{totalArtNum}}篇文章
           </div>
-          <mt-cell icon="more"></mt-cell>
-        </mt-cell>
         <ul
         v-infinite-scroll="loadMore"
         infinite-scroll-disabled="loading"
         infinite-scroll-distance="10">
           <li class="blog-box" v-for="item in uarticle">
-            <div class="blog-top">
-              <div class="user-header"><img src="../assets/img/user_head.jpg"></div>
-              <span class="user-name">{{uinfo.user_name}}</span>
-              <span class="create-time">{{item.article_time}}</span>
-            </div>
-
-            <!-- 文章内容 -->
-            <div class="blog-article clear">
-              <h4 class="article-title">{{item.article_title}}</h4>
-              <div class="article-content">{{item.article_content}}</div>
-            </div>
-
-            <router-link to="/user" class="show-article">显示全文</router-link>
-            <!-- 标签盒子 -->
-            <div class="tag-box">
-              <ul>
-                <li class="tag-li-a">#</li>
-                <li class="tag-li" v-for="tag in item.articleTag"><router-link to="/" active-class="li-class">{{tag.tag_content}}</router-link></li>
-              </ul>
-            </div>
-
-            <!-- 功能按钮 -->
-            <div class="btn-box">
-              <ul>
-                <li class="btn-li"><router-link to="/" active-class="li-class"><span class="icon-heart"></span></router-link></li>
-                <li class="btn-li"><router-link to="/" active-class="li-class"><span class="icon-bubble2"></span></router-link></li>
-                <li class="btn-li"><router-link to="/" active-class="li-class"><span class="icon-redo2"></span></router-link></li>
-                <li class="btn-li"><router-link to="/" active-class="li-class"><span class="icon-like"></span></router-link></li>
-              </ul>
-              
-            </div>
+              <list :item = item></list>
           </li>
       </ul>      
       </div>
@@ -91,12 +58,17 @@
 <script>
 // 单独引入 辅助函数
 import {mapState, mapMutations} from 'vuex'
+// 引入内容列表 组件
+import list from '../components/content_list'
 // 为了获取用户个人发表文章引入axios
 import axios from 'axios'
 export default {
   name: 'user',
   created () {
 
+  },
+  components: {
+    list
   },
   data () {
     return {
@@ -225,126 +197,4 @@ export default {
     margin-top: .1rem;
   }
 
-  // 博文内容盒子
-  .blog-list {
-    background-color: #eee;
-  }
-
-  .mint-cell{
-    background-color: #eee;
-  }
-  
-  .blog-box {
-    background-color: #fff;
-    margin-bottom: 0.3rem;
-  }
-
-  .blog-top {
-    padding-top: .15rem;
-    margin-bottom: .15rem;
-    background-color: #fff;
-    color: #999;
-    font-size: .25rem;
-  }
-  .user-header {
-    width: .6rem;
-    height: 0;
-    padding-bottom: .6rem;
-    overflow: hidden;
-    border: 1px solid #fff;
-    border-radius: 50%;
-    display: inline-block;
-    float: left;
-    margin: .1rem .2rem;
-  }
-  .user-header img {
-    width: .6rem;
-  }
-  .user-name {
-    float: left;
-    color: #111;
-    margin: .25rem 0 0 .1rem;
-  }
-  .create-time {
-    float: right;
-    margin: .25rem .2rem 0 0;
-  }
-
-  // 文章内容
-  .blog-article {
-    padding: .1rem .2rem;
-    margin-bottom: .2rem;
-  }
-  .article-title {
-    margin: 0 0 .2rem;
-    font-size: .35rem;
-  }
-  .article-content {
-    font-size: .25rem;
-  }
-  .show-article {
-    color: #777;
-    font-size: .2rem;
-    margin: .2rem;
-    padding: .18rem;
-    border: 1px solid #777;
-    border-radius: .4rem;
-  }
-  .tag-box ul {
-    padding: 0;
-    margin: .3rem .3rem .2rem;
-    height: .5rem;
-    border-bottom: 1px dotted #999;
-  }
-  .btn-box ul {
-    padding: 0;
-    margin: .2rem .3rem;
-    margin-bottom: 0;
-    font-size: .3rem;
-    height: .5rem;
-  }
-  .tag-box ul li, .btn-box ul li {
-    float: left;
-    font-size: .25rem;
-  }
-  .li-class {
-    color: #999;
-  }
-  .tag-box ul .tag-li-a {
-    color: #888;
-    font-weight: 900;
-  }
-  .tag-box ul .tag-li, .btn-box ul li {
-    width: .8rem;
-    text-align: center;
-  }
-
-  // 交互列表
-  .mutual-top {
-    padding: 0;
-    margin: .0 .3rem;
-    color: #777;
-    font-size: .25rem;
-      .read-count {
-      float: right;
-    }
-  }
-  .comment-list {
-    padding: 0;
-    font-size: .25rem;
-    margin: 0 .3rem;
-    li {
-      margin: .1rem 0;
-      font-size: .25rem;
-      .comment-user {
-        color: $topic_color;
-        font-family:'STFangsong', sans-serif;
-        font-weight: 600;
-      }
-      .comment-content, li .comment-colon {
-        color: #777;
-        font-size: .23rem;
-      }
-    }
-  }
 </style>

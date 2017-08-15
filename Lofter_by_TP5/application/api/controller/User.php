@@ -19,6 +19,8 @@ class User extends Controller
         }
         // 将需要的名字 id 头像 存入数组返回
         $rtnInfo = array('user_name'=>$user_info['user_name'],'user_id'=>$user_info['user_id'],'user_head'=>$user_info['user_head']);
+        //设置用户session
+        session("user_info",$rtnInfo);
         return json(['status' => 1, 'msg' => '登录成功','info'=>$rtnInfo]);
     }
 
@@ -43,7 +45,18 @@ class User extends Controller
 //    save post user
     public function save()
     {
-        return json(['status' => 1, 'msg' => 'save']);
+        if(validate('user')->check(input())){
+
+			model('user')->user_pwd = '';
+            
+			$user_info = model('user')->save(array('user_name'=>input('user_name'),'user_pwd'=>input('user_pwd')));
+            // 将需要的名字 id 头像 存入数组返回
+            $rtnInfo = array('user_name'=>$user_info['user_name'],'user_id'=>$user_info['user_id'],'user_head'=>$user_info['user_head']);
+			return json(['status'=>1,'msg'=>'注册成功','info'=>$rtnInfo]);
+		}else{
+			return json(['status'=>0,'msg'=>validate('user')->getError()]);
+		}
+        
     }
 
 //    update put user/:id
