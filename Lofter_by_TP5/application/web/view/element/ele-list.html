@@ -25,7 +25,7 @@
 						<p>{$art.article_title}</p>
 					</div>
 					{if $art['article_music']!=null}
-					<audio src="__PUBLIC_UPLOAD__/{$art.article_music}" preload="none" controls="controls"></audio>
+					<audio src="{$art.article_music}" preload="none" controls="controls"></audio>
 					{/if}
 					<div class="article_content">
 						<p>{$art.article_content}</p>

@@ -14,10 +14,8 @@ const Store = new Vuex.Store({
     uarticle: [],
     // 用于存储文章数量
     totalArtNum: '',
-    allArticle: [],
-    totalAllArtNum: '',
-    // 目前点击需要显示的评论
-    curComment: ''
+    // 存储用户标签
+    tag: []
   },
   mutations: {
     // 设置用户信息
@@ -32,16 +30,21 @@ const Store = new Vuex.Store({
       state.uarticle.push(...article)
       state.totalArtNum = state.uarticle.length
     },
-    // 设置所有用户文章
-    setAllArticle (state, article) {
-      // 使用push方法将 新添加的article添加到 uarticle
-      // 例如 uarticle=[1,2] article=[3,4]，使用下述方法后，会变成[1,2,3,4]
-      state.allArticle.push(...article)
-      state.totalAllArtNum = state.allArticle.length
+    // 保存标签
+    tagSave (state, value) {
+      if (state.tag.indexOf(value) === -1) {
+        state.tag.push(value)
+      }
     },
-    // 设置目前点击微博的评论到评论页面
-    setCurComment (state, comment) {
-      state.curComment = comment
+    // 删除上一个标签
+    tagRemove (state) {
+      if (state.tag !== []) {
+        state.tag.splice(-1, 1)
+      }
+    },
+    // 清空标签
+    tagClear (state) {
+      state.tag = []
     }
   }
 })
