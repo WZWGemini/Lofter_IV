@@ -83,6 +83,11 @@ export default new Router({
       path: '/lofter/issue/text',
       name: 'text',
       component: require('../components/issue/text')
+    },
+    {
+      path: '/lofter/addFollow',
+      name: 'addFollow',
+      component: require('../components/home/addFollow')
     }
 
   ]

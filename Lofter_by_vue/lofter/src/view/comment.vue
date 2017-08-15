@@ -4,7 +4,7 @@
 
   <!-- 顶部固定导航栏 -->
    <mt-header fixed class="top-nav" title="评论">
-    <router-link to="/" slot="left">
+    <router-link :to="backUrl" slot="left">
     <mt-button icon="back"></mt-button>
     </router-link>
   </mt-header> 
@@ -14,14 +14,14 @@
 
     <!-- 评论列表 -->
     <ul class="comment-list">
-      <li>
+      <li v-for="item in this.curComment">
         <div class="user-header"><img src="../assets/img/user_head.jpg"></div>
         <div class="comment-right">
           <div class="comment-top">
-            <span class="user-name">啊哈哈</span>
-            <span class="create-time">1天前</span>
+            <span class="user-name">{{item.user_name}}</span>
+            <span class="create-time">{{item.comment_time}}</span>
           </div>
-          <span class="comment-content">哈哈哈</span>
+          <span class="comment-content">{{item.comment_content}}</span>
         </div>
       </li>
     </ul>
@@ -33,19 +33,44 @@
       <mt-field placeholder="发表评论" v-model="comment_content" class="input-class"></mt-field>
     </div>
      <div class="bottom-right"> 
-      <router-link to="/" class="send">发送</router-link>
+      <a @click="sendComment()" class="send">发送</a>
      </div> 
   </div>
   </div>
 </template>
 
 <script>
+import {mapState} from 'vuex'
+// import axios from 'axios'
 export default {
   name: 'comment',
   data () {
     return {
-      comment_content: ''
+      comment_content: '',
+      backUrl: ''
     }
+  },
+  props: ['commentList'],
+  methods: {
+    sendComment: function () {
+      if (this.comment_content !== '') {
+        console.log('1')
+      } else {
+        this.$toast('内容不能为空！')
+      }
+    }
+  },
+  computed: {
+    ...mapState(['curComment'])
+  },
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      // 通过 `vm` 访问组件实例
+      console.log(to)
+      console.log(from)
+      vm.backUrl = from.path
+      next()
+    })
   }
 }
 </script>
