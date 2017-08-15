@@ -19,6 +19,8 @@ class User extends Controller
         }
         // 将需要的名字 id 头像 存入数组返回
         $rtnInfo = array('user_name'=>$user_info['user_name'],'user_id'=>$user_info['user_id'],'user_head'=>$user_info['user_head']);
+        //设置用户session
+        session("user_info",$rtnInfo);
         return json(['status' => 1, 'msg' => '登录成功','info'=>$rtnInfo]);
     }
 
@@ -54,7 +56,6 @@ class User extends Controller
 		}else{
 			return json(['status'=>0,'msg'=>validate('user')->getError()]);
 		}
-        // return json(['status' => 1, 'msg' => 'save']);
         
     }
 

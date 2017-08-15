@@ -24,6 +24,7 @@
           <div class="heading-info">
               <div class="heading-user"></div>
               <p class="heading-username">{{uinfo.user_name}}</p>
+
               <!-- 头部功能栏 -->
               <div class="heading-function">
                 <router-link to="/" active-class="a-class">关注</router-link>
@@ -83,8 +84,7 @@ export default {
         // 滚动到底部请求数据
         axios.get('api/article', {
           params: {
-            page: 2,
-            user_id: this.uinfo.user_id
+            page: 2
           }
         }).then((response) => {
           console.log(this.uarticle)
@@ -118,7 +118,6 @@ export default {
               // console.log(vm.uarticle)
               // 调用 mutations的setUarticle方法，将获取到的文章添加到uarticle
               vm.setUarticle(response.data.$user_article.data)
-              vm.pageNum++
               next()
             }).catch((error) => {
               console.log(error)

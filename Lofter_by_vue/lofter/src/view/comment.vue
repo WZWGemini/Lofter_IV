@@ -4,7 +4,7 @@
 
   <!-- 顶部固定导航栏 -->
    <mt-header fixed class="top-nav" title="评论">
-    <router-link :to="backUrl" slot="left">
+    <router-link to="/" slot="left">
     <mt-button icon="back"></mt-button>
     </router-link>
   </mt-header> 
@@ -33,7 +33,7 @@
       <mt-field placeholder="发表评论" v-model="comment_content" class="input-class"></mt-field>
     </div>
      <div class="bottom-right"> 
-      <a @click="sendComment()" class="send">发送</a>
+      <router-link to="/" class="send">发送</router-link>
      </div> 
   </div>
   </div>
@@ -46,8 +46,7 @@ export default {
   name: 'comment',
   data () {
     return {
-      comment_content: '',
-      backUrl: ''
+      comment_content: ''
     }
   },
   methods: {

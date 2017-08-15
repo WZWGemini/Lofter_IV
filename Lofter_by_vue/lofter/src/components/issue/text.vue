@@ -10,10 +10,11 @@
         <div class="article-box">
             <mt-field placeholder="文章标题（可不填）" v-model="articleTitle" class="article-title"></mt-field>
             <mt-field placeholder="说点什么" type="textarea" v-model="articleContent" rows="10" class="article-content"></mt-field>
-            <div class="add-tag">    
-                <mt-field placeholder="添加标签" v-model="tag" rows="1" class="article-tag" @keyup.native="addTags($event)">
-                  <span class="icon-price-tag article-icon"></span>
-                </mt-field>
+            <div class="add-tag">
+                <i class="icon-price-tag article-icon"></i>
+                <span class="tag-show" v-for="item in tagName" >{{item}}</span>
+                <input class="tag-input" @keydown="addTags($event)" type="text" maxlength="6" placeholder="添加标签">
+                <!-- <mt-field placeholder="添加标签" rows="1" class="article-tag" @keydown.native="addTags($event)"></mt-field> -->
             </div>
             
         </div>
@@ -21,39 +22,65 @@
         <mt-button type="default" size="large" class="btn-issue" v-on:click="issueText()">发布</mt-button>
     </div>    
 </template>
-<script>
+<script type="es6">
 import Axios from 'axios'
 import {Toast} from 'mint-ui'
 // 单独引入 辅助函数
-import {mapState} from 'vuex'
+import {mapState,mapMutations} from 'vuex'
 export default{
   name: 'text',
   data () {
     return {
       articleTitle: '',
-      articleContent: ''
+      articleContent: '',
+      tagName : []
     }
   },
   computed: {
-    ...mapState(['uinfo'])
+    ...mapState(['uinfo','tag'])
   },
   methods: {
+    ...mapMutations(["tagSave","tagRemove","tagClear"]),
     issueText: function () {
+      if(this.articleContent==''){
+        Toast('内容不能为空')
+        return
+      }
       Axios.post('/api/article', {
         article_title: this.articleTitle,
         article_content: this.articleContent,
-        user_id: this.uinfo.user_id
+        user_id: this.uinfo.user_id,
+        tag_arr: this.tag.join(",")
       }).then(function (rtnData) {
         Toast(rtnData.data.msg)
       })
+    },
+    addTags: function (e) {
+      // 插入标签 
+      if (e.keyCode === 13) {
+        if(e.target.value == '') return
+        this.$http.post('/api/tag', {
+          tag_content: e.target.value
+        }).then((rtnData) => {
+          if(rtnData.data.status == 1){
+            // 把标签id保存到store
+            this.tagSave(parseInt(rtnData.data.data.tag_id))
+            // 存储标签名
+            if( this.tagName.indexOf(e.target.value) === -1) {
+              this.tagName.push(e.target.value)
+            }
+            e.target.value = ""
+          } else {
+            this.toast(rtnData.data.msg)
+          }
+        })
+      } else if (e.keyCode === 8) {
+          if(e.target.value === ""){
+            this.tagRemove()
+            this.tagName.splice(-1, 1)
+          }
+      }
     }
-    // addTags: function (e) {
-    //   if (e.keyCode === 13) {
-    //     console.log('2333')
-    //   } else if (e.keyCode === 8) {
-    //     console.log('delete')
-    //   }
-    // }
   }
 }
 </script>
@@ -105,30 +132,32 @@ export default{
         border-bottom: 1px solid #efefef;
     }
     .add-tag {
-        width: 100%;
+        overflow-wrap: break-word;
+        border-top: 1px solid #eee;
+        border-bottom: 1px solid #eee;
+        font-size: .35rem;
         .article-icon {
-            // float: left;
-            // text-align: center;
-            // padding-top: .25rem;
-            // width: 10%;
-            opacity: .5;
-            // font-size: 20px;
-            font-size: .35rem;
-            display: block;
-            position: relative;
-            // z-index: 1;
-            // top: 35px;
-            left: -5.7rem;
-            top: .03rem;
-        } 
-        .article-tag {
-            width: 100%;
-            float: left;
-            border-bottom: 1px solid #efefef;
-            .mint-field-core {
-                margin-left: .52rem;
-                resize:none;
-            }
+          font-size: .35rem;
+          opacity: .5;
+          padding: 0px 5px 0 10px;
+        }
+        .tag-input {
+          font-size: .3rem;
+          height: .5rem;
+          border:none;
+          padding-left: 10px;
+          margin:2px;
+          width: 30%;
+        }
+        .tag-show {
+          font-size: .3rem;
+          opacity: .6;
+          padding: 0px 5px;
+          border: 1px solid #336162;
+          margin: 0 2px;
+          border-radius: 5px;
+          background-color: #336162;
+          color: #fff;
         }
     }
 }

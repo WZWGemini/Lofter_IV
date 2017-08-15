@@ -72,8 +72,7 @@ export default {
   }
 
   a, ul, li {text-decoration:none;list-style:none;}
-.register{
-  padding: 0;
+
   .top-nav{
     background-color: $topic_color;
     font-size: .3rem;
@@ -188,6 +187,7 @@ export default {
     padding-top: .5rem;
     font-size:.2rem;
   }
-}
-  
+  .register{
+    padding: 0;
+  }
 </style>

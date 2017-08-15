@@ -72,36 +72,6 @@ $(function(){
 		return result_index;
 	}
 
-<<<<<<< HEAD
-	function rtnString(water){
-		let img = JSON.parse(water.article_img);
-		// console.log(img);
-		let str='<div class="waterfall-box">'+
-					'<div class="waterfall-user">'+
-						'<a class="span-img float-left">'+
-							'<img src="'+water.user_head+'" class="img">'+
-						'</a>'+
-						'<a>'+
-							'<span class="txt bro-txt">'+water.user_name+'</span>'+
-						'</a>'+
-						'<a href="" class="bro-follow">关注</a>'+
-					'</div>'+
-					'<div class="waterfall-img">'+
-						'<img src="'+img[0]+'" class="img">'+
-					'</div>'+
-					'<div class="waterfall-content">'+
-						'<div class="content-txt">'+
-							'<p>'+water.article_content+'</p>'+
-						'</div>'+
-					'</div>'+
-					'<div class="waterfall-likeIt">'+
-						'<a class="bro-likeIt"></a>'+
-						'<span>58人喜欢</span>'+
-					'</div>'+
-				'</div>'
-		return str;
-	}
-=======
 	//点击返回标签模板页
 	$(".bq").on('click',function(){
 		$.post("/Lofter_by_TP5/public/web/browse/browseTags",function(res){
@@ -119,5 +89,4 @@ $(function(){
 		})
 	})
 
->>>>>>> 8ff235ff9946589e368f804034b8425a5fb4e9f5
 })
