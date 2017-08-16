@@ -23,7 +23,7 @@
 			<div id="header" class="float-left">
 				<ul class="header-ul box-shadow">
 					<li href="" class="t1">
-						<a href="{:url('userHome')}">		
+						<a href="{:url('user/goUserHome')}?uid={$user_info.user_id}">		
 						 <img src="__PUBLIC_UPLOAD__/{$user_info.user_head}" alt="">
 						</a>
 					</li>
@@ -55,7 +55,7 @@
 			<div class="show-top">
 				<div class="show-header">
 					<a class="span-img float-left">
-						<img src="../public/img/sc4-4.png" class="img">
+						<img src="__PUBLIC_UPLOAD__/{$user_info.user_head}" class="img">
 					</a>					
 					<span class="txt a-text">Lofter摄影达人</span>
 					<span class="txt a-text">

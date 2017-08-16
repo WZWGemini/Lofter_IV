@@ -97,6 +97,33 @@ class Index extends Controller{
         return $pic_json = file_get_contents($file);
     }
 
+    //用户头像悬浮框信息
+    //  传用户Id
+    public function userShow(){
+        $uid = input("uid");
+        $userModel = model("user");
+        //查询用户信息
+        $user_info = $userModel->field("user_name,user_head")->where("user_id=$uid")->find();
+        //查询用户文章数量
+        $user_article_num = $userModel->alias("u")
+                            ->field("count(*) as num")
+                            ->join("article a","u.user_id=a.user_id")
+                            ->where("u.user_id=$uid")
+                            ->find()['num'];
+        //查询用户三个有图片的微博
+        $user_img = $userModel->alias("u")
+                    ->field("article_img")
+                    ->join("article a","u.user_id=a.user_id")
+                    ->where("a.article_img != '[]' and u.user_id=$uid")
+                    ->order("a.article_id desc")
+                    ->limit(3)
+                    ->select();
+        $this->assign("user_info",$user_info);
+        $this->assign("user_article_num",$user_article_num);
+        $this->assign("user_img",$user_img);
+        $html = $this->fetch();
+        return ['status'=>1,"msg"=>"成功","html"=>$html,"data"=>""];
+    }
 
 }
 

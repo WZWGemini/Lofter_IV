@@ -71,6 +71,11 @@ class Blog extends Controller{
 
     //删除
     public function deleteBlog(){
+        //查看该微博Id是否对于改用户
+        $article = Db::table('lofter_article')->where("user_id=".session('user_info')['user_id'])->find();
+        if(empty($article)){
+            return json(['status'=>0,"msg"=>"删除失败,你无权删除别人的微博"]);
+        }
        // 启动事务
         Db::startTrans();
         try{
