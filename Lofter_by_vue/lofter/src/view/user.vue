@@ -136,6 +136,7 @@ export default {
               console.log(error)
             })
           } else {
+            vm.loading = false
             next()
           }
         } else {
