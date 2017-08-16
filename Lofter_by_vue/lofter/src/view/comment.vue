@@ -132,8 +132,9 @@ export default {
   }
 
   .bottom-box {
-  border-top: 1px dotted $topic_hcolor;
-    position: absolute;
+    border-top: 1px dotted $topic_hcolor;
+    background-color: #fff;
+    position: fixed;
     bottom: 0;
     width: 100%;
     .bottom-left {

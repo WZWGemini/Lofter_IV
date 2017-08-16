@@ -59,9 +59,12 @@ export default new Router({
           component: message
         },
         // 发现子路由
-          { path: 'discover', component: user },
-          // 我的子路由
-          { path: 'mine', component: user }
+        {
+          path: 'discover',
+          component: require('../components/discover/detail')
+        },
+        // 我的子路由
+        { path: 'mine', component: user }
       ]
     },
     {
@@ -89,6 +92,11 @@ export default new Router({
       name: 'addFollow',
       component: require('../components/home/addFollow')
     }
+    // {
+    //   path: '/detail',
+    //   name: 'detail',
+    //   component: require('../components/discover/detail')
+    // }
 
   ]
 })
