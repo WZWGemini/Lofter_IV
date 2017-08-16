@@ -30,8 +30,8 @@ module.exports = {
     // 配置代理映射表
     proxyTable: {
       '/api': {
-        target: 'http://localhost:80/Lofter_by_TP5',
-        // target: 'http://localhost:808',
+        // target: 'http://localhost:80/Lofter_by_TP5',
+        target: 'http://localhost:808',
         changeOrigin: true,
         pathRewrite: {
           '^/api': '/public'

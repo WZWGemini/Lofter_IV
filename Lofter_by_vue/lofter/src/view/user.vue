@@ -36,7 +36,7 @@
       <!-- 博文内容盒子 -->
       <div class="blog-list">
           <div>
-            {{totalArtNum}}篇文章
+            共{{uArticleNum}}篇文章
           </div>
         <ul
         v-infinite-scroll="loadMore"
@@ -56,6 +56,8 @@
 </template>
 
 <script>
+// 引入进度条插件 nprogress
+import nprogress from 'nprogress'
 // 单独引入 辅助函数
 import {mapState, mapMutations} from 'vuex'
 // 引入内容列表 组件
@@ -73,32 +75,42 @@ export default {
   data () {
     return {
       showLoading: false,
-      pageNum: 2
+      pageNum: 2,
+      loading: true
     }
   },
   methods: {
     ...mapMutations(['setUarticle']),
     loadMore () {
       this.loading = true
+      nprogress.start()
       setTimeout(() => {
         // 滚动到底部请求数据
         axios.get('api/article', {
           params: {
-            page: 2
+            page: this.pageNum,
+            user_id: this.uinfo.user_id
           }
         }).then((response) => {
-          console.log(this.uarticle)
+          console.log(response)
           // 调用 mutations的setUarticle方法，将获取到的文章添加到uarticle
-          this.setUarticle(response.data.$user_article.data)
+          this.setUarticle(response.data.$user_article)
+          if (this.pageNum !== this.uLastPage) {
+            this.pageNum++
+            console.log(this.pageNum)
+            this.loading = false
+          } else {
+            this.loading = true
+          }
+          nprogress.done()
         }).catch((error) => {
           console.log(error)
         })
-        this.loading = false
       }, 1000)
     }
   },
   computed: {
-    ...mapState(['hasLogin', 'uinfo', 'uarticle', 'totalArtNum'])
+    ...mapState(['hasLogin', 'uinfo', 'uarticle', 'totalArtNum', 'uArticleNum', 'uLastPage'])
   },
   beforeRouteEnter (to, from, next) {
     // 由于beforeRouteEnter钩子 在组件被创造之前被调用，所以无法使用this获取组件定义的方法计算属性等
@@ -115,9 +127,10 @@ export default {
                 user_id: vm.uinfo.user_id
               }
             }).then((response) => {
-              // console.log(vm.uarticle)
+              // console.log(response)
               // 调用 mutations的setUarticle方法，将获取到的文章添加到uarticle
-              vm.setUarticle(response.data.$user_article.data)
+              vm.setUarticle(response.data.$user_article)
+              vm.loading = false
               next()
             }).catch((error) => {
               console.log(error)
@@ -195,6 +208,9 @@ export default {
     text-align:center;
     font-size: .25rem;
     margin-top: .1rem;
+  }
+  .blog-list{
+    font-size: .3rem;
   }
 
 </style>

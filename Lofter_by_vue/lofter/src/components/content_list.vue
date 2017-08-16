@@ -6,14 +6,16 @@
       <div class="content-list-box">
         <!--内容顶部  -->
         <div class="top">
-          <ul>
-            <!--头像 用户名 时间  -->
-            <li class="head-img">
-                 <img src="../assets/img/user_head.jpg">    
-            </li>
-            <li class="user-name">{{item.user_name}}</li>
-            <li class="time">{{item.article_time}}</li>
-          </ul>
+          <router-link to="/user">
+            <ul>
+              <!--头像 用户名 时间  -->
+              <li class="head-img">
+                  <img src="../assets/img/user_head.jpg">    
+              </li>
+              <li class="user-name">{{item.user_name}}</li>
+              <li class="time">{{item.article_time}}</li>
+            </ul>
+          </router-link>
         </div>
         <!--内容中部  -->
         <div class="mid">

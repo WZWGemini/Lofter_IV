@@ -11,7 +11,6 @@ import MintUI from 'mint-ui'
 import 'mint-ui/lib/style.css'
 import 'animate.css/animate.min.css'
 import '../src/assets/style.css'
-
 Vue.prototype.$http = Axios
 // 关闭生产环境时错误提示
 Vue.config.productionTip = false

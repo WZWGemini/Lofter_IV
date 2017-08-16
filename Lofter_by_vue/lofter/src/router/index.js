@@ -52,6 +52,7 @@ export default new Router({
           children: [
             { path: 'follow', component: require('../components/home/follow') },
             { path: 'desert', component: homeDesert }
+            // { path: 'addFollow', component: require('../components/home/addFollow') }
           ]
         },
         // 消息子路由

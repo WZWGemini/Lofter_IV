@@ -4,7 +4,7 @@
 
   <!-- 顶部固定导航栏 -->
    <mt-header fixed class="top-nav" title="评论">
-    <router-link to="/" slot="left">
+    <router-link :to="backUrl" slot="left">
     <mt-button icon="back"></mt-button>
     </router-link>
   </mt-header> 
@@ -24,16 +24,18 @@
           <span class="comment-content">{{item.comment_content}}</span>
         </div>
       </li>
+      <!--解决底部导航栏挡住内容问题  -->
+      <div style="height:1rem">
+      </div>
     </ul>
   </div>
-
   <!-- 底部固定发布栏 -->
   <div class="bottom-box clear">
     <div class="bottom-left">
       <mt-field placeholder="发表评论" v-model="comment_content" class="input-class"></mt-field>
     </div>
      <div class="bottom-right"> 
-      <router-link to="/" class="send">发送</router-link>
+        <a @click="sendComment()" class="send">发送</a>
      </div> 
   </div>
   </div>
@@ -46,7 +48,8 @@ export default {
   name: 'comment',
   data () {
     return {
-      comment_content: ''
+      comment_content: '',
+      backUrl: ''
     }
   },
   methods: {

@@ -12,10 +12,14 @@ const Store = new Vuex.Store({
     hasLogin: false,
     // 用于存储已登录用户个人界面文章
     uarticle: [],
-    // 用于存储文章数量
+    uArticleNum: 0, // 用户文章总数
+    // 用于存储已在store中存储了的文章数量
     totalArtNum: '',
+    uLastPage: '', // 用户文章最后一页
+    // 所有已加载文章
     allArticle: [],
-    totalAllArtNum: '',
+    allLastPage: '', // 所有文章最后一页
+    totalAllArtNum: 0, // 已加载文章数量
     // 目前点击需要显示的评论
     curComment: '',
     curArtId: '',
@@ -33,8 +37,11 @@ const Store = new Vuex.Store({
     setUarticle (state, article) {
       // 使用push方法将 新添加的article添加到 uarticle
       // 例如 uarticle=[1,2] article=[3,4]，使用下述方法后，会变成[1,2,3,4]
-      state.uarticle.push(...article)
+      console.log(article)
+      state.uarticle.push(...article.data)
       state.totalArtNum = state.uarticle.length
+      state.uArticleNum = article.total
+      state.uLastPage = article.last_page
     },
     // 设置目前点击微博的评论到评论页面
     setCurComment (state, comment) {
@@ -45,8 +52,10 @@ const Store = new Vuex.Store({
     setAllArticle (state, article) {
       // 使用push方法将 新添加的article添加到 uarticle
       // 例如 uarticle=[1,2] article=[3,4]，使用下述方法后，会变成[1,2,3,4]
-      state.allArticle.push(...article)
+      state.allArticle.push(...article.data)
       state.totalAllArtNum = state.allArticle.length
+      console.log(state.totalAllArtNum)
+      state.allLastPage = article.last_page
     },
     // 保存标签
     tagSave (state, value) {

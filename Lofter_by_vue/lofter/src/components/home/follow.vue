@@ -29,6 +29,9 @@
     </div>    
 </template>
 <script>
+// 引入进度条插件 nprogress
+import nprogress from 'nprogress'
+// 引入模版list
 import list from '../content_list'
 import axios from 'axios'
 import {mapMutations, mapState} from 'vuex'
@@ -49,11 +52,12 @@ export default{
           this.closeHeadImg()
         }
       }],
-      pageNum: 2
+      pageNum: 2,
+      loading: true // 无限刷新锁
     }
   },
   computed: {
-    ...mapState(['allArticle', 'totalAllArtNum'])
+    ...mapState(['allArticle', 'totalAllArtNum', 'allLastPage'])
   },
   methods: {
     ...mapMutations(['setAllArticle']),
@@ -65,6 +69,7 @@ export default{
     },
     loadMore () {
       this.loading = true
+      nprogress.start()
       setTimeout(() => {
       // 滚动到底部请求数据
         axios.get('api/article', {
@@ -72,15 +77,19 @@ export default{
             page: this.pageNum
           }
         }).then((response) => {
-          console.log(this.allArticle)
           // 调用 mutations的setUarticle方法，将获取到的文章添加到uarticle
-          this.setAllArticle(response.data.$user_article.data)
-          // 将pageNum ++
-          this.pageNum++
+          this.setAllArticle(response.data.$user_article)
+          if (this.pageNum !== this.allLastPage) {
+            this.pageNum++
+            console.log(this.pageNum)
+            this.loading = false
+          } else {
+            this.loading = true
+          }
+          nprogress.done()
         }).catch((error) => {
           console.log(error)
         })
-        this.loading = false
       }, 1000)
     }
   },
@@ -89,13 +98,15 @@ export default{
     next(vm => {
       if (to.path === '/lofter/home/follow') {
         // 发送请求
+        console.log(vm.totalAllArtNum)
         if (vm.totalAllArtNum === 0) {
           axios.get('/api/article', {
-            page: 1
+
           }).then((response) => {
             console.log(response)
             if (response.data.status === 1) {
-              vm.setAllArticle(response.data.$user_article.data)
+              vm.setAllArticle(response.data.$user_article)
+              vm.loading = false
               next()
             }
           }).catch((error) => {
