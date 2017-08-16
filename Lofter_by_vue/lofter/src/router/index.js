@@ -54,6 +54,10 @@ export default new Router({
             { path: 'desert', component: homeDesert }
           ]
         },
+        // 添加关注子路由
+        { path: 'addFollow',
+          component: require('../components/home/addFollow')
+        },
         // 消息子路由
         { path: 'message',
           component: message
@@ -86,12 +90,12 @@ export default new Router({
       path: '/lofter/issue/text',
       name: 'text',
       component: require('../components/issue/text')
+    },
+    {
+      path: '/personal',
+      name: 'personal',
+      component: require('../components/mine/personal')
     }
-    // {
-    //   path: '/detail',
-    //   name: 'detail',
-    //   component: require('../components/discover/detail')
-    // }
 
   ]
 })
