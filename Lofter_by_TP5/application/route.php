@@ -17,7 +17,8 @@ return [
         // 指向index模块的blog控制器
         'user'=>'api/user',
         'article'=>'api/article',
-        'tag'=>'api/tag'
+        'tag'=>'api/tag',
+        'comment'=>'api/comment'
     ],
     '[hello]'     => [
         ':id'   => ['index/hello', ['method' => 'get'], ['id' => '\d+']],

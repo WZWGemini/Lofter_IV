@@ -35,7 +35,7 @@
           <!--5个功能图标  -->
           <div class="btn-box">
             <span class="icon-heart heart"></span>
-            <router-link to="/comment"><span @click="f(item.articleComment)" class="icon-bubble2 bubble"></span></router-link>
+            <router-link to="/comment"><span @click="setCurInfo(item)" class="icon-bubble2 bubble"></span></router-link>
             <span class="icon-redo2 redo"></span>
             <span class="icon-like like"></span>
             <span class="icon-dots-three-horizontal dot"></span>
@@ -44,10 +44,10 @@
           <div class="comment" v-if="item.articleComment.length!=0">
             <dl>
               <dt>
-                126 热度  5条评论
+                126 热度  {{item.articleComment.length}}条评论
               </dt>
               <!--循环最新三条评论  -->
-              <dd v-for="comment in item.articleComment">
+              <dd v-for="comment in limit">
                 <span class="comment-user">{{comment.user_name}}</span>
                 <span class="comment-colon">:</span>
                 &nbsp;&nbsp;&nbsp;{{comment.comment_content}}
@@ -68,13 +68,20 @@
       }
     },
     computed: {
-      ...mapState(['curComment'])
+      ...mapState(['curComment']),
+      limit: function () {
+        if (this.item.articleComment.length > 3) {
+          return this.item.articleComment.slice(0, 3)
+        } else {
+          return this.item.articleComment
+        }
+      }
     },
     methods: {
       ...mapMutations(['setCurComment']),
-      f: function (item) {
+      // 设置目前点击微博所需要显示的评论及id
+      setCurInfo: function (item) {
         this.setCurComment(item)
-        console.log(this.curComment)
       }
     },
     components: {
