@@ -161,6 +161,14 @@ $(function(){
 				left: w+'px',
 				top: h+img_h+20+'px'
 			}).stop().show(100);
+
+			let uid = $curr.attr("data-uid");
+			//获取userShow html
+			$.post("/Lofter_by_TP5/public/web/index/userShow",{uid:uid},function(res){
+				if(res.status==1){
+					$("#window_show").html(res.html);
+				}
+			})
 		}				
 	}
 

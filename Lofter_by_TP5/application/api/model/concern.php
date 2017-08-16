@@ -2,10 +2,10 @@
 namespace app\api\model;
 use think\Model;
 
-class Tag extends Model
+class Concern extends Model
 {
-    protected $createTime = false;
     protected $updateTime = false;
+    protected $insert = ['create_time'];
 }
 
 

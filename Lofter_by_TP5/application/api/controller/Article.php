@@ -1,6 +1,7 @@
 <?php
 namespace app\api\controller;
 use think\Controller;
+use think\Db;
 class Article extends Controller
 {
 //    index  get  user
@@ -64,20 +65,55 @@ class Article extends Controller
 //    save post user
     public function save()
     {
-        if(validate('article')->check(input())){
 
-			$article_arr = array(
-                'user_id' => input('user_id'),
-                'article_title' => input('article_title'),
-                'article_content' => input('article_content'),
-                'article_time' => time());
-            
-			$article_info = model('article')->save($article_arr);
-			return json(['status'=>1,'msg'=>'发布成功']);
-		}else{
-			return json(['status'=>0,'msg'=>validate('article')->getError()]);
-		}
-        // return json(['status' => 1, 'msg' => 'save']);
+        //判断登录
+        if(empty(session('user_info'))){
+            return ['status'=>0,"msg"=>"发布失败,请先登录"];
+        }
+        $data =[
+            'user_id'=> session("user_info")["user_id"],
+            'article_title'=> empty(input('article_title'))?"":input('article_title'),
+            'article_music'=> empty(input('article_music'))?"":input('article_music'),            
+            'article_img' =>  empty(input('article_img'))?'[]':input('article_img'),
+            'article_content' => input('article_content'),
+            'article_time' => time()
+        ];
+        $tag_arr = empty(input('tag_arr'))?null:explode(",",input('tag_arr'));
+        $tag_insert=[];
+        $article_id =null;
+        // 启动事务
+        Db::startTrans();
+        try{
+            //保存博客
+            $db_article = Db::name('article');
+            $db_article->insert($data);
+            $article_id = $db_article->getLastInsID();
+            //保存标签
+            $db_tagArticle = Db::name('tagArticle');
+            if($tag_arr != null){
+                foreach ($tag_arr as $key => $value) {
+                    $tag_insert[$key] = ['article_id'=>$article_id, 'tag_id'=>$value];
+                }
+                $db_tagArticle->insertAll($tag_insert);;
+            }   
+            // 提交事务
+            Db::commit();    
+        } catch (Exception $e) {
+            // 回滚事务
+            Db::rollback();
+            return json(['status'=>0,"msg"=>"发布失败"]);
+        }
+        //查询博客的所有内容
+        $blog = $db_article->where("article_id=$article_id")->find();
+        //查询该博客的标签
+        $tag = $db_tagArticle->alias("ta")
+                ->join("tag t","t.tag_id = ta.tag_id")
+                ->where("ta.article_id=$article_id")
+                ->select();
+        $blog["tag"]  = $tag;
+        $blog["user_id"] = session("user_info")['user_id'];
+        $blog["user_head"] = session("user_info")['user_head'];
+        return json(['status'=>1,"msg"=>"发布成功","data"=>[$blog]]);
     }
 
 //    update put user/:id
@@ -86,9 +122,30 @@ class Article extends Controller
         return json(['status' => 1, 'msg' => 'update']);
     }
 
-//    delete delete user/:id
+    /**
+    *  删除博文
+    *  参数:article_id
+    */
     public function delete($id)
     {
-        return json(['status' => 1, 'msg' => 'delete']);
+        //查看该微博Id是否对于改用户
+        $article = Db::table('lofter_article')->where("user_id=".session('user_info')['user_id'])->find();
+        if(empty($article)){
+            return json(['status'=>0,"msg"=>"删除失败,你无权删除别人的微博"]);
+        }
+        // 启动事务
+        Db::startTrans();
+        try{
+            Db::table('lofter_tag_article')->where("article_id=".input('article_id'))->delete();
+            Db::table('lofter_comment')->where("article_id=".input('article_id'))->delete();
+            Db::table('lofter_article')->where("article_id=".input('article_id'))->delete();
+            // 提交事务
+            Db::commit();    
+        } catch (Exception $e) {
+            // 回滚事务
+            Db::rollback();
+            return json(['status'=>0,"msg"=>"删除失败"]);
+        }
+        return json(['status'=>1,"msg"=>"删除成功"]);
     }
 }

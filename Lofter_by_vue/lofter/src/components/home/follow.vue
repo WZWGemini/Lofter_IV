@@ -18,6 +18,7 @@
             infinite-scroll-disabled="loading"
             infinite-scroll-distance="10">
               <li v-for="val in allArticle">
+                <!-- 为了方便后续 -->
                 <list :item = val></list>
               </li>
             </ul>
@@ -65,7 +66,7 @@ export default{
     loadMore () {
       this.loading = true
       setTimeout(() => {
-        // 滚动到底部请求数据
+      // 滚动到底部请求数据
         axios.get('api/article', {
           params: {
             page: this.pageNum
@@ -85,14 +86,12 @@ export default{
   },
    // 使用导航钩子 检查跳转
   beforeRouteEnter (to, from, next) {
-    console.log(to)
-    console.log(from)
     next(vm => {
       if (to.path === '/lofter/home/follow') {
         // 发送请求
         if (vm.totalAllArtNum === 0) {
           axios.get('/api/article', {
-
+            page: 1
           }).then((response) => {
             console.log(response)
             if (response.data.status === 1) {
@@ -114,7 +113,6 @@ export default{
 @import "../../assets/common.scss";
 
 .follow{
-  width: 100%;
   margin-top: 2px;
     height: 100%;
     /*头部  */
@@ -137,6 +135,117 @@ export default{
             top:5%;
             right:2%;
         }
+    }
+    .line{
+      height:.6rem;
+      background-color: #F0F0F0;
+    }
+
+    /*内容列表  */
+    .content-list-box{
+      width: 100%;
+      .top{
+        overflow: hidden;
+        line-height: .9rem;
+        font-size: 0.2rem;
+        padding:0 3%; 
+        width:94%;
+        height: 20%;
+        ul{
+          overflow: hidden;
+          li{
+            list-style:none;
+            float:left;
+            img{
+              width: 100%;
+            }
+          }
+          .head-img{
+            width: .7rem;
+            height: 0;
+            padding-bottom: .7rem;
+            margin-top: .15rem;
+            border-radius: 50%;
+            overflow: hidden;
+            img {
+              width: .7rem;
+            }
+          }
+          .user-name{
+            width: 30%;
+            padding-left:5%; 
+            font-size: .3rem;
+            line-height: 1rem;
+          }
+          .time{
+            color: #ccc;
+            padding-left: 20%; 
+            width: 20%;
+            font-size: .2rem;
+            line-height: 1rem;
+            float: right;
+          }
+        }
+      }
+      .mid{
+        width: 100%;
+
+        img{
+          display:inline-block;
+          width: 100%;
+          height: auto;
+        }
+        .content{
+          margin: 0 3%;
+          border-left: 2px solid #ccc;
+        }
+        .tag{  
+          margin: 0 5%;
+          border-bottom: 1px dashed #888;
+          span{
+            padding:0 .1rem;
+            font-size: .3rem;
+            color:#888;
+          }
+        }
+      }
+      .foot{
+        margin-top:3%; 
+        .btn-box{
+          margin-bottom: 2%;
+          font-size: .3rem;
+          color:#9e9e9e;
+          span{
+            margin-left: 10%;
+          }
+          .heart{
+
+          }
+          .dot{
+            margin-left:25% 
+          }
+        }
+        .comment{
+          dt{
+            margin-left:7%;
+            color:#777;
+            font-size:.22rem;
+          }
+          dd{
+            margin: .1rem 0;
+            margin-left:7%;
+            font-size: .25rem;
+            .comment-user {
+              color: $topic_color;
+              font-weight: 600;
+            }
+            .comment-content, .comment-colon {
+              color: #777;
+              font-size: .23rem;
+            }
+          }
+        }
+      }
     } 
 }
 </style>

@@ -13,7 +13,7 @@
             <router-link to='/login' class="login">
             登录
             </router-link>
-            <router-link to='/register' class="gregister">
+            <router-link to='/register' class="register">
             注册
             </router-link>
         </div>
@@ -59,7 +59,7 @@
         margin-right:5%;
         background-color: #fff; 
     }
-    .gregister{
+    .register{
         font-size:.3rem;
         text-decoration:none;
         color:#fff;

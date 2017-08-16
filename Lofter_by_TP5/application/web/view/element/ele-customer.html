@@ -4,7 +4,7 @@
 				<ul>
 					<li id="user_home" data-uid="{$user_info.user_id}">
 						<span href="" class="txt bg1">
-							{$user_info.user_name}
+							{$user_info.user_name|default="未登录"}
 						</span>
 						<button class="user-btn float-right">
 							<span class="glyphicon glyphicon-triangle-bottom"></span>
@@ -13,20 +13,20 @@
 					<li>
 						<span class="glyphicon glyphicon-th-list float-left"></span>
 						<span class="txt wz">文章</span>
-						<span class="count_article" id="article_allnum">{$user_info.user_article_num}</span>
+						<span class="count_article" id="article_allnum">{$user_info.user_article_num|default="0"}</span>
 					</li>
 					<li>
 						<span class="glyphicon glyphicon-user float-left"></span>
 						<span class="txt gz">关注</span>
 						<span class="count_article">
-							{$user_info.user_attention_num}
+							{$user_info.user_attention_num|default="0"}
 						</span>
 					</li>
 					<li>
 						<span class="glyphicon glyphicon-envelope float-left"></span>
 						<span class="txt sx">私信</span>
 						<span class="count_article">
-							{$user_info.user_message_num}
+							{$user_info.user_message_num|default="0"}
 						</span>
 					</li>
 					<li>
