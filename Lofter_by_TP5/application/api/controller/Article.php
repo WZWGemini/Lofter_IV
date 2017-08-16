@@ -114,21 +114,6 @@ class Article extends Controller
         $blog["user_id"] = session("user_info")['user_id'];
         $blog["user_head"] = session("user_info")['user_head'];
         return json(['status'=>1,"msg"=>"发布成功","data"=>[$blog]]);
-
-
-        // if(validate('article')->check(input())){
-
-		// 	$article_arr = array(
-        //         'user_id' => input('user_id'),
-        //         'article_title' => input('article_title'),
-        //         'article_content' => input('article_content'),
-        //         'article_time' => time());
-            
-		// 	$article_info = model('article')->save($article_arr);
-		// 	return json(['status'=>1,'msg'=>'发布成功']);
-		// }else{
-		// 	return json(['status'=>0,'msg'=>validate('article')->getError()]);
-		// }
     }
 
 //    update put user/:id
@@ -137,9 +122,30 @@ class Article extends Controller
         return json(['status' => 1, 'msg' => 'update']);
     }
 
-//    delete delete user/:id
+    /**
+    *  删除博文
+    *  参数:article_id
+    */
     public function delete($id)
     {
-        return json(['status' => 1, 'msg' => 'delete']);
+        //查看该微博Id是否对于改用户
+        $article = Db::table('lofter_article')->where("user_id=".session('user_info')['user_id'])->find();
+        if(empty($article)){
+            return json(['status'=>0,"msg"=>"删除失败,你无权删除别人的微博"]);
+        }
+        // 启动事务
+        Db::startTrans();
+        try{
+            Db::table('lofter_tag_article')->where("article_id=".input('article_id'))->delete();
+            Db::table('lofter_comment')->where("article_id=".input('article_id'))->delete();
+            Db::table('lofter_article')->where("article_id=".input('article_id'))->delete();
+            // 提交事务
+            Db::commit();    
+        } catch (Exception $e) {
+            // 回滚事务
+            Db::rollback();
+            return json(['status'=>0,"msg"=>"删除失败"]);
+        }
+        return json(['status'=>1,"msg"=>"删除成功"]);
     }
 }

@@ -159,7 +159,7 @@ export default {
 
   .bottom-box {
     background-color: #fff; 
-  border-top: 1px dotted $topic_hcolor;
+    border-top: 1px dotted $topic_hcolor;
     position: fixed;
     bottom: 0;
     width: 100%;

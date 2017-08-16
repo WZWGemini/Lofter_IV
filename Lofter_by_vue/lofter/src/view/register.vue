@@ -56,9 +56,15 @@ export default {
         user_repwd: this.user_repwd
       }).then(function (rtnData) {
         Toast(rtnData.data.msg)
+        // if (rtnData.data.status === 1) {
+        //   this.$router.push({path: '/'})
+        // }
       })
     }
   }
+  // beforeRouteLeave (to, from, next) {
+  //   if(to.path == )
+  // }
 }
 </script>
 

@@ -86,11 +86,7 @@
 					<!-- 发布的内容显示 -->
 					<div class="user-container">
 						<?php $key['img']=json_decode($key['article_img']); ?>
-						{foreach $key.img  as $img}
-							<div class="pic">
-								<img src="{$img}" style="max-width:100%;">
-							</div>
-						{/foreach}
+						
 						{if $key['article_music']!=null}
 						{if $key['img']!=[]}
 						<div class="cover">
@@ -102,6 +98,12 @@
 							<audio src="__PUBLIC_UPLOAD__/{$key.article_music}" preload="none" controls="controls"></audio>
 							<!-- <p style="text-indent:5px;">情绪挑拨——任然</p> -->
 						</div>
+						{else}
+						{foreach $key.img  as $img}
+							<div class="pic">
+								<img src="{$img}" style="max-width:100%;">
+							</div>
+						{/foreach}
 						{/if}
 						<div class="text">
 							{if $key.article_title != null}

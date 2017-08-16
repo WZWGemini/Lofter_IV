@@ -1,330 +1,147 @@
 <template>
   <!-- 添加关注 页面 -->
-  <div class="addFollow">
-
+  <div class="animated slideInRight addFollow">
+    <!--解决顶部导航栏挡住内容问题  -->
+    <div class="add-top">
+    </div>
     <!-- 顶部固定导航栏 -->
     <mt-header fixed class="top-nav" title="添加关注">
-      <router-link to="/" slot="left">
+      <router-link to="/lofter/home/follow" slot="left">
         <mt-button icon="back"></mt-button>
       </router-link>
-      <mt-button icon="more" slot="right"></mt-button>
     </mt-header>
     
     <!-- 内容盒子 -->
     <div class="content">
 
       <!-- 关注内容盒子 -->
-      <div class="blog-list">
-        <mt-cell>
-          <div>
-            {{totalArtNum}}篇文章
-          </div>
-          <mt-cell icon="more"></mt-cell>
-        </mt-cell>
-        <ul
-        v-infinite-scroll="loadMore"
-        infinite-scroll-disabled="loading"
-        infinite-scroll-distance="10">
-          <li class="blog-box" v-for="item in uarticle">
-            <div class="blog-top">
-              <div class="user-header"><img src="../assets/img/user_head.jpg"></div>
-              <span class="user-name">{{uinfo.user_name}}</span>
-              <span class="create-time">{{item.article_time}}</span>
+      <div class="follow-list">
+        <div class="follow-box" v-for="box in 5">
+            <div class="user-info">
+              <div class="user-head"><img src="../../assets/img/user_head.jpg"></div>              
+              <div class="user-left">
+                <span class="user-name">啊哈哈</span>
+                <span class="user-like">被喜欢
+                    <span class="user-like-d">3158</span>
+                次</span>
+              </div>
+              <div class="user-right">
+                  <router-link to="" class="btn-follow">关 注</router-link>
+              </div>
             </div>
-
-            <!-- 文章内容 -->
-            <div class="blog-article clear">
-              <h4 class="article-title">{{item.article_title}}</h4>
-              <div class="article-content">{{item.article_content}}</div>
+            <div class="user-album">
+              <img src="../../assets/img/user_bg.jpg" v-for="item in 6">
             </div>
-
-            <router-link to="/user" class="show-article">显示全文</router-link>
-            <!-- 标签盒子 -->
-            <div class="tag-box">
-              <ul>
-                <li class="tag-li-a">#</li>
-                <li class="tag-li" v-for="tag in item.articleTag"><router-link to="/" active-class="li-class">{{tag.tag_content}}</router-link></li>
-              </ul>
-            </div>
-
-            <!-- 功能按钮 -->
-            <div class="btn-box">
-              <ul>
-                <li class="btn-li"><router-link to="/" active-class="li-class"><span class="icon-heart"></span></router-link></li>
-                <li class="btn-li"><router-link to="/" active-class="li-class"><span class="icon-bubble2"></span></router-link></li>
-                <li class="btn-li"><router-link to="/" active-class="li-class"><span class="icon-redo2"></span></router-link></li>
-                <li class="btn-li"><router-link to="/" active-class="li-class"><span class="icon-like"></span></router-link></li>
-              </ul>
-              
-            </div>
-          </li>
-      </ul>      
+        </div>
       </div>
     </div>
-    <!--解决底部导航栏挡住内容问题  -->
-    <div style="height:1rem">
-    </div>
-    
   </div>
 </template>
 
 <script>
-// 单独引入 辅助函数
-import {mapState, mapMutations} from 'vuex'
-// 为了获取用户个人发表文章引入axios
-import axios from 'axios'
 export default {
-  name: 'user',
-  created () {
+  name: 'addFollow',
 
-  },
   data () {
     return {
-      showLoading: false,
-      pageNum: 2
     }
   },
   methods: {
-    ...mapMutations(['setUarticle']),
-    loadMore () {
-      this.loading = true
-      setTimeout(() => {
-        // 滚动到底部请求数据
-        axios.get('api/article', {
-          params: {
-            page: 2
-          }
-        }).then((response) => {
-          console.log(this.uarticle)
-          // 调用 mutations的setUarticle方法，将获取到的文章添加到uarticle
-          this.setUarticle(response.data.$user_article.data)
-        }).catch((error) => {
-          console.log(error)
-        })
-        this.loading = false
-      }, 1000)
-    }
-  },
-  computed: {
-    ...mapState(['hasLogin', 'uinfo', 'uarticle', 'totalArtNum'])
-  },
-  beforeRouteEnter (to, from, next) {
-    // 由于beforeRouteEnter钩子 在组件被创造之前被调用，所以无法使用this获取组件定义的方法计算属性等
-    // 要使用next(vm => {}) 就可以获取
-    next(vm => {
-      if (to.path === '/lofter/mine') {
-        // console.log(vm.hasLogin)
-        // 判断是否有登录
-        if (vm.hasLogin) {
-          // 判断在store中是否已经有文章，无则请求，有则不请求
-          if (vm.uarticle.length === 0) {
-            axios.get('api/article', {
-              params: {
-                user_id: vm.uinfo.user_id
-              }
-            }).then((response) => {
-              // console.log(vm.uarticle)
-              // 调用 mutations的setUarticle方法，将获取到的文章添加到uarticle
-              vm.setUarticle(response.data.$user_article.data)
-              next()
-            }).catch((error) => {
-              console.log(error)
-            })
-          } else {
-            next()
-          }
-        } else {
-          next({ path: '/login' })
-        }
-      }
-    })
+
   }
+
 }
 </script>
 
 <!-- 添加scoped属性限制这个style的作用范围只作用于本组件 -->
 <style scoped lang="scss">
-  @import '../assets/common.scss';
+  @import '../../assets/common.scss';
   /* CSS Document */
+
+  .addFollow, .follow-list {
+    background-color: #efefef;
+    font-size: .3rem;   
+  }
 
   // 顶部固定导航栏
   .top-nav{
     color: $topic_color;
     background-color: #fff;
-    // opacity:0;
     font-size: .3rem;
-    height: 7%;
+    height: .8rem;
+    position: fixed;
   }
-
-  // 头部信息盒子
-  .heading-bg {
-    width:100%;
-    height: 3rem;
-    overflow: hidden;
+  .add-top {
+    height: .8rem;
   }
-
-  .heading-bg img {
+  .content {
     width: 100%;
-    /* height: 35%; */
-    overflow: hidden;
-    position: absolute;
-    z-index: -1;
-    top: -1rem;
   }
 
-  .heading-info {
-    background: #FFF;
-    height: 2rem;
-  }
+  .follow-box {
+    margin: .2rem 0 .1rem;
+    background-color: #fff;
+    font-size: .2rem;  
+    display: inline-block;
+    width: 100%;
+    .user-info {
+      width: 100%;
+      display: inline-block;   
+      .user-head {
+        width: .8rem;
+        height: 0;
+        padding-bottom: .8rem;
+        overflow: hidden;
+        border: 1px solid #fff;
+        border-radius: 50%;
+        display: inline-block;
+        float: left;
+        margin: .15rem .2rem 0;
+        img{
+          width: .8rem;
+          float: left;
+        }
+      }
+      .user-left {
+        width: 20%;
+        float: left;
+        .user-name {
+          font-size: .3rem;
+          display: inline-block;
+          float: left;
+          padding-top: .25rem;    
+        }
+        .user-like {
+          font-size: .2rem;
+          display: inline-block;
+          float: left;
+          color: #777;
+        }
+      }
+      .user-right {
+        float: right;
+        font-size: .25rem;
+        padding-top: .4rem;
+        .btn-follow {
+          color: red;
+          border-radius: .3rem;
+          border: 1px solid red;
+          padding: .1rem .2rem;
+          margin-right: .35rem;
+        }
+      }
+    }
 
-  .heading-user {
-    background: url("../assets/img/user_head.jpg");
-    width: 1.8rem;
-    height: 1.8rem;
-    background-position: center;
-    background-size: cover;
-    border-radius: 50%;
-    position: absolute;
-    top: 2rem;
-    margin-left:35%;
-    border: 3px solid #fff;
-  }
-
-  .heading-username {
-    font-family:'STXinwei', sans-serif;
-    display:block;
-    text-align:center;
-    padding-top: 1rem;
-    font-size: 0.4rem;
-  }
-
-  .heading-function {
-    display:block;
-    text-align:center;
-    font-size: .25rem;
-    margin-top: .1rem;
-  }
-
-  // 博文内容盒子
-  .blog-list {
-    background-color: #eee;
-  }
-
-  .mint-cell{
-    background-color: #eee;
+    .user-album {
+      width: 100%;
+      // clear: both;
+      display: inline-block;
+      img {
+        width: 32%;
+        float: left;
+        margin: .03rem 0 0 .03rem;
+      }
+    }
   }
   
-  .blog-box {
-    background-color: #fff;
-    margin-bottom: 0.3rem;
-  }
-
-  .blog-top {
-    padding-top: .15rem;
-    margin-bottom: .15rem;
-    background-color: #fff;
-    color: #999;
-    font-size: .25rem;
-  }
-  .user-header {
-    width: .6rem;
-    height: 0;
-    padding-bottom: .6rem;
-    overflow: hidden;
-    border: 1px solid #fff;
-    border-radius: 50%;
-    display: inline-block;
-    float: left;
-    margin: .1rem .2rem;
-  }
-  .user-header img {
-    width: .6rem;
-  }
-  .user-name {
-    float: left;
-    color: #111;
-    margin: .25rem 0 0 .1rem;
-  }
-  .create-time {
-    float: right;
-    margin: .25rem .2rem 0 0;
-  }
-
-  // 文章内容
-  .blog-article {
-    padding: .1rem .2rem;
-    margin-bottom: .2rem;
-  }
-  .article-title {
-    margin: 0 0 .2rem;
-    font-size: .35rem;
-  }
-  .article-content {
-    font-size: .25rem;
-  }
-  .show-article {
-    color: #777;
-    font-size: .2rem;
-    margin: .2rem;
-    padding: .18rem;
-    border: 1px solid #777;
-    border-radius: .4rem;
-  }
-  .tag-box ul {
-    padding: 0;
-    margin: .3rem .3rem .2rem;
-    height: .5rem;
-    border-bottom: 1px dotted #999;
-  }
-  .btn-box ul {
-    padding: 0;
-    margin: .2rem .3rem;
-    margin-bottom: 0;
-    font-size: .3rem;
-    height: .5rem;
-  }
-  .tag-box ul li, .btn-box ul li {
-    float: left;
-    font-size: .25rem;
-  }
-  .li-class {
-    color: #999;
-  }
-  .tag-box ul .tag-li-a {
-    color: #888;
-    font-weight: 900;
-  }
-  .tag-box ul .tag-li, .btn-box ul li {
-    width: .8rem;
-    text-align: center;
-  }
-
-  // 交互列表
-  .mutual-top {
-    padding: 0;
-    margin: .0 .3rem;
-    color: #777;
-    font-size: .25rem;
-      .read-count {
-      float: right;
-    }
-  }
-  .comment-list {
-    padding: 0;
-    font-size: .25rem;
-    margin: 0 .3rem;
-    li {
-      margin: .1rem 0;
-      font-size: .25rem;
-      .comment-user {
-        color: $topic_color;
-        font-family:'STFangsong', sans-serif;
-        font-weight: 600;
-      }
-      .comment-content, li .comment-colon {
-        color: #777;
-        font-size: .23rem;
-      }
-    }
-  }
 </style>

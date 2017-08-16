@@ -15,11 +15,11 @@ class Browse extends Controller
                  ->order("count(u.user_id) desc")
                  ->limit(3)
                  ->select();
+                 
+        $tagModel = model('tag');
         foreach($user_master as $key){
-            //查询发布文章图片
-            $article_img = model('tag')->alias("t")
-                        ->join("tagArticle ta","t.tag_id = ta.tag_id")
-                        ->join("article a","a.article_id = ta.article_id")
+            //查询发布文章图片            
+            $article_img = model("article")->alias("a")
                         ->join("user u","u.user_id = a.user_id")
                         ->where("u.user_id=".$key['user_id'])
                         ->where("a.article_img != '[]'")
@@ -28,7 +28,7 @@ class Browse extends Controller
                         ->limit(4)
                         ->select();
             //查询标签
-            $tag = model('tag')->alias("t")
+            $tag = $tagModel->alias("t")
                         ->join("tagArticle ta","t.tag_id = ta.tag_id")
                         ->join("article a","a.article_id = ta.article_id")
                         ->join("user u","u.user_id = a.user_id")

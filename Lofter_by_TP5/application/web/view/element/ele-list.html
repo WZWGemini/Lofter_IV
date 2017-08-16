@@ -5,7 +5,9 @@
 			<!-- 头像 -->
 			<div class="head-portrait-box float-left">
 				<div class="head-portrait float-left box-shadow">
-					<img src="__PUBLIC_UPLOAD__/{$art.user_info.user_head}" class="picture">
+					<a href="/Lofter_by_TP5/public/web/user/goUserHome?uid={$art.user_info.user_id}">
+						<img src="__PUBLIC_UPLOAD__/{$art.user_info.user_head}" data-uid="{$art.user_info.user_id}" class="picture">
+					</a>
 				</div>
 			</div>
 			<!-- 信息列表 -->
