@@ -1,15 +1,15 @@
 <template>
   <!--主页  -->
-    <div class="home">
+    <div class="home" v-touchmove>
          <header>
           <ul class="head-ul">
             <li>
-              <router-link to="/lofter/home/follow" active-class='active' class="home-nav">关注</router-link>
+              <router-link to="/lofter/home/follow" active-class='active' id="follow" class="home-nav">关注</router-link>
             </li>
             <li>
-              <router-link to="/lofter/home/desert" active-class='active' class="home-nav">订阅</router-link>
+              <router-link to="/lofter/home/desert" active-class='active' id="desert" class="home-nav">订阅</router-link>
             </li>
-              <router-link to="/lofter/addFollow"><span class="icon-user-plus"></span></router-link>
+              <router-link to="/addFollow"><span class="icon-user-plus"></span></router-link>
           </ul>
          </header> 
           <transition name="fade" mode="out-in">

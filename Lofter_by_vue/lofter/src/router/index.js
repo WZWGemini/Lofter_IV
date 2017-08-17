@@ -55,10 +55,6 @@ export default new Router({
             // { path: 'addFollow', component: require('../components/home/addFollow') }
           ]
         },
-        // 添加关注子路由
-        { path: 'addFollow',
-          component: require('../components/home/addFollow')
-        },
         // 消息子路由
         { path: 'message',
           component: message
@@ -71,6 +67,9 @@ export default new Router({
         // 我的子路由
         { path: 'mine', component: require('../components/mine/personal') }
       ]
+    },
+    { path: '/addFollow',
+      component: require('../components/home/addFollow')
     },
     {
       path: '/user',
@@ -96,6 +95,11 @@ export default new Router({
       path: '/personal',
       name: 'personal',
       component: require('../components/mine/personal')
+    },
+    {
+      path: '/personalhome',
+      name: 'personalhome',
+      component: require('../view/personal_home')
     }
 
   ]

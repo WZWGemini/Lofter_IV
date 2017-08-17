@@ -1,6 +1,6 @@
 <template>
   <!-- 添加关注 页面 -->
-  <div class="animated slideInRight addFollow">
+  <div :class="['animated','slideInRight','addFollow',{'slideOutRight':leave}]">
     <!--解决顶部导航栏挡住内容问题  -->
     <div class="add-top">
     </div>
@@ -44,12 +44,22 @@ export default {
 
   data () {
     return {
+      leave: false
     }
   },
   methods: {
 
-  }
+  },
+  beforeRouteLeave (to, from, next) {
+    if (to.path === '/lofter/home/follow') {
+      this.leave = true
+      setTimeout(function () {
+        next()
+      }, 800)
+    } else {
 
+    }
+  }
 }
 </script>
 

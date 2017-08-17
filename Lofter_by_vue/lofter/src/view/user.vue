@@ -22,7 +22,9 @@
           </div>
           <!-- 头部用户信息栏 -->
           <div class="heading-info">
-              <div class="heading-user"></div>
+              <div class="heading-user">
+                <img :src="'http://localhost:808/public/'+uinfo.user_head" alt="">
+              </div>
               <p class="heading-username">{{uinfo.user_name}}</p>
 
               <!-- 头部功能栏 -->
@@ -106,7 +108,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['hasLogin', 'uinfo', 'uarticle', 'totalArtNum', 'uArticleNum', 'uLastPage', 'uCurPage'])
+    ...mapState(['hasLogin', 'uinfo', 'uarticle', 'uArticleNum', 'uLastPage', 'uCurPage'])
   },
   beforeRouteEnter (to, from, next) {
     // 由于beforeRouteEnter钩子 在组件被创造之前被调用，所以无法使用this获取组件定义的方法计算属性等
@@ -182,9 +184,9 @@ export default {
   }
 
   .heading-user {
-    background: url("../assets/img/user_head.jpg");
     width: 1.8rem;
     height: 1.8rem;
+    overflow: hidden;
     background-position: center;
     background-size: cover;
     border-radius: 50%;
@@ -192,6 +194,9 @@ export default {
     top: 2rem;
     margin-left:35%;
     border: 3px solid #fff;
+    img{
+      width:100%;
+    }
   }
 
   .heading-username {

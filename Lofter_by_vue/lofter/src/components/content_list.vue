@@ -6,11 +6,11 @@
       <div class="content-list-box">
         <!--内容顶部  -->
         <div class="top">
-          <router-link to="/user">
-            <ul @click="">
+          <router-link to="/personalhome">
+            <ul @click="setId(item.user_id,item.user_name,item.user_head)">
               <!--头像 用户名 时间  -->
               <li class="head-img">
-                  <img src="../assets/img/user_head.jpg">    
+                  <img :src="'http://localhost:808/public/'+item.user_head">    
               </li>
               <li class="user-name">{{item.user_name}}</li>
               <li class="time">{{item.article_time}}</li>
@@ -20,8 +20,7 @@
         <!--内容中部  -->
         <div class="mid">
           <!--短文 图片  -->
-          <img :src="item.img">
-          {{item.article_img}}
+          <img src="http://localhost:808/Public/upload/default_head.jpg">
           <div class="content">
             <p>{{item.article_title}}</p>
             {{item.article_content}}
@@ -70,7 +69,7 @@
       }
     },
     computed: {
-      ...mapState(['curComment']),
+      ...mapState(['curComment', 'ordCurId', 'ordCurName']),
       limit: function () {
         if (this.item.articleComment.length > 3) {
           return this.item.articleComment.slice(0, 3)
@@ -80,10 +79,17 @@
       }
     },
     methods: {
-      ...mapMutations(['setCurComment']),
+      ...mapMutations(['setCurComment', 'setCurId', 'clearOrdInfo']),
       // 设置目前点击微博所需要显示的评论及id
       setCurInfo: function (item) {
         this.setCurComment(item)
+      },
+      setId: function (id, name, head) {
+        if (id !== this.ordCurId) {
+          this.clearOrdInfo()
+        }
+        let info = {id, name, head}
+        this.setCurId(info)
       }
     },
     components: {

@@ -14,13 +14,13 @@ class Article extends Controller
             $user_article = model("article")->alias("a")
                     ->where($wheData)
                     ->join('user u','u.user_id=a.user_id')
-                    ->field('a.*,u.user_name')
+                    ->field('a.*,u.user_name,u.user_head')
                     ->order('a.article_id desc')
                     ->paginate(2);
         } else {
             $user_article = model("article")->alias("a")
             ->join('user u','u.user_id=a.user_id')
-            ->field('a.*,u.user_name')
+            ->field('a.*,u.user_name,u.user_head')
             ->order('a.article_id desc')
             ->paginate(2);
         }

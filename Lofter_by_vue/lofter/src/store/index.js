@@ -11,15 +11,17 @@ const Store = new Vuex.Store({
     // 用于判断是否已经登录
     hasLogin: false,
     // 用于存储 点击其他用户个人页面文章
-    orderArticle: [],
-    oArticleNum: 0, // 该用户文章总数
-    totalOrdArtNum: 0, // 已加载文章总数
-    oLastPage: '', // 该用户TP5返回文章最后一页
-    oCurPage: 0, // 需要下次下拉刷新加载页
+    ordArticle: [],
+    ordCurId: '', // 该用户user_id
+    ordCurName: '', // 该用户user_name
+    ordCurHead: '', // 该用户user_head
+    ordArticleNum: 0, // 该用户文章总数
+    ordLastPage: '', // 该用户TP5返回文章最后一页
+    ordCurPage: 0, // 需要下次下拉刷新加载页
     // 用于存储已登录用户个人界面文章
     uarticle: [],
     uArticleNum: 0, // 用户文章总数
-    totalArtNum: '', // 用于存储已在store中存储了的文章数量
+    totalUArtNum: '', // 用于存储已在store中存储了的文章数量
     uLastPage: '', // 用户文章最后一页
     uCurPage: 0, // 用户文章下次加载页
     // 所有已加载文章
@@ -45,13 +47,24 @@ const Store = new Vuex.Store({
     // unsetUarticle(){
 
     // },
+    // 设置点击他人个人界面文章
+    setOrdarticle (state, article) {
+      // 使用push方法将 新添加的article添加到 uarticle
+      // 例如 uarticle=[1,2] article=[3,4]，使用下述方法后，会变成[1,2,3,4]
+      console.log(article)
+      state.ordArticle.push(...article.data)
+      state.ordArticleNum = article.total
+      state.ordLastPage = article.last_page
+      state.ordCurPage = Number(article.current_page) + 1
+      console.log(state.ordCurPage)
+    },
     // 设置用户个人界面文章
     setUarticle (state, article) {
       // 使用push方法将 新添加的article添加到 uarticle
       // 例如 uarticle=[1,2] article=[3,4]，使用下述方法后，会变成[1,2,3,4]
       console.log(article)
       state.uarticle.push(...article.data)
-      state.totalArtNum = state.uarticle.length
+      state.totalUArtNum = state.uarticle.length
       state.uArticleNum = article.total
       state.uLastPage = article.last_page
       state.uCurPage = Number(article.current_page) + 1
@@ -61,6 +74,17 @@ const Store = new Vuex.Store({
     setCurComment (state, comment) {
       state.curComment = comment
       console.log(state.curComment)
+    },
+    // 设置点击他人头像时所需user_id
+    setCurId (state, info) {
+      state.ordCurId = info.id
+      state.ordCurName = info.name
+      state.ordCurHead = info.head
+      console.log(state.ordCurHead)
+    },
+    // 清楚他人个人页面所有信息
+    clearOrdInfo (state) {
+      state.ordArticle = []
     },
     // 设置所有用户文章
     setAllArticle (state, article) {
@@ -90,6 +114,9 @@ const Store = new Vuex.Store({
     tagClear (state) {
       state.tag = []
     }
+  },
+  getters: {
+
   }
 })
 export default Store
