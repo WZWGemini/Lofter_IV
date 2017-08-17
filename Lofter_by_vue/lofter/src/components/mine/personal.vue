@@ -6,8 +6,8 @@
     <div class="content">
 
       <!-- 头部信息盒子 -->
-      <div class="heading">
-
+      <router-link to="/user">
+        <div class="heading">
           <!-- 头部背景盒子 -->
           <div class="heading-bg">
             <img src="../../assets/img/user_bg.jpg" alt="">
@@ -18,7 +18,7 @@
                   <img src="../../assets/img/user_head.jpg" alt="">
               </div>
               <div class="heading-right">
-                <span class="heading-username">啊哈哈</span>
+                <span class="heading-username">{{uinfo.user_name}}</span>
                 <span class="user-id">ahaha1948</span>
                 <!-- 头部功能栏 -->
                 <div class="heading-function">
@@ -27,29 +27,28 @@
                   <router-link to="/" active-class="a-class">喜欢</router-link>
                 </div>
               </div>
-              
-
-              
           </div>
       </div>
+      </router-link>
+      
       <!-- 功能盒子 -->
       <div class="function-box">
         <ul class="news-class">
           <li>
             <span class="icon-user-plus2 icon"></span>
-            <mt-cell class="cell-class" title="新的粉丝" icon="" is-link to="/"></mt-cell>
+            <mt-cell class="cell-class" title="个人应用" icon="" is-link to="/"></mt-cell>
           </li>  
           <li>
             <span class="icon-heart2 icon"></span>
-            <mt-cell class="cell-class" title="喜欢" icon="" is-link to="/"></mt-cell>
+            <mt-cell class="cell-class" title="摄影课堂" icon="" is-link to="/"></mt-cell>
           </li>
           <li>
             <span class="icon-bubble2 icon"></span>
-            <mt-cell class="cell-class" title="评论" icon="" is-link to="/"></mt-cell>
+            <mt-cell class="cell-class" title="分享wolfter" icon="" is-link to="/"></mt-cell>
           </li>
           <li>
             <span class="icon-sound icon"></span>
-            <mt-cell class="cell-class" title="通知" icon="" is-link to="/"></mt-cell>
+            <mt-cell class="cell-class" title="设置" icon="" is-link to="/"></mt-cell>
           </li>
         </ul>
       </div>
@@ -61,7 +60,7 @@
 
 <script>
 // 单独引入 辅助函数
-
+import {mapState} from 'vuex'
 export default {
   name: 'personal',
   created () {
@@ -74,6 +73,24 @@ export default {
     return {
 
     }
+  },
+  computed: {
+    ...mapState(['uinfo', 'hasLogin'])
+  },
+  beforeRouteEnter (to, from, next) {
+    // 由于beforeRouteEnter钩子 在组件被创造之前被调用，所以无法使用this获取组件定义的方法计算属性等
+    // 要使用next(vm => {}) 就可以获取
+    next(vm => {
+      if (to.path === '/lofter/mine') {
+        // console.log(vm.hasLogin)
+        // 判断是否有登录
+        if (vm.hasLogin) {
+          next()
+        } else {
+          next({ path: '/login' })
+        }
+      }
+    })
   }
 }
 </script>
@@ -144,7 +161,9 @@ export default {
       margin-top: .2rem;
     }
   } 
-  
+  .function-box{
+    overflow: hidden;
+  }
 .news-class {
   width: 100%;
   float: left;

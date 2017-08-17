@@ -4,7 +4,7 @@
 
     <!-- 顶部固定导航栏 -->
     <mt-header fixed class="top-nav" :title="uinfo.user_name">
-      <router-link to="/" slot="left">
+      <router-link :to="backUrl" slot="left">
         <mt-button icon="back"></mt-button>
       </router-link>
       <mt-button icon="more" slot="right"></mt-button>
@@ -48,10 +48,6 @@
       </ul>      
       </div>
     </div>
-    <!--解决底部导航栏挡住内容问题  -->
-    <div style="height:1rem">
-    </div>
-    
   </div>
 </template>
 
@@ -75,33 +71,33 @@ export default {
   data () {
     return {
       showLoading: false,
-      pageNum: 2,
-      loading: true
+      loading: true,
+      backUrl: '/lofter/home/follow'
     }
   },
   methods: {
     ...mapMutations(['setUarticle']),
     loadMore () {
+      console.log(this.uCurPage)
       this.loading = true
       nprogress.start()
       setTimeout(() => {
         // 滚动到底部请求数据
         axios.get('api/article', {
           params: {
-            page: this.pageNum,
+            page: this.uCurPage,
             user_id: this.uinfo.user_id
           }
         }).then((response) => {
           console.log(response)
-          // 调用 mutations的setUarticle方法，将获取到的文章添加到uarticle
-          this.setUarticle(response.data.$user_article)
-          if (this.pageNum !== this.uLastPage) {
-            this.pageNum++
-            console.log(this.pageNum)
+          if (this.uCurPage <= this.uLastPage) {
             this.loading = false
           } else {
             this.loading = true
+            this.$toast('已经到底了！')
           }
+          // 调用 mutations的setUarticle方法，将获取到的文章添加到uarticle
+          this.setUarticle(response.data.$user_article)
           nprogress.done()
         }).catch((error) => {
           console.log(error)
@@ -110,25 +106,25 @@ export default {
     }
   },
   computed: {
-    ...mapState(['hasLogin', 'uinfo', 'uarticle', 'totalArtNum', 'uArticleNum', 'uLastPage'])
+    ...mapState(['hasLogin', 'uinfo', 'uarticle', 'totalArtNum', 'uArticleNum', 'uLastPage', 'uCurPage'])
   },
   beforeRouteEnter (to, from, next) {
     // 由于beforeRouteEnter钩子 在组件被创造之前被调用，所以无法使用this获取组件定义的方法计算属性等
     // 要使用next(vm => {}) 就可以获取
     next(vm => {
-      if (to.path === '/lofter/mine') {
-        // console.log(vm.hasLogin)
-        // 判断是否有登录
-        if (vm.hasLogin) {
-          // 判断在store中是否已经有文章，无则请求，有则不请求
+      // 判断是否有登录
+      if (vm.hasLogin) {
+        if (from.path === '/lofter/mine') {
+          vm.backUrl = from.path
+            // 判断在store中是否已经有文章，无则请求，有则不请求
           if (vm.uarticle.length === 0) {
             axios.get('api/article', {
               params: {
                 user_id: vm.uinfo.user_id
               }
             }).then((response) => {
-              // console.log(response)
-              // 调用 mutations的setUarticle方法，将获取到的文章添加到uarticle
+                // console.log(response)
+                // 调用 mutations的setUarticle方法，将获取到的文章添加到uarticle
               vm.setUarticle(response.data.$user_article)
               vm.loading = false
               next()
@@ -136,12 +132,14 @@ export default {
               console.log(error)
             })
           } else {
-            vm.loading = false
+            if (vm.uCurPage <= vm.uLastPage) {
+              vm.loading = false
+            }
             next()
           }
-        } else {
-          next({ path: '/login' })
         }
+      } else {
+        next({ path: '/login' })
       }
     })
   }

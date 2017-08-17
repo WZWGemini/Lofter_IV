@@ -69,7 +69,7 @@ export default new Router({
           component: require('../components/discover/detail')
         },
         // 我的子路由
-        { path: 'mine', component: user }
+        { path: 'mine', component: require('../components/mine/personal') }
       ]
     },
     {

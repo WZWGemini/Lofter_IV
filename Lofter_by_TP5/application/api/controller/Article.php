@@ -10,8 +10,11 @@ class Article extends Controller
         $inputData = input();
         unset($inputData['page']);
         if (!empty($inputData)) {
+            $wheData = ['a.user_id'=>$inputData['user_id']];
             $user_article = model("article")->alias("a")
-                    ->where($inputData)
+                    ->where($wheData)
+                    ->join('user u','u.user_id=a.user_id')
+                    ->field('a.*,u.user_name')
                     ->order('a.article_id desc')
                     ->paginate(2);
         } else {

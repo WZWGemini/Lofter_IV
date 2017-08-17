@@ -7,7 +7,7 @@
         <!--内容顶部  -->
         <div class="top">
           <router-link to="/user">
-            <ul>
+            <ul @click="">
               <!--头像 用户名 时间  -->
               <li class="head-img">
                   <img src="../assets/img/user_head.jpg">    

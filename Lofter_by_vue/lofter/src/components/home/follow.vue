@@ -52,12 +52,11 @@ export default{
           this.closeHeadImg()
         }
       }],
-      pageNum: 2,
       loading: true // 无限刷新锁
     }
   },
   computed: {
-    ...mapState(['allArticle', 'totalAllArtNum', 'allLastPage'])
+    ...mapState(['allArticle', 'totalAllArtNum', 'allLastPage', 'allCurPage', 'allArticleNum'])
   },
   methods: {
     ...mapMutations(['setAllArticle']),
@@ -74,17 +73,16 @@ export default{
       // 滚动到底部请求数据
         axios.get('api/article', {
           params: {
-            page: this.pageNum
+            page: this.allCurPage
           }
         }).then((response) => {
           // 调用 mutations的setUarticle方法，将获取到的文章添加到uarticle
           this.setAllArticle(response.data.$user_article)
-          if (this.pageNum !== this.allLastPage) {
-            this.pageNum++
-            console.log(this.pageNum)
+          if (this.allCurPage <= this.allLastPage) {
             this.loading = false
           } else {
             this.loading = true
+            this.$toast('已经到底了！')
           }
           nprogress.done()
         }).catch((error) => {
@@ -113,7 +111,9 @@ export default{
             console.log(error)
           })
         } else {
-          vm.loading = false
+          if (vm.allCurPage <= vm.allLastPage) {
+            vm.loading = false
+          }
           next()
         }
       }
