@@ -1,6 +1,8 @@
 <?php
 namespace app\web\controller;
 use think\Controller;
+use think\Request;
+use app\web\model\User as userModel;
 
 class User extends Controller
 {
@@ -49,10 +51,14 @@ class User extends Controller
         $user_article_num = model("article")->alias("a")
                             ->field("count(*) AS num")->where("a.user_id=".$user_info['user_id'])
                             ->find();
+        //查询用户关注数量
+        $user_attention_num = model("concern")->field("count(*) AS num")
+                            ->where("user_id=".$user_info['user_id'])->find();
         //插入查询信息
         $user_info[ "user_article_num" ] = $user_article_num['num'] ;
         $user_info["user_message_num"] = 0;
-        $user_info["user_attention_num"] = 0;
+	//------------------------------------------------------------
+        $user_info["user_attention_num"] = $user_attention_num['num'];
         //设置用户session
         session("user_info",$user_info);
         return ['status'=>1,"msg"=>"登录成功",'data'=>$user_info];
@@ -61,7 +67,6 @@ class User extends Controller
     //退出
     public function logout(){
         session("user_info",null);
-        return ['status'=>1,"msg"=>"退出成功"];
     }
 
     //查询用户是否存在
@@ -74,7 +79,6 @@ class User extends Controller
             return ['status'=>0,"msg"=>"用户存在"];
         }
     }
-
     //个人主页
     public function goUserHome(){
         $uid = input("uid");
@@ -94,6 +98,36 @@ class User extends Controller
         $this->assign('blog',$blog);
         $this->assign('user',$user);
         return $this->fetch("userHome");
+    }
+    // //悬停显示数据
+    // public function hoverShow(Request $request){
+    //     $id = $request->get("user_id") ;
+    //     $user = userModel::get($id,"blogs");
+    //     //关联查询
+    //     $search = $user->blogs()->limit(3)->order("article_id DESC")->select();
+
+    //     $show = array();
+    //     foreach($search as $key => $val ){
+    //         $show[] = $val->getdata();
+    //     }
+                
+    //     $this->assign("user_info", $user);
+    //     $this->assign("hover_show", $show);
+    //     $html = $this->fetch('hoverShow');
+    //     // return $html;
+    //     return ["status" => 1 , "msg" => 'haha' ,"html" => $html];
+
+    // }
+
+    
+    public function getUserInfo(){
+        //爬取用户列表的文件路径
+        $file = $_SERVER['DOCUMENT_ROOT']."/Lofter_by_TP5/application/bin/user/u0.json";
+        //获取文件数据
+        $user_json = file_get_contents($file);
+        //
+        $user_arr = json_decode($user_json);
+        dump($user_arr);
     }
 
 }

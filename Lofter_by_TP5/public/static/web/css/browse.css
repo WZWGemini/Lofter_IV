@@ -108,13 +108,6 @@ p,li,ul{
 /***********************浏览的标签页面****************************/
 
 /***************随机标签盒子*****************/
-.ran-box .list-img{
-	margin: 0 !important;
-}
-.ran-box .list-img a{
-	display: inline-block;
-	width: 100%;
-}
 .ran-box,#topic_box{
 	background: white;
 	overflow: hidden;
@@ -128,12 +121,10 @@ p,li,ul{
     overflow: hidden;   
 }
 .ran-item{
-	box-sizing: border-box;
 	font-size: 0px;
 	float: left;
-	padding-right: 10px;
-	padding-bottom: 10px;
-	width: 20%;
+	margin-right: 10px;
+	margin-bottom: 10px;
 }
 .ran-item a{
 	display: inline-block;
@@ -274,7 +265,7 @@ p,li,ul{
 	margin: 0 auto;
 	margin-bottom: 30px;
 	background-color: #fff;
-	background: url('../../public/img/bgb.png') repeat-y right top;
+	background: url('../img/bgb.png') repeat-y right top;
 	/* background-position: 0 bottom; */
 }
 #daren a{
@@ -365,7 +356,7 @@ p,li,ul{
 	width: 60px;
 	height: 60px;
 	margin: 0 20px 0 0;
-	background-color: pink;
+	/* background-color: pink; */
 }
 #daren h3{
 	position: relative;
@@ -388,7 +379,7 @@ p,li,ul{
 	font-size: 16px;
 	color: #333;
 }
-#daren .user-care{
+/* #daren .user-care{
 	float: right;
 	width: 78px;
 	height: 35px;
@@ -399,7 +390,7 @@ p,li,ul{
 	letter-spacing: 2px;
 	line-height: 35px;
 	text-align: center;
-
+	display: none;
 }
 #daren .user-care b{
 	margin: 0 3px 0 0;
@@ -409,12 +400,30 @@ p,li,ul{
 	font-weight: bold;
 	text-shadow: 0 1px 0 #759b00;
 }
+#daren .user-uncare{
+	float: right;
+	width: 78px;
+	height: 35px;
+	background: #e5e5e5;
+	letter-spacing: 0;
 
+	border-radius: 2px;
+	letter-spacing: 2px;
+	line-height: 35px;
+	text-align: center;
+}
 #daren .user-care span{
 	font-size: 16px;
 	color: #fff;
 	text-shadow: 0 1px 0 rgba(117,155,0,0.65);
 	vertical-align: 2px;
+} */
+#daren .user-uncare span{
+	font-size: 14px;
+	color: #888;
+	text-shadow: none;
+	vertical-align: 0;
+	letter-spacing: 0;
 }
 
 #daren .user-info-tag{
@@ -467,7 +476,6 @@ p,li,ul{
 #daren section .right{
 	float: right;
 	width: 278px;
-
 }
 
 #daren section .right ul{
@@ -491,7 +499,7 @@ p,li,ul{
 	display: block;
 	padding: 12px 30px 10px 50px;
 	height: 20px;
-	background: url('../../public/img/icn24.png') no-repeat;
+	background: url('../img/icn24.png') no-repeat;
 	border: 0;
 	background-color: transparent;
 	background-position: 0 -160px;
@@ -573,6 +581,6 @@ p,li,ul{
 	height: 50px;
 	overflow: hidden;
 	text-indent: -2000px;
-	background: url('../../public/img/icon2-8.png?047') no-repeat 999px 999px;
+	background: url('../img/icon2-8.png?047') no-repeat 999px 999px;
 	background-position: 0 -934px;
 }

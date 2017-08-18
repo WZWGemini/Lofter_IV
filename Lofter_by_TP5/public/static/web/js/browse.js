@@ -16,37 +16,37 @@ $(function(){
 	})
 
 	// 滚动事件
-	$doc.scroll(function(e) {
-		let page_h=$doc.height();			//文档高度（总高度）
-		let screen_h=$(window).height();	//浏览器窗口高度
-		let scroll_h=$doc.scrollTop();		//滚动条高度
-		let height=page_h - screen_h;		
-		if(page_h - screen_h - scroll_h <= 200){			
-			if (flag) {
-				flag=false;
-				// 调用接口，获取数据数组
-				$.post("/Lofter_by_TP5/public/web/blog/selectBlog",function(rtnData){
-					console.log(rtnData.html);
-					if (rtnData.status==1) {
-						// 如果有数据,添加到最小索引的列
-						flag=true;						
-						rtnData.data.forEach(function(val,item){							
-							setTimeout(function(){
-								let index = min_index();
-								let obj=rtnString(val);
-								$waterfall.eq(index).append(obj);
-							},item*500)
-						});
-					}else if(rtnData.status==0){
-						// 如果返回一个空数据数组,flag=false,永远关闭，不会再请求接口
-						flag=false;
-					}				
-				})
-			}else{
-				return;
-			}
-		}
-	});
+	// $doc.scroll(function(e) {
+	// 	let page_h=$doc.height();			//文档高度（总高度）
+	// 	let screen_h=$(window).height();	//浏览器窗口高度
+	// 	let scroll_h=$doc.scrollTop();		//滚动条高度
+	// 	let height=page_h - screen_h;		
+	// 	if(page_h - screen_h - scroll_h <= 200){			
+	// 		if (flag) {
+	// 			flag=false;
+	// 			// 调用接口，获取数据数组
+	// 			$.post("/Lofter_by_TP5/public/web/blog/selectBlog",function(rtnData){
+	// 				console.log(rtnData.html);
+	// 				if (rtnData.status==1) {
+	// 					// 如果有数据,添加到最小索引的列
+	// 					flag=true;						
+	// 					rtnData.data.forEach(function(val,item){							
+	// 						setTimeout(function(){
+	// 							let index = min_index();
+	// 							let obj=rtnString(val);
+	// 							$waterfall.eq(index).append(obj);
+	// 						},item*500)
+	// 					});
+	// 				}else if(rtnData.status==0){
+	// 					// 如果返回一个空数据数组,flag=false,永远关闭，不会再请求接口
+	// 					flag=false;
+	// 				}				
+	// 			})
+	// 		}else{
+	// 			return;
+	// 		}
+	// 	}
+	// });
 
 	// 获取每列高度返回最小索引
 	function min_index(){
@@ -72,6 +72,35 @@ $(function(){
 		return result_index;
 	}
 
+	function rtnString(water){
+		let img = JSON.parse(water.article_img);
+		// console.log(img);
+		let str='<div class="waterfall-box">'+
+					'<div class="waterfall-user">'+
+						'<a class="span-img float-left">'+
+							'<img src="'+water.user_head+'" class="img">'+
+						'</a>'+
+						'<a>'+
+							'<span class="txt bro-txt">'+water.user_name+'</span>'+
+						'</a>'+
+						'<a href="" class="bro-follow">关注</a>'+
+					'</div>'+
+					'<div class="waterfall-img">'+
+						'<img src="'+img[0]+'" class="img">'+
+					'</div>'+
+					'<div class="waterfall-content">'+
+						'<div class="content-txt">'+
+							'<p>'+water.article_content+'</p>'+
+						'</div>'+
+					'</div>'+
+					'<div class="waterfall-likeIt">'+
+						'<a class="bro-likeIt"></a>'+
+						'<span>58人喜欢</span>'+
+					'</div>'+
+				'</div>'
+		return str;
+	}
+
 	//点击返回标签模板页
 	$(".bq").on('click',function(){
 		$.post("/Lofter_by_TP5/public/web/browse/browseTags",function(res){
@@ -88,5 +117,4 @@ $(function(){
 			}
 		})
 	})
-
 })
