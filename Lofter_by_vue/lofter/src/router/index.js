@@ -105,6 +105,11 @@ export default new Router({
       path: '/personalhome',
       name: 'personalhome',
       component: require('../view/personal_home')
+    },
+    {
+      path: '/test',
+      name: 'test',
+      component: require('../components/shop/home_top_nav')
     }
 
   ]
