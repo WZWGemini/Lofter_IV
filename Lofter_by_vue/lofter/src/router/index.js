@@ -96,6 +96,11 @@ export default new Router({
       path: '/personal',
       name: 'personal',
       component: require('../components/mine/personal')
+    },
+    {
+      path: '/tag/:tag_id',
+      name: 'tag',
+      component: require('../view/tag')
     }
 
   ]

@@ -33,7 +33,8 @@ const Store = new Vuex.Store({
     curArtId: '',
     curArticleIndex: '',
     // 存储用户标签
-    tag: []
+    tag: [],
+    tagArticleInfo: []
   },
   mutations: {
     // 设置用户信息
@@ -89,6 +90,14 @@ const Store = new Vuex.Store({
     // 清空标签
     tagClear (state) {
       state.tag = []
+    },
+    // 保存同标签文章
+    tagArticleSave (state, value) {
+      if (state.tagArticleInfo !== []) {
+        state.tagArticleInfo = []
+        state.tagArticleInfo.push(value)
+        console.log(state.tagArticleInfo)
+      }
     }
   }
 })
