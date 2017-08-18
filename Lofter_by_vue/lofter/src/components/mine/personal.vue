@@ -15,7 +15,7 @@
           <!-- 头部用户信息栏 -->
           <div class="heading-info">
               <div class="heading-user">
-                  <img src="../../assets/img/user_head.jpg" alt="">
+                  <img :src="'http://localhost:808/public/'+uinfo.user_head" alt="">
               </div>
               <div class="heading-right">
                 <span class="heading-username">{{uinfo.user_name}}</span>
