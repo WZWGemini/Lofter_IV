@@ -23,7 +23,7 @@
           <!-- 头部用户信息栏 -->
           <div class="heading-info">
               <div class="heading-user">
-                <img :src="'http://localhost:808/public/'+uinfo.user_head" alt="">
+                <img :src="uinfo.user_head" alt="">
               </div>
               <p class="heading-username">{{uinfo.user_name}}</p>
 

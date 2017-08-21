@@ -31,7 +31,7 @@
             </div>
             <div class="user-album">
                <div class="img-box" v-for="item in JSON.parse(tagarticle.article_img)"> 
-                 <img :src="'http://localhost:808'+item"> 
+                 <img :src="item"> 
               </div>
             </div>
         </div>
@@ -50,7 +50,8 @@ export default {
   },
   data () {
     return {
-      follow_class: ''
+      follow_class: '',
+      value: ''
     }
   },
   computed: {

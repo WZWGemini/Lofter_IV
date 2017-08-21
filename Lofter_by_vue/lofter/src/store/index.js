@@ -42,6 +42,7 @@ const Store = new Vuex.Store({
     // 设置用户信息(登录)
     setUinfo (state, info) {
       state.uinfo = info
+      console.log(info)
       state.hasLogin = true
     },
     unsetUinfo (state) {
@@ -102,6 +103,9 @@ const Store = new Vuex.Store({
       state.allLastPage = article.last_page
       state.allCurPage = Number(article.current_page) + 1
       state.allArticleNum = article.total
+      console.log(state.allArticle)
+      console.log(state.allLastPage)
+      console.log(state.allCurPage)
     },
     // 保存标签
     tagSave (state, value) {

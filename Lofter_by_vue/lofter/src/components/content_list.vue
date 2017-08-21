@@ -10,7 +10,7 @@
             <ul @click="setId(item.user_id,item.user_name,item.user_head)">
               <!--头像 用户名 时间  -->
               <li class="head-img">
-                  <img :src="'http://localhost:808/public/'+item.user_head">    
+                  <img :src="item.user_head">    
               </li>
               <li class="user-name">{{item.user_name}}</li>
               <li class="time">{{item.article_time}}</li>
@@ -21,7 +21,8 @@
         <div class="mid">
           <!--短文 图片  -->
           <div class="mid-img-box" v-for="img in JSON.parse(item.article_img)">
-              <img :src="'http://localhost:808/'+img">
+              <!-- <img :src="'http://localhost:808/'+img"> 数据库数据改变，可能需要匹配是否是用户自己发布-->
+              <img :src="img">
           </div>
           <div class="content">
             <p>{{item.article_title}}</p>

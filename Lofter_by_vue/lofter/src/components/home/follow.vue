@@ -56,7 +56,7 @@ export default{
     }
   },
   computed: {
-    ...mapState(['allArticle', 'totalAllArtNum', 'allLastPage', 'allCurPage', 'allArticleNum'])
+    ...mapState(['allArticle', 'totalAllArtNum', 'allLastPage', 'allCurPage', 'allArticleNum', 'uinfo', 'hasLogin'])
   },
   methods: {
     ...mapMutations(['setAllArticle']),
@@ -71,11 +71,13 @@ export default{
       nprogress.start()
       setTimeout(() => {
       // 滚动到底部请求数据
-        axios.get('api/article', {
+        axios.get('api/concern', {
           params: {
-            page: this.allCurPage
+            page: this.allCurPage,
+            user_id: this.uinfo.user_id
           }
         }).then((response) => {
+          console.log(response)
           // 调用 mutations的setUarticle方法，将获取到的文章添加到uarticle
           this.setAllArticle(response.data.$user_article)
           if (this.allCurPage <= this.allLastPage) {
@@ -94,28 +96,34 @@ export default{
    // 使用导航钩子 检查跳转
   beforeRouteEnter (to, from, next) {
     next(vm => {
-      if (to.path === '/lofter/home/follow') {
-        // 发送请求
-        console.log(vm.totalAllArtNum)
-        if (vm.totalAllArtNum === 0) {
-          axios.get('/api/article', {
-
-          }).then((response) => {
-            console.log(response)
-            if (response.data.status === 1) {
-              vm.setAllArticle(response.data.$user_article)
+      if (vm.hasLogin) {
+        if (to.path === '/lofter/home/follow') {
+          // 发送请求
+          console.log(vm.totalAllArtNum)
+          if (vm.totalAllArtNum === 0) {
+            axios.get('/api/concern', {
+              params: {
+                user_id: vm.uinfo.user_id
+              }
+            }).then((response) => {
+              console.log(response)
+              if (response.data.status === 1) {
+                vm.setAllArticle(response.data.$user_article)
+                vm.loading = false
+                next()
+              }
+            }).catch((error) => {
+              console.log(error)
+            })
+          } else {
+            if (vm.allCurPage <= vm.allLastPage) {
               vm.loading = false
-              next()
             }
-          }).catch((error) => {
-            console.log(error)
-          })
-        } else {
-          if (vm.allCurPage <= vm.allLastPage) {
-            vm.loading = false
+            next()
           }
-          next()
         }
+      } else {
+        next('/login')
       }
     })
   }
