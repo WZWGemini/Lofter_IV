@@ -36,7 +36,10 @@ const Store = new Vuex.Store({
     curArticleIndex: '',
     // 存储用户标签
     tag: [],
-    tagArticleInfo: []
+    tagArticleInfo: [],
+    // 商城模块
+    // 是记录用户选择加入购物车的列表状态
+    cartList: []
   },
   mutations: {
     // 设置用户信息
@@ -122,6 +125,10 @@ const Store = new Vuex.Store({
         state.tagArticleInfo.push(value)
         console.log(state.tagArticleInfo)
       }
+    },
+    // 保存购物车信息
+    setCart (state, info) {
+      state.cartList.push(info)
     }
   },
   getters: {

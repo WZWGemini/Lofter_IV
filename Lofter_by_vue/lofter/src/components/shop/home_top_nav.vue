@@ -1,7 +1,9 @@
 <template class="topNav-view">
   <div class="topNav">
     <ul>
-      li
+      <li class="li-left">
+        <router-link to="" class="link-class"><span class="icon-user"></span></router-link>
+      </li>
     </ul>
   </div>
 </template>
@@ -9,7 +11,7 @@
 <style lang="scss">
 @import '../../assets/common.scss';
 
-/* 底部导航栏样式 */
+/* 顶部导航栏样式 */
 .topNav{
 	width: 100%;
 	position: fixed;
@@ -20,7 +22,7 @@
     text-align: center;
     width: 100%;
     li {
-      width: 23%;
+      // width: 23%;
       padding: .15rem 0 .1rem;
       display: inline-block;
       text-align: center;
@@ -30,6 +32,10 @@
           font-size: .3rem;
         }
       }
+    }
+    .li-left {
+      float: left;
+      padding-left: .2rem;
     }
     li:focus {
       background-color: $topic_hcolor;

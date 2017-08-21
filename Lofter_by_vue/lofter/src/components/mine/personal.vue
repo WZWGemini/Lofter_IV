@@ -36,7 +36,7 @@
         <ul class="news-class">
           <li>
             <span class="icon-user-plus2 icon"></span>
-            <mt-cell class="cell-class" title="个人应用" icon="" is-link to="/"></mt-cell>
+            <mt-cell class="cell-class" title="lowfter商城" icon="" is-link to="/test"></mt-cell>
           </li>  
           <li>
             <span class="icon-heart2 icon"></span>

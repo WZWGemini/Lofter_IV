@@ -57,6 +57,13 @@ $topic_hcolor:#488283;
             transform: rotate(3deg) translate(0px, -4px);
   }
   
+  ul li {
+    margin: 0;
+    padding: 0;
+  }
+  .red{
+    color: red;
+  }
   /* Remove these to get rid of the spinner */
   #nprogress .spinner {
     display: block;

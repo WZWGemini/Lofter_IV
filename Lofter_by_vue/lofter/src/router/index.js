@@ -109,7 +109,7 @@ export default new Router({
     {
       path: '/test',
       name: 'test',
-      component: require('../components/shop/home_top_nav')
+      component: require('../components/shop/shop_detail')
     }
 
   ]
