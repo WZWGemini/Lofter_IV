@@ -20,7 +20,9 @@
         <!--内容中部  -->
         <div class="mid">
           <!--短文 图片  -->
-          <img src="http://localhost:808/Public/upload/default_head.jpg">
+          <div class="mid-img-box" v-for="img in JSON.parse(item.article_img)">
+              <img :src="'http://localhost:808/'+img">
+          </div>
           <div class="content">
             <p>{{item.article_title}}</p>
             {{item.article_content}}

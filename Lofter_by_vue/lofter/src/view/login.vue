@@ -2,7 +2,7 @@
   <!--登陆界面  -->
   <div class="login">
     <mt-header fixed title="登录LOFTER" class="top-nav">
-      <router-link to="/" slot="left">
+      <router-link to="/guide" slot="left">
         <mt-button icon="back"></mt-button>
       </router-link>
     </mt-header>

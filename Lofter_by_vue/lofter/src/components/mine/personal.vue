@@ -37,7 +37,7 @@
           <li>
             <span class="icon-user-plus2 icon"></span>
             <mt-cell class="cell-class" title="个人应用" icon="" is-link to="/"></mt-cell>
-          </li>  
+          </li>
           <li>
             <span class="icon-heart2 icon"></span>
             <mt-cell class="cell-class" title="摄影课堂" icon="" is-link to="/"></mt-cell>
@@ -48,7 +48,7 @@
           </li>
           <li>
             <span class="icon-sound icon"></span>
-            <mt-cell class="cell-class" title="设置" icon="" is-link to="/"></mt-cell>
+            <mt-cell class="cell-class" title="退出" icon="" is-link to="/guide" @click.native="loginOut()"></mt-cell>
           </li>
         </ul>
       </div>
@@ -60,7 +60,7 @@
 
 <script>
 // 单独引入 辅助函数
-import {mapState} from 'vuex'
+import {mapState, mapMutations} from 'vuex'
 export default {
   name: 'personal',
   created () {
@@ -76,6 +76,13 @@ export default {
   },
   computed: {
     ...mapState(['uinfo', 'hasLogin'])
+  },
+  methods: {
+    ...mapMutations(['unsetUinfo']),
+    loginOut () {
+      this.unsetUinfo()
+      this.$toast('成功退出！')
+    }
   },
   beforeRouteEnter (to, from, next) {
     // 由于beforeRouteEnter钩子 在组件被创造之前被调用，所以无法使用this获取组件定义的方法计算属性等

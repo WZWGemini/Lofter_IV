@@ -38,10 +38,14 @@ const Store = new Vuex.Store({
     tag: []
   },
   mutations: {
-    // 设置用户信息
+    // 设置用户信息(登录)
     setUinfo (state, info) {
       state.uinfo = info
       state.hasLogin = true
+    },
+    unsetUinfo (state) {
+      state.uinfo = []
+      state.hasLogin = false
     },
     // 将uarticle 置空
     // unsetUarticle(){

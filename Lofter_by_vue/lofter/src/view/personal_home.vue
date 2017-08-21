@@ -15,7 +15,7 @@
   
         <!-- 头部信息盒子 -->
         <div class="heading">
-  
+          
             <!-- 头部背景盒子 -->
             <div class="heading-bg">
               <img src="../assets/img/user_bg.jpg" alt="">
@@ -26,12 +26,11 @@
                     <img :src="'http://localhost:808/public/'+ordCurHead" alt="">
                 </div>
                 <p class="heading-username">{{ordCurName}}</p>
-  
                 <!-- 头部功能栏 -->
                 <div class="heading-function">
-                  <router-link to="/" active-class="a-class">关注</router-link>
-                  <router-link to="/" active-class="a-class">粉丝</router-link>
-                  <router-link to="/" active-class="a-class">喜欢</router-link>
+                  <span>粉丝</span>
+                  <span v-show="false">已关注</span>
+                  <span @click="follow">关注</span>
                 </div>
             </div>
         </div>
@@ -202,8 +201,14 @@
     .heading-function {
       display:block;
       text-align:center;
-      font-size: .25rem;
       margin-top: .1rem;
+      line-height: .25rem;
+      span{
+        padding:.1rem .2rem;
+        background-color:red;
+        font-size: .25rem;
+        margin:0 .2rem; // span 在文档流中无上下外边距
+      }
     }
     .blog-list{
       font-size: .3rem;

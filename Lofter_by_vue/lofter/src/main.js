@@ -11,6 +11,8 @@ import MintUI from 'mint-ui'
 import 'mint-ui/lib/style.css'
 import 'animate.css/animate.min.css'
 import '../src/assets/style.css'
+// 引入 fastClick  解决移动端点击延迟300ms问题
+import fastclick from 'fastclick'
 import direct from './direct'
 Vue.prototype.$http = Axios
 // 关闭生产环境时错误提示
@@ -33,6 +35,9 @@ Vue.use(MintUI);
   win.addEventListener(resizeEvt, recalc, false)
   doc.addEventListener('DOMContentLoaded', recalc, false)
 })(document, window)
+window.addEventListener('load', () => {
+  fastclick.attach(document.body)
+})
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
