@@ -30,7 +30,9 @@
           <!--标签  -->
           <div class="tag" v-if="item.articleTag.length!=0">
             <span class="icon-price-tag"></span>
-            <span v-for="tag in item.articleTag">{{tag.tag_content}}</span>
+            <span v-for="tag in item.articleTag">
+              <router-link :to="'/tag/'+ tag.tag_id">{{tag.tag_content}}</router-link>
+            </span>
           </div>
         </div>
         <!--底部  -->
@@ -63,11 +65,13 @@
 </template>
 <script>
   import {mapState, mapMutations} from 'vuex'
+
   export default{
     props: ['item'],
     data () {
       return {
-
+        err: '',
+        post: ''
       }
     },
     computed: {

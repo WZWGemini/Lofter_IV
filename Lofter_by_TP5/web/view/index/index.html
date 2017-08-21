@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Lofter</title>
+	<link rel="stylesheet" href="__PUBLIC_LOFTER__/lib/Bootstrap3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="__PUBLIC_LOFTER__/css/rebuild.css">
+	<link rel="stylesheet" href="__PUBLIC_LOFTER__/css/index.css">
+	<script src="__PUBLIC_LOFTER__/lib/Bootstrap3.3.7/js/jquery-1.11.1.min.js"></script>
+	<script src="__PUBLIC_LOFTER__/lib/Bootstrap3.3.7/js/bootstrap.min.js"></script>
+	<script src="__PUBLIC_LOFTER__/js/user.js"></script>
+</head>
+<body style="background: #EDEDEF;">
+	<div class="page">
+		<!-- 顶部导航 -->
+		{include file='element/ele-header'}
+
+		<div id="center" class="container">
+			<!-- 用户信息 -->
+			{include file='element/ele-customer'}
+
+			<!-- 头部导航 -->
+			<div id="header" class="float-left">
+				<ul class="header-ul box-shadow">
+					<li href="" class="t1">
+						<a href="{:url('userHome')}">		
+						 <img src="__PUBLIC_UPLOAD__/{$user_info.user_head}" alt="">
+						</a>
+					</li>
+					<li class="t2"><a href="#text_modal" data-toggle="modal"></a></li>
+					<li class="t3"><a href="#text_modal" data-toggle="modal"></a></li>
+					<li class="t4"><a href="#music_modal" data-toggle="modal"></a></li>
+					<li href="#vedio_modal" class="t5" data-toggle="modal"></li>
+					<li class="t6"><a href="{:url('lognArticle')}"></a></li>
+				</ul>			
+			</div>				
+
+			<!-- 信息列表大盒子 -->
+			
+			<div id="information" class="float-left">
+				<!-- 正常文章显示块 -->
+				{include file='element/ele-list'}
+				<!-- 长文章显示块 -->
+				{include file='element/ele-longArticle'}
+			
+			</div>
+			
+		</div>
+
+	</div>
+
+	<!-- 鼠标经过显示 -->
+	<div id="window_show" class="window_show" style="display: none;">
+		<div class="show-box">
+			<div class="show-top">
+				<div class="show-header">
+					<a class="span-img float-left">
+						<img src="../public/img/sc4-4.png" class="img">
+					</a>					
+					<span class="txt a-text">Lofter摄影达人</span>
+					<span class="txt a-text">
+						<a class="" href="" target="_blank">文章</a>
+						<a class="" href="" target="_blank">喜欢</a>
+						<a class="" href="" target="_blank">关注</a>
+					</span>
+					<a class="user-care">
+						<b>+</b>
+						<span>关注</span>
+					</a>
+				</div>
+				<div class="show-body">
+					<ul class="show-body-ul">
+						<li>
+							<a href="" class="show-img">
+								<img src="../public/img/lofter.jpg" class="img">
+							</a>
+						</li>
+						<li>
+							<a href="" class="show-img">
+								<img src="../public/img/lofter.jpg" class="img">
+							</a>
+						</li>
+						<li>
+							<a href="" class="show-img">
+								<img src="../public/img/lofter.jpg" class="img">
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="show-footer">
+				<div class="m-daren">
+				<span class="moredr">更多相似达人：</span>
+					<a class="text-hidden" href="" target="_blank" onclick="">上官追月</a>、
+					<a class="text-hidden" href="" target="_blank" onclick="">猎影人</a>、
+					<a class="text-hidden" href="" target="_blank" onclick="">LOFTER手帐文具...</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- 文字弹窗 -->
+	<div class="modal fade" id="text_modal"> 
+	    <div class="modal-dialog" role="document">  
+	        <div class="modal-content">
+	        <form action="" id="text_form_modal"> 
+	            <div class="modal-header">  
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">  
+	                    <span aria-hidden="true">×</span>  
+	                </button>  
+	                <h4 class="modal-title" id="modal_name">
+						{$user_info['user_name']}
+					</h4>
+	            </div>  
+	            <div class="modal-body">  
+		            <div class="form-group">
+						<input type="text" id="blog_title" name="article_title" class="form-control" placeholder="标题（可不填）">
+					</div>
+					<div class="form-group" id="ueditor">
+						<script id="container" name="content" type="text/plain"></script>
+					</div>
+					<div  class="form-group">
+						<div id="tags_area">
+							<div class="tag_lists"></div>
+							<input type="text" class="tag-add" placeholder="添加相关标签" maxlength="5" size="6">
+						</div>
+						<!-- <div id="tags_hide">
+
+						</div> -->
+					</div>
+				</div>
+				</form>           
+	            <div class="modal-footer">  
+	                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>  
+	                <button type="button" class="btn btn-success" onclick="blog.publish()">发布</button>  
+	            </div>  
+	        </div>  
+	    </div>  
+	</div>
+
+	<!-- 文字编辑弹窗 -->
+	<div class="modal fade" id="edit_modal"> 
+	    <div class="modal-dialog" role="document">  
+	        <div class="modal-content">
+	        <form action="" id="edit_form_modal"> 
+	            <div class="modal-header">  
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">  
+	                    <span aria-hidden="true">×</span>  
+	                </button>  
+	                <h4 class="modal-title" id="modal_name">
+						{$user_info['user_name']}
+					</h4>
+	            </div>  
+	            <div class="modal-body">  
+		            <div class="form-group">
+						<input type="text" id="blog_title_edit" name="article_title" class="form-control" placeholder="标题（可不填）">
+						<input type="hidden" value="" id="edit_blog_id">
+					</div>
+					<div class="form-group" id="ueditor">
+						<script id="container_edit" name="content" type="text/plain"></script>
+					</div>
+					<div  class="form-group">
+						<div id="tags_area">
+							<div class="tag_lists"></div>
+							<input type="text"  class="tag-add" placeholder="添加相关标签">
+						</div>
+						<div id="tags_hide">
+
+						</div>
+					</div>
+				</div>
+				</form>           
+	            <div class="modal-footer">  
+	                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>  
+	                <button type="button" class="btn btn-success" onclick="blog.edit()">发布</button>  
+	            </div>  
+	        </div>  
+	    </div>  
+	</div>
+
+	<!-- 删除 -->
+	<div class="modal fade" id="delete" role="dialog" aria-labelledby="myModalLabel"> 
+	    <div class="modal-dialog" role="document">  
+	        <div class="modal-content">  
+	            <div class="modal-header">  
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">  
+	                    <span aria-hidden="true">×</span>  
+	                </button>  
+	                <h4 class="modal-title" id="myModalLabel">删除信息</h4>
+	            </div>  
+	            <div class="modal-body">  
+	                <p>是否删除</p>
+	                <input type="hidden" id="del_blog_id" value=""> 
+	            </div>  
+	            <div class="modal-footer">  
+	                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button> 
+	                <button type="button" class="btn btn-success" onclick="blog.deleted()">确认</button>  
+	            </div>  
+	        </div>  
+	    </div>  
+	</div>
+
+	<!-- 音乐弹窗 -->
+	<div class="modal fade" id="music_modal"> 
+	    <div class="modal-dialog" role="document">  
+	        <div class="modal-content">
+	        <form action="" id="music_form_modal"> 
+	            <div class="modal-header">  
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">  
+	                    <span aria-hidden="true">×</span>  
+	                </button>  
+	                <h4 class="modal-title" id="modal_name">
+						<{$user_info['user_name']}>
+					</h4>
+	            </div>  
+	            <div class="modal-body">  
+		            <div class="form-group search_music">
+						<input type="text" id="search_music" class="form-control" placeholder="请用歌名、专辑、艺术家搜索">
+					</div>
+					<div class="confirm-music-box">
+						<div class="confirm-music">
+							<div class="mimg">
+								<img id="music_pic" class="img" src="http://p1.music.126.net/MTezDI43DEgzxCtfvr_xvg==/109951162880873120.jpg?param=150x150x1">
+							</div>
+							<div class="music">
+								<audio id="music" src="http://music.163.com/song/media/outer/url?id=108242" type="" controls="controls"></audio>
+							</div>
+							<a class="music-close" title="关闭"></a>
+						</div>
+					</div>
+					<div id="music_list">
+						<ul id="music_list_ul">
+							<!-- <li>
+								<span class="singer">侧田</span>
+								<span>————</span>
+								<span class="song-info">[DJ节目]你個名的DJ节目 第14期</span>
+							</li>	 -->						
+						</ul>
+						<div id="page_flip">
+							<a href="#" class="previous-page">上一页</a>
+							<a href="#" class="next-page">下一页</a>
+							<span>
+								共有
+								<span class="song-list">486</span>
+								首相关歌曲（来自
+								<a target="_blank" href="http://music.163.com">网易云音乐</a>)
+							</span>
+						</div>
+					</div>					
+					<div id="music_text">
+						<div class="form-group" id="ueditor">
+							<script id="container_music" name="article_content" type="text/plain"></script>
+						</div>
+						<div  class="form-group">
+							<div id="tags_area">
+								<div class="tag_lists"></div>
+								<input type="text" id="log_name" class="tag-add" placeholder="添加相关标签，用逗号或回车分隔">
+							</div>
+							<div id="tags_hide">
+
+							</div>
+						</div>
+					</div>				
+				</div>
+				</form>           
+	            <div class="modal-footer">  
+	                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>  
+	                <button type="button" class="btn btn-success" onclick="blog.music_public()">发布</button>  
+	            </div>  
+	        </div>  
+	    </div>  
+	</div>
+
+	<!-- 视频弹窗 -->
+	<div class="modal fade" id="vedio_modal"> 
+	    <div class="modal-dialog" role="document">  
+	        <div class="modal-content">
+	        <form action="" id="video_form_modal"> 
+	            <div class="modal-header">  
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">  
+	                    <span aria-hidden="true">×</span>  
+	                </button>  
+	                <h4 class="modal-title" id="modal_name">
+						<{$user_info['user_name']}>
+					</h4>
+	            </div>  
+	            <div class="modal-body">  
+		            <div class="form-group search_music">
+						<input type="text" id="search_music" class="form-control" placeholder="请用歌名、专辑、艺术家搜索">
+					</div>
+					<div class="confirm-music-box">
+						<div class="confirm-music">
+							<div class="mimg">
+								<img id="music_pic" class="img" src="http://p1.music.126.net/MTezDI43DEgzxCtfvr_xvg==/109951162880873120.jpg?param=150x150x1">
+							</div>
+							<div class="music">
+								<audio id="music" src="http://music.163.com/song/media/outer/url?id=108242" type="" controls="controls"></audio>
+							</div>
+							<a class="music-close" title="关闭"></a>
+						</div>
+					</div>
+					<div id="music_list">
+						<ul id="music_list_ul">
+							<!-- <li>
+								<span class="singer">侧田</span>
+								<span>————</span>
+								<span class="song-info">[DJ节目]你個名的DJ节目 第14期</span>
+							</li>	 -->						
+						</ul>
+						<div id="page_flip">
+							<a href="#" class="previous-page">上一页</a>
+							<a href="#" class="next-page">下一页</a>
+							<span>
+								共有
+								<span class="song-list">486</span>
+								首相关歌曲（来自
+								<a target="_blank" href="http://music.163.com">网易云音乐</a>)
+							</span>
+						</div>
+					</div>					
+					<div id="music_text">
+						<div class="form-group" id="ueditor">
+							<script id="container_music" name="article_content" type="text/plain"></script>
+						</div>
+						<div  class="form-group">
+							<div id="tags_area">
+								<div class="tag_lists"></div>
+								<input type="text" id="log_name" class="tag-add" placeholder="添加相关标签，用逗号或回车分隔">
+							</div>
+							<div id="tags_hide">
+
+							</div>
+						</div>
+					</div>				
+				</div>
+				</form>           
+	            <div class="modal-footer">  
+	                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>  
+	                <button type="button" class="btn btn-success" onclick="blog.music_public()">发布</button>  
+	            </div>  
+	        </div>  
+	    </div>  
+	</div>
+
+</body>
+</html>
+<script src="__PUBLIC_LOFTER__/lib/ueditor/ueditor.config.js"></script>
+<script src="__PUBLIC_LOFTER__/lib/ueditor/ueditor.all.min.js"></script>
+<script src="__PUBLIC_LOFTER__/js/index.js"></script>
+<script type="text/javascript" src="__PUBLIC_LOFTER__/js/tag.js"></script>
+
+<script>
+	// 添加的
+	var ue=UE.getEditor('container',{
+        initialFrameHeight: 270,
+	});
+	// 编辑的
+	var ue_edit=UE.getEditor('container_edit',{
+        initialFrameHeight: 270
+	});
+	// 音乐的
+	var ue_music=UE.getEditor('container_music',{
+		initialFrameHeight: 190,
+		toolbars:[['snapscreen','italic','bold','superscript','spechars','horizontal','time','date','preview','undo']]
+	});
+</script>
+<style>
+	.modal{
+		z-index: 999 !important;
+	}
+	.modal-backdrop{
+		z-index: 998 !important;
+	}
+</style>

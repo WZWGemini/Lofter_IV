@@ -1,0 +1,47 @@
+
+ table{
+    /* width: 110px; */
+    height: 355px;
+}
+
+ table tr{
+
+}
+
+table tr th{
+    overflow: hidden;
+     text-align: center; 
+    vertical-align: middle;
+}
+table tr td{
+    overflow: hidden;
+    max-width:100px;
+    /* padding: 0 8px; */
+    overflow: hidden;
+}
+table tr td input{
+    width: 100%;
+}
+table tr td span{
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    cursor: text;
+}
+.check{
+    background-color: #f3f4f6;
+}
+
+#save{
+    display: none;
+}
+#delete{
+    display: none;
+}
+
+#cancel{
+    display: none;
+}
+#sueradd{
+    display: none;
+}

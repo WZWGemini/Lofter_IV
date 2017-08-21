@@ -6,6 +6,8 @@
 	<link rel="stylesheet" href="__PUBLIC_LOFTER__/lib/Bootstrap3.3.7/css/bootstrap.min.css">
 	<link rel="stylesheet" href="__PUBLIC_LOFTER__/css/rebuild.css">
 	<link rel="stylesheet" href="__PUBLIC_LOFTER__/css/index.css">
+	<link rel="stylesheet" href="__PUBLIC_LOFTER__/css/common.css?001">
+	  <!-- <link rel="stylesheet" href="__PUBLIC_LOFTER__/css/editor.css">   -->
 	<script src="__PUBLIC_LOFTER__/lib/Bootstrap3.3.7/js/jquery-1.11.1.min.js"></script>
 	<script src="__PUBLIC_LOFTER__/lib/Bootstrap3.3.7/js/bootstrap.min.js"></script>
 	<script src="__PUBLIC_LOFTER__/js/user.js"></script>
@@ -23,8 +25,8 @@
 			<div id="header" class="float-left">
 				<ul class="header-ul box-shadow">
 					<li href="" class="t1">
-						<a href="{:url('user/goUserHome')}?uid={$user_info.user_id}">		
-						 <img src="__PUBLIC_UPLOAD__/{$user_info.user_head}" alt="">
+						<a href="{:url('userHome')}">		
+						 	<img src="{$user_info.user_head}" alt="">
 						</a>
 					</li>
 					<li class="t2"><a href="#text_modal" data-toggle="modal"></a></li>
@@ -49,7 +51,14 @@
 
 	</div>
 
-	<!-- 鼠标经过显示 -->
+	<!-- 鼠标经过显示
+	<div id="window_show" class="window_show" style="display: none;">
+		<div class="loading">
+			<img src="{$art.user_info.user_head}" alt="">
+		</div>
+	</div> -->
+	
+	<!-- 鼠标经过显示头像悬浮框 -->
 	<div id="window_show" class="window_show" style="display: none;">
 		<div class="show-box">
 			<div class="show-top">
@@ -95,6 +104,35 @@
 					<a class="text-hidden" href="" target="_blank" onclick="">猎影人</a>、
 					<a class="text-hidden" href="" target="_blank" onclick="">LOFTER手帐文具...</a>
 				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- 标签悬浮框 -->
+	<div id="tag_show" style="display: none;">
+		<div class="tag-show-box">
+				<div class="tag-show-body">
+					<ul class="show-body-ul">
+						<li>
+							<a href="" class="show-img">
+								<img src="../public/img/lofter.jpg" class="img">
+							</a>
+						</li>
+						<li>
+							<a href="" class="show-img">
+								<img src="../public/img/lofter.jpg" class="img">
+							</a>
+						</li>
+						<li>
+							<a href="" class="show-img">
+								<img src="../public/img/lofter.jpg" class="img">
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="tag-show-footer">
+				<span class="tag-show-name">标签</span>
 			</div>
 		</div>
 	</div>
@@ -157,7 +195,8 @@
 						<input type="hidden" value="" id="edit_blog_id">
 					</div>
 					<div class="form-group" id="ueditor">
-						<script id="container_edit" name="content" type="text/plain"></script>
+						<!-- 编辑器 -->
+						<script id="container_edit" name="content" type="text/plain" ></script>
 					</div>
 					<div  class="form-group">
 						<div id="tags_area">
@@ -352,11 +391,13 @@
 <script>
 	// 添加的
 	var ue=UE.getEditor('container',{
-        initialFrameHeight: 270,
+		initialFrameHeight: 270,
+		toolbars:[['fontsize','bold','undo','redo','link','indent','forecolor','underline','italic','simpleupload','insertorderedlist','insertunorderedlist', ]]
 	});
 	// 编辑的
 	var ue_edit=UE.getEditor('container_edit',{
-        initialFrameHeight: 270
+		initialFrameHeight: 270,
+		toolbars:[[]]
 	});
 	// 音乐的
 	var ue_music=UE.getEditor('container_music',{
