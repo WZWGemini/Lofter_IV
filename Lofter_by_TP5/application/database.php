@@ -14,8 +14,8 @@ return [
     'type'            => 'mysql',
     // 服务器地址
     'hostname'        => '127.0.0.1',
-    // 数据库名
-    'database'        => 'lofter',
+    // 数据库名 
+    'database'        => 'lowfter',
     // 用户名
     'username'        => 'root',
     // 密码

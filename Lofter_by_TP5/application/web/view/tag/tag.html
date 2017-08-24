@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ofter</title>
+	<link rel="stylesheet" href="__PUBLIC_LOFTER__/lib/Bootstrap3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="__PUBLIC_LOFTER__/css/index.css">
+	<link rel="stylesheet" href="__PUBLIC_LOFTER__/css/tag.css">
+	<script src="__PUBLIC_LOFTER__/lib/Bootstrap3.3.7/js/jquery-1.11.1.min.js"></script>
+	<script src="__PUBLIC_LOFTER__/lib/Bootstrap3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body style="background: #EDEDEF;">
+	<img src="http://image13-c.poco.cn/mypoco/myphoto/20170817/13/565489302017081713310807_640.jpg?1350x900_120" alt="">
+	<div class="page">
+		<!-- 顶部导航 -->
+		<div id="nav">
+			<div class="container">
+				<div class="nav-logo"></div>
+				<div class="nav-head">
+					<ul class="nav-ul">
+						<li><a href="">首页</a></li>
+						<li><a href="">浏览</a></li>
+						<li><a href="">APP</a></li>
+						<li><a href="">ART</a></li>
+						<li><a href="">摄影课堂</a></li>
+						<li><a href="">更多</a></li>
+					</ul>
+				</div>
+				<div class="nav-search"></div>
+			</div>
+		</div>		
+
+		<div id="center" class="container">
+
+			<div class="bar">
+				<div class="menu" class="float-right">
+					<ul class="big">					
+						<li>
+							<a class="span-img float-left">
+								<img src="../public/img/sc4-4.png" class="img">
+							</a>
+							<a class="big-a">
+								<span class="a-text txt">时尚</span>
+								<span class="a-text txt">时尚</span>
+							</a>
+							<a href="" class="attention"></a>
+						</li>
+						<li>
+							<a class="span-img float-left">
+								<img src="../public/img/sc4-4.png" class="img">
+							</a>
+							<a class="big-a">
+								<span class="a-text txt">时尚</span>
+								<span class="a-text txt">时尚</span>
+							</a>
+							<a href="" class="attention"></a>
+						</li>
+						<li>
+							<a class="span-img float-left">
+								<img src="../public/img/sc4-4.png" class="img">
+							</a>
+							<a class="big-a">
+								<span class="a-text txt">时尚</span>
+								<span class="a-text txt">时尚</span>
+							</a>
+							<a href="" class="attention"></a>
+						</li>
+						<li>
+							<a class="span-img float-left">
+								<img src="../public/img/sc4-4.png" class="img">
+							</a>
+							<a class="big-a">
+								<span class="a-text txt">时尚</span>
+								<span class="a-text txt">时尚</span>
+							</a>
+							<a href="" class="attention"></a>
+						</li>
+						<li>
+							<a class="span-img float-left">
+								<img src="../public/img/sc4-4.png" class="img">
+							</a>
+							<a class="big-a">
+								<span class="a-text txt">时尚</span>
+								<span class="a-text txt">时尚</span>
+							</a>
+							<a href="" class="attention"></a>
+						</li>
+						<li class="small">
+							<span></span>
+							<span class="txt">发现更多标签</span>
+						</li>
+						
+					</ul>
+				</div>
+
+				<!-- 标签栏 -->
+				<div id="menu" class="float-right">
+					<ul>					
+						<li>
+							<i>1</i>
+							<span class="txt">时尚</span>			
+						</li>
+						<li>
+							<i>1</i>
+							<span class="txt">街拍</span>
+						</li>
+						<li>
+							<i>1</i>
+							<span class="txt">搭配</span>
+						</li>
+						<li>
+							<i>1</i>
+							<span class="txt">时尚博主</span>
+						</li>
+						<li>
+							<i>1</i>
+							<span class="txt">欧美博主</span>
+						</li>
+						<li class="small">
+							<span></span>
+							<span class="txt">发现更多标签</span>					
+						</li>
+						
+					</ul>
+				</div>
+			</div>
+
+			<div id="tag" class="float-right">
+				<div id="tag_top">
+					<div id="tag_info">
+						<h2>{$tag.tag_content}</h2>
+						<div class="subscription">	
+							<a href=""></a>
+						</div>
+						<div class="change">
+							<a href="{:url('/web/tag/tagIndex?type=tabArchive&tag_id='.$tag.tag_id)}"></a>
+
+						</div>
+					</div>
+				</div>
+				<div id="tag_bottom">
+					<div class="options">
+						<!-- <a href="">最新</a>
+						<a href="">热门</a>
+						<a href="">榜单</a> -->
+					</div>
+				</div>
+			</div>				
+			<div id="information" class="float-left">
+				<!-- 正常文章显示块 -->
+				{include file='element/ele-list'}
+				<!-- 长文章显示块 -->
+				{include file='element/ele-longArticle'}
+			
+			</div>
+		</div>
+
+	</div>
+</body>
+</html>
+<script>
+	
+</script>

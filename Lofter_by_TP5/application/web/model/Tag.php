@@ -6,6 +6,10 @@ class Tag extends Model
 {
     protected $createTime = false;
     protected $updateTime = false;
+
+    public function tagArticle(){
+        return $this->hasMany("TagArticle");
+    }
 }
 
 

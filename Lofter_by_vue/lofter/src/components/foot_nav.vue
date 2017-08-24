@@ -15,7 +15,7 @@
                 </router-link> 
             </li>
             <li class="camera">
-                 <router-link to='' @click.native="handleClick">
+                 <router-link :to='url' @click.native="handleClick">
                     <span class='icon-camera'></span>
                 </router-link> 
                 <mt-popup v-model="popupVisible" position="bottom" class="issue">
@@ -55,16 +55,25 @@
     </div>
 </template>
 <script>
+    import {mapState} from 'vuex'
     export default {
       name: 'foot_nav',
       data () {
         return {
-          popupVisible: false
+          popupVisible: false,
+          url: ''
         }
+      },
+      computed: {
+        ...mapState(['hasLogin'])
       },
       methods: {
         handleClick: function () {
-          this.popupVisible = true
+          if (this.hasLogin) {
+            this.popupVisible = true
+          } else {
+            this.url = '/login'
+          }
         }
       }
     }

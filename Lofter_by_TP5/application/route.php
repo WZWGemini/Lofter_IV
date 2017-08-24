@@ -18,7 +18,8 @@ return [
         'user'=>'api/user',
         'article'=>'api/article',
         'tag'=>'api/tag',
-        'comment'=>'api/comment'
+        'comment'=>'api/comment',
+        'concern'=>'api/concern'
     ],
     '[hello]'     => [
         ':id'   => ['index/hello', ['method' => 'get'], ['id' => '\d+']],

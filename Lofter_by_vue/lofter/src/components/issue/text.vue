@@ -22,63 +22,64 @@
         <mt-button type="default" size="large" class="btn-issue" v-on:click="issueText()">发布</mt-button>
     </div>    
 </template>
-<script type="es6">
+<script>
 import Axios from 'axios'
 import {Toast} from 'mint-ui'
 // 单独引入 辅助函数
-import {mapState,mapMutations} from 'vuex'
+import {mapState, mapMutations} from 'vuex'
 export default{
   name: 'text',
   data () {
     return {
       articleTitle: '',
       articleContent: '',
-      tagName : []
+      tagName: []
     }
   },
   computed: {
-    ...mapState(['uinfo','tag'])
+    ...mapState(['uinfo', 'tag'])
   },
   methods: {
-    ...mapMutations(["tagSave","tagRemove","tagClear"]),
+    ...mapMutations(['tagSave', 'tagRemove', 'tagClear']),
     issueText: function () {
-      if(this.articleContent==''){
+      if (this.articleContent === '') {
         Toast('内容不能为空')
         return
       }
+      console.log(this.uinfo.user_id)
       Axios.post('/api/article', {
         article_title: this.articleTitle,
         article_content: this.articleContent,
         user_id: this.uinfo.user_id,
-        tag_arr: this.tag.join(",")
+        tag_arr: this.tag.join(',')
       }).then(function (rtnData) {
         Toast(rtnData.data.msg)
       })
     },
     addTags: function (e) {
-      // 插入标签 
+      // 插入标签
       if (e.keyCode === 13) {
-        if(e.target.value == '') return
+        if (e.target.value === '') return
         this.$http.post('/api/tag', {
           tag_content: e.target.value
         }).then((rtnData) => {
-          if(rtnData.data.status == 1){
+          if (rtnData.data.status === 1) {
             // 把标签id保存到store
             this.tagSave(parseInt(rtnData.data.data.tag_id))
             // 存储标签名
-            if( this.tagName.indexOf(e.target.value) === -1) {
+            if (this.tagName.indexOf(e.target.value) === -1) {
               this.tagName.push(e.target.value)
             }
-            e.target.value = ""
+            e.target.value = ''
           } else {
             this.toast(rtnData.data.msg)
           }
         })
       } else if (e.keyCode === 8) {
-          if(e.target.value === ""){
-            this.tagRemove()
-            this.tagName.splice(-1, 1)
-          }
+        if (e.target.value === '') {
+          this.tagRemove()
+          this.tagName.splice(-1, 1)
+        }
       }
     }
   }

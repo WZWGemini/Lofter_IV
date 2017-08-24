@@ -9,7 +9,7 @@ class Article extends Controller
     {
         $inputData = input();
         unset($inputData['page']);
-        if (!empty($inputData)) {
+        // if (!empty($inputData)) {
             $wheData = ['a.user_id'=>$inputData['user_id']];
             $user_article = model("article")->alias("a")
                     ->where($wheData)
@@ -17,13 +17,13 @@ class Article extends Controller
                     ->field('a.*,u.user_name,u.user_head')
                     ->order('a.article_id desc')
                     ->paginate(2);
-        } else {
-            $user_article = model("article")->alias("a")
-            ->join('user u','u.user_id=a.user_id')
-            ->field('a.*,u.user_name,u.user_head')
-            ->order('a.article_id desc')
-            ->paginate(2);
-        }
+        // } else {
+        //     $user_article = model("article")->alias("a")
+        //     ->join('user u','u.user_id=a.user_id')
+        //     ->field('a.*,u.user_name,u.user_head')
+        //     ->order('a.article_id desc')
+        //     ->paginate(2);
+        // }
         $tag = model("tag");
         $comment = model("comment");
         foreach ($user_article as $key => $value) {

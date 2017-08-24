@@ -68,11 +68,11 @@
         border:2px solid #fff;
         border-radius:20px;
     }
-    .index{
+    .index_body{
         height: 100%;
         background: linear-gradient(#398185, #67b7ba);
     }
-    .index p{
+    .index_body p{
         margin:0 auto;
         margin-top:10%;
         font-size:0.2rem;
@@ -82,7 +82,7 @@
         text-align:center;
         border-radius:10px;
     }
-    .index p a{
+    .index_body p a{
         color:#fff;
     } 
 </style>

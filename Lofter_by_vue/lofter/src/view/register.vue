@@ -2,7 +2,7 @@
   <!--注册界面  -->
   <div class="register">
     <mt-header fixed title="注册LOFTER" class="top-nav">
-      <router-link to="/" slot="left">
+      <router-link to="/guide" slot="left">
         <mt-button icon="back"></mt-button>
       </router-link>
     </mt-header>

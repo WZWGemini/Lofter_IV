@@ -107,9 +107,31 @@ export default new Router({
       component: require('../view/personal_home')
     },
     {
-      path: '/test',
-      name: 'test',
-      component: require('../components/shop/shop_detail')
+      path: '/shop',
+      name: 'shop',
+      component: require('../view/shop'),
+      // 在shop主界面定义嵌套路由
+      children: [
+        // 首页子路由
+        { path: 'shome',
+          component: require('../components/shop/shome')
+        }
+        // 结算子路由
+        // { path: 'sbalance', component: require('../components/shop/shop_balance') }
+      ]
+    },
+    // 详情页子路由
+    { path: '/sgoods/:goods_id',
+      component: require('../components/shop/shop_goods')
+    },
+    // 购物车路由
+    {
+      path: '/scart',
+      component: require('../components/shop/shop_cart')
+    },
+    // 结算路由
+    { path: '/consigner/:user_id',
+      component: require('../components/shop/shop_balance')
     }
 
   ]

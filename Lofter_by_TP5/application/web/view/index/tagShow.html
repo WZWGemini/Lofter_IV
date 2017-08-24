@@ -1,0 +1,20 @@
+<div class="tag-show-box">
+    <div class="tag-show-body">
+        <ul class="show-body-ul">
+            {if $tag_img != null}
+            {foreach $tag_img as $key=>$value}
+            <?php $img_arr=json_decode($value['article_img']); ?>
+            <li>
+                <a href="" class="show-img">
+                    <img src="{$img_arr[0]}" class="img">
+                </a>
+            </li>
+            {/foreach}
+            {/if}
+        </ul>
+    </div>
+</div>
+<div class="tag-show-footer">
+    标签：<span class="tag-show-name">#{$tag_content}</span>
+</div>
+</div>

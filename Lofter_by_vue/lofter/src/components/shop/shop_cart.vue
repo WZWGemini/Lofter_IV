@@ -1,37 +1,51 @@
-<template id="car-view">
-  <div id="car">
-    <label>
-      <input type="checkbox" v-model="CheckAll" @click="checkAll()" :value="CheckAll"/>
-      &nbsp;&nbsp;全选
-    </label>
+<template class="cart-view">
+  <div class="cart">
+    <shead></shead>
+    <div class="null"></div>
+    <div class="check-class">
+      <input type="checkbox" @click="checkAll()" :checked="checkGoods.length==cartList.length"/>
+      全选
+    </div> 
     <div class="carGoodsList">
-      <div class="border-bottom">
+      <div class="goods-box" v-for="cart in cartList">
         <ul>
-          <li class="col-xs-1 carGoodsListCheck">
-            <input type="checkbox" :value="item" v-model="checkAllFlag"/>
+          <li class="carGoodsListCheck">
+            <input type="checkbox" v-model="checkGoods" :value="cart"/>
           </li>
-          <li class="col-xs-3 carGoodsListImg">
-            <img src="img/pms_1495692033.10494295!180x180.jpg"/>
+          <li class="carGoodsListImg">
+            <img :src="JSON.parse(cart.goods_info.shop_img)"/>
           </li>
-          <li class="col-xs-6">
+          <li class="carGoodsListInfo">
             <ul>
-              <li class="carGoodsListTitle">
-                {{item.cur_version}}
-                {{item.cur_color}}
+              <li class="goods-title">{{cart.goods_info.shop_name}}</li>
+              <li class="goods-attr">
+                <span class="goods-color">{{cart.color_attr_name}}</span>
+                <span class="goods-size">{{cart.size_attr_name}}</span>
               </li>
-              <li class="carGoodsListPrice">
-                售价：{{item.goods_price}}
-              </li>
-              <li class="carGoodsListLi">
-                <button class="col-md-2 carGoodsListButton" @click="jianNum(item)">-</button>
-                <input class="col-md-2 carGoodsListText" type="text" v-model="item.goods_num"/>
-                <button class="col-md-2 carGoodsListButton" @click="jiaNum(item)">+</button>
+              <li class="goods-price">售价：<span class="red">￥{{cart.attr_info.shop_price}}</span></li>
+              <li class="goods-amount">
+                <button class="goods-button" @click="minus(cart)">-</button>
+                <input type="text" class="goods-num" :value="cart.num">
+                <button class="goods-button" @click="add(cart)">+</button>
               </li>
             </ul>
           </li>
-          <li class="col-xs-1 carGoodsListDelete icon-bin2" @click="delItem(index,item)"></li>
+          <li class="carGoodsListDelete"><span class="icon-heart"></span></li>
+          <!-- <li class="carGoodsListDelete icon-bin2" @click="delItem(index,item)"></li> -->
         </ul>
       </div>
+    </div>
+    <div class="carBottom">
+      <ul style="width: 100%;">
+        <li class="p">
+          共{{totalNum}}件
+          <p>金额：<span class="red">￥{{totalPrice}}元</span></p>
+        </li>
+        <li class="buy" @click="setAccount(uinfo.user_id)">结算</li>
+        <li class="b">
+          <router-link to='/shop/shome' class="b-class">继续购物</router-link>
+        </li>
+      </ul>
     </div>
   </div>	
 </template>
@@ -39,60 +53,75 @@
 <script>
 // 单独引入 辅助函数
 import {mapState, mapMutations} from 'vuex'
+import {Toast} from 'mint-ui'
+import shead from './home_top_nav'
 export default {
+  name: 'scart',
   data () {
     return {
       // 对添加到购车的商品 验证是否存在
       hasExists: false, // 默认否
       CheckAll: false,
-      checkAllFlag: [],
+      checkGoods: [],
       tolprice: null
     }
   },
+  components: {
+    shead
+  },
   methods: {
-    ...mapMutations(['setCart']),
+    ...mapMutations(['orderInfoSave']),
     checkAll () {
-      if (this.CheckAll) {
-        this.checkAllFlag = []
-        // store.state.cartList.forEach((item,index)=>{
-        //   this.checkAllFlag.push(item)
-        // })
-      // this.checkAllFlag = true
-      // alert('hello')
+      if (this.checkGoods.length > 0) {
+        // 取消选中
+        this.checkGoods = []
       } else {
-        this.checkAllFlag = []
-        // alert('hi')
+        // 全选
+        this.cartList.forEach((item) => {
+          this.checkGoods.push(item)
+        })
       }
+    },
+    minus: function (info) {
+      if (info.num > 0) {
+        info.num--
+      }
+    },
+    add: function (info) {
+      if (info.num < info.attr_info.shop_store) {
+        info.num++
+      }
+    },
+    setAccount: function (info) {
+      // 还要把确认要购买的商品存入订单列表中
+      let orderInfo = {
+        totalNum: this.totalNum,
+        totalPrice: this.totalPrice,
+        orderList_arr: this.checkGoods,
+        user_id: info
+      }
+      this.orderList.length = 0
+      this.orderInfoSave(orderInfo)
+      this.$router.push('/shop/sbalance/' + orderInfo.user_id)
+      Toast('正在结算中……')
     }
-    // addCart () {
-    //   // 对状态数组 进行遍历 检查是否存在   若已存在则讲 hasExists置为true
-    //   store.state.cartList.forEach(item => {
-    //     // console.log(item)
-    //     if (item.cur_color === this.showColor && item.cur_version === this.showName) {
-    //       hasExists = true;
-    //       item.goods_num++
-    //     };
-    //   })
-    //   // 判断hasExists是否为否,为否则添加到vuex
-    //   if (!hasExists) {
-    //   // 也就是把当前选择的版本、颜色、价格都传给在vuex定义的设置购物车方法
-    //   // store 是Vuex.Store返回对象
-    //   // commit 方法是触发mutations里面定义的方法
-    //   // 第一个参数：方法的名称
-    //   // 第二个参数：传过去的值
-    //     store.commit('setCart', {
-    //       cur_version: this.showName,
-    //       cur_color: this.showColor,
-    //       goods_num: 1,
-    //       goods_price: this.showPrice
-    //     })
-    //     this.$toast('添加成功')
-    //     // alert(store.state.cartList.length)
-    //   }
-    // }
   },
   computed: {
-    ...mapState(['cartList'])
+    ...mapState(['cartList', 'orderList', 'uinfo']),
+    totalPrice: function () {
+      let tPrice = 0
+      this.checkGoods.forEach((item) => {
+        tPrice += Number(item.attr_info.shop_price) * Number(item.num)
+      })
+      return tPrice
+    },
+    totalNum: function () {
+      let tNum = 0
+      this.checkGoods.forEach((item) => {
+        tNum += Number(item.num)
+      })
+      return tNum
+    }
   }
 }
 </script>
@@ -100,76 +129,129 @@ export default {
 
 <style lang="scss">
 @import '../../assets/common.scss';
-#car{
+.cart{
+  width: 100%;
 	margin-bottom: .8rem;
+  display: inline-block;
+  .check-class {
+    display: block;
+    padding: .2rem;
+    font-size: .3rem;
+	  border-bottom: 1px dashed #C8C8CD;
+  }
+  .carGoodsList {
+    font-size: .5rem;
+    width: 100%;
+    display: inline-block;
+    .goods-box {
+      float: left;
+      padding: .2rem;
+      height: 2rem;
+	    border-bottom: 1px dashed #C8C8CD;      
+      ul {
+        float: left;
+        .carGoodsListCheck{
+          // display: inline-block;
+          float: left;
+          height: 100%;
+          width: 5%;
+          margin-right: .3rem;
+          input {
+            margin: .8rem 0 0;
+          }
+        }
+        .carGoodsListImg {
+          width: 25%;
+          height: 1.9rem;
+          overflow: hidden;
+          float: left;
+          margin: .1rem .5rem 0 0;
+          // display: inline-block;
+          img {
+            width: 100%;
+          }
+        }
+        .carGoodsListInfo {
+          width: 40%;
+          float: left;
+          font-size: .3rem;
+          color: #777;
+          text-align: center;
+          .goods-title {
+            text-align: left;
+            font-weight: 600;
+            color: $topic_color;
+            font-size: .4rem;
+            line-height: .6rem;
+          }
+          .goods-amount {
+            text-align: center;
+            margin-top: .1rem;
+            input {
+              width: 1rem;
+              height: .35rem;;
+              text-align: center;
+              border: 1px solid $topic_color;
+            }
+            button {
+              background-color: $topic_color;
+              color: #fff;
+              font-weight: 600;
+              border: 1px solid $topic_color;
+              outline: none;
+            }
+          }
+        }
+        .carGoodsListDelete {
+          font-size: .4rem;
+          float: right;
+          margin: .7rem .4rem 0 0;
+          span {
+            color: $topic_color;
+          }
+        }
+      }
+    }
+  }
+  /* 底部导航栏样式 */
+  .carBottom{
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    font-size: .35rem;
+    border-top: 1px dashed #cfcfcf;
+    background-color: #fff;
+    ul{
+      li{
+        text-align: center;
+        display: inline-block;
+        height: 0.8rem;
+        line-height: 0.8rem;
+      }
+      li.p{
+        width: 38%;
+        background-color: white;
+        color: $topic_color;
+        float: left;
+        height: 0.8rem;
+        font-size: .3rem;
+        line-height: 0.4rem;
+      }
+      li.b{
+        width: 30%;
+        float: right;
+        background-color: #dfdfdf;
+        .b-class {
+          color: $topic_color;
+        }
+      }
+      li.buy{
+        width: 30%;
+        color: #fff;
+        float: right;
+        background-color: $topic_color;
+      }
+    }
+  }
 }
-#car label{
-	width: 100%;
-	border-bottom: 1px dashed #C8C8CD;
-}
-#car .carGoodsList img{
-	width: 100%;
-}
-#car .carGoodsList ul{
-	overflow: hidden;
-	padding: 0 !important;
-}
-#car .carGoodsList .carGoodsListCheck{
-	margin: 13% 0 0 4%;
-}
-#car .carGoodsList .carGoodsListImg{
-	margin-top: 3.5%;
-}
-#car .carGoodsList .carGoodsListTitle{
-    font-size: .2rem;
-    line-height: .2rem;
-    color: #666;
-}
-#car .carGoodsList .carGoodsListPrice{
-    font-size: .15rem;
-    color: #999;
-    margin: 0.2rem 0.2rem;
-}
-#car .carGoodsList .carGoodsListButton{
-	
-}
-#car .carGoodsList .carGoodsListText{
-	width: 30%;
-	text-align: center;
-}
-#car .carGoodsList ul li ul{
-	margin-top: 7%;
-	text-align: center;
-}
-#car .carGoodsList .carGoodsListDelete{
-	margin:13% 0 0 4% ;
-}
-#car .carBottom{
-	width: 100%;
-	position: fixed;
-	bottom: 0;
-	border-top: 1px dashed #C8C8CD;
-}
-#car .carBottom ul{
-	overflow: hidden;
-	padding: 0 !important;
-	margin: 0 !important;
-	text-align: center;
-}
-#car .carBottom li{
-    height: 0.8rem;
-    line-height: 0.8rem;
-}
-#car .carBottom li.p{
-	background-color: white;
-    height: 0.8rem;
-    line-height: 0.4rem;
-}
-#car .carBottom li.buy{
-	background-color: orangered;
-}
-#car .carBottom li.b{
-	background-color: #C8C8CD;
-}
-
 </style>

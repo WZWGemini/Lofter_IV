@@ -14,13 +14,13 @@
         </router-link>
       </li> -->
       <li>
-        <router-link to='' class="link-class">
+        <router-link to='/scart' class="link-class">
           <span class="icon-cart"></span>
           <p>购物车</p>
         </router-link>
       </li>
       <li class="li-class-add">
-        <router-link to='' class="link-class" @click="addCart()">
+        <router-link to='' class="link-class" @click="addCart(goods_info)">
           <span class="icon-user"></span>
           <p>加入购物车</p>
         </router-link>
@@ -64,7 +64,7 @@ export default {
     .li-class-add {
       float: right;
       width: 50%;
-      background-color: #f95b07;
+      background-color: $topic_color;
       .link-class {
         color: #fff;
       }

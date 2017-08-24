@@ -41,6 +41,16 @@ $(function () {
 			tag_save.splice($tag_index,1);
 			remove_el.remove();
 		}
-	})
+	});
+	window.tag = {
+		goTagIndex: function (obj){
+			var tid = $(obj).data("tid");
+            location.href = "/Lofter_by_TP5/public/web/tag/tagIndex?tag_id="+tid;
+		},
+		goTagArchive: function (obj){
+			var tid = $(obj).data("tid");
+            location.href = "/Lofter_by_TP5/public/web/tag/archive?tag_id="+tid;
+		}
+	}
 
 })

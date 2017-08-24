@@ -3,7 +3,7 @@
 	{foreach $blog_list as $art}
 		<div class="list_box" data-index="{$art.article_id}">
 			<!-- 头像 -->
-			<div class="head-portrait float-left">
+			<div class="head-portrait float-left" data-uid="{$art.user_id}" onclick='user.goUserHome(this)'>
 				<img src="__PUBLIC_UPLOAD__/{$art.user_head}">
 			</div>
 			<!-- 信息列表 -->
@@ -29,12 +29,13 @@
 						<p>{$art.article_content}</p>
 					</div>
 				</div>
+			
 				
 				<div class="tags">
 					<!-- 标签 -->
 					<div class="labels inline-block float-left">
 						{foreach $art.tag as $tag}
-							<a data-id="{$tag.tag_id}">#{$tag.tag_content}</a>
+							<a data-tid="{$tag.tag_id}" onclick="tag.goTagIndex(this)">#{$tag.tag_content}</a>
 						{/foreach}
 					</div>
 					<!-- 功能按钮 -->
@@ -49,7 +50,7 @@
 						{/if}
 					</div>
 				</div>
-
+ 
 			</div>
 			<!-- 评论 -->
 			<div class="comment_show">

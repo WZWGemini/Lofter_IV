@@ -38,14 +38,21 @@ const Store = new Vuex.Store({
     tag: [],
     tagArticleInfo: [],
     // 商城模块
-    // 是记录用户选择加入购物车的列表状态
-    cartList: []
+    shomeInfo: [], // 用于存储首页商品信息
+    goodsInfo: [], // 用于存储商品详情页信息
+    cartList: [], // 是记录用户选择加入购物车的列表状态
+    orderList: [] // 是记录用户选择加入结算的商品列表
   },
   mutations: {
-    // 设置用户信息
+    // 设置用户信息(登录)
     setUinfo (state, info) {
       state.uinfo = info
+      console.log(info)
       state.hasLogin = true
+    },
+    unsetUinfo (state) {
+      state.uinfo = []
+      state.hasLogin = false
     },
     // 将uarticle 置空
     // unsetUarticle(){
@@ -101,6 +108,9 @@ const Store = new Vuex.Store({
       state.allLastPage = article.last_page
       state.allCurPage = Number(article.current_page) + 1
       state.allArticleNum = article.total
+      console.log(state.allArticle)
+      console.log(state.allLastPage)
+      console.log(state.allCurPage)
     },
     // 保存标签
     tagSave (state, value) {
@@ -129,6 +139,26 @@ const Store = new Vuex.Store({
     // 保存购物车信息
     setCart (state, info) {
       state.cartList.push(info)
+    },
+    // 保存商城首页商品信息
+    shomeInfoSave (state, info) {
+      state.shomeInfo.push(info)
+      // console.log(state.goodsInfo)
+    },
+    // 保存商品详情页信息
+    goodsInfoSave (state, info) {
+      if (state.goodsInfo !== []) {
+        state.goodsInfo = []
+        state.goodsInfo.push(info)
+      }
+    },
+    // 保存购物车信息
+    cartInfoSave (state, info) {
+      state.cartList.push(info)
+    },
+    // 保存订单信息
+    orderInfoSave (state, info) {
+      state.orderList.push(info)
     }
   },
   getters: {

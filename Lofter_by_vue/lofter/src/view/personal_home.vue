@@ -15,7 +15,7 @@
   
         <!-- 头部信息盒子 -->
         <div class="heading">
-  
+          
             <!-- 头部背景盒子 -->
             <div class="heading-bg">
               <img src="../assets/img/user_bg.jpg" alt="">
@@ -23,15 +23,14 @@
             <!-- 头部用户信息栏 -->
             <div class="heading-info">
                 <div class="heading-user">
-                    <img :src="'http://localhost:808/public/'+ordCurHead" alt="">
+                    <img :src="ordCurHead" alt="">
                 </div>
                 <p class="heading-username">{{ordCurName}}</p>
-  
                 <!-- 头部功能栏 -->
                 <div class="heading-function">
-                  <router-link to="/" active-class="a-class">关注</router-link>
-                  <router-link to="/" active-class="a-class">粉丝</router-link>
-                  <router-link to="/" active-class="a-class">喜欢</router-link>
+                  <span>粉丝</span>
+                  <span class="follow" v-show="followVisible" @click="follow()">已关注</span>
+                  <span class="unfollow" v-show="!followVisible" @click="follow()">关&nbsp&nbsp&nbsp注</span>
                 </div>
             </div>
         </div>
@@ -74,7 +73,8 @@
       return {
         showLoading: false,
         loading: true,
-        backUrl: ''
+        backUrl: '',
+        followVisible: false
       }
     },
     methods: {
@@ -104,6 +104,10 @@
             console.log(error)
           })
         }, 1000)
+      },
+      follow () {
+        this.followVisible = !this.followVisible
+        console.log(this.followVisible)
       }
     },
     computed: {
@@ -172,7 +176,8 @@
   
     .heading-info {
       background: #FFF;
-      height: 2rem;
+      height: 1.8rem;
+      margin-top:.5rem;
     }
   
     .heading-user {
@@ -183,7 +188,7 @@
       background-size: cover;
       border-radius: 50%;
       position: absolute;
-      top: 2rem;
+      top: 2.5rem;
       margin-left:35%;
       border: 3px solid #fff;
       img{
@@ -195,19 +200,33 @@
       font-family:'STXinwei', sans-serif;
       display:block;
       text-align:center;
-      padding-top: 1rem;
+      padding-top: 1.2rem;
       font-size: 0.4rem;
     }
   
     .heading-function {
       display:block;
       text-align:center;
-      font-size: .25rem;
       margin-top: .1rem;
+      line-height: .25rem;
+      span{
+        padding:.1rem .2rem;
+        font-size: .25rem;
+        margin:0 .2rem; // span 在文档流中无上下外边距
+      }
     }
     .blog-list{
       font-size: .3rem;
     }
-  
+    .follow{
+      border-radius: 10px;
+      color:#bdbdbd;
+      border: 1px solid #bdbdbd; 
+    }
+    .unfollow{
+      border-radius: 10px;
+      background-color: green;
+      color:#fff;
+    }
   </style>
   

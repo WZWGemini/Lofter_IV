@@ -1,0 +1,69 @@
+
+<form action="">
+	{foreach $blog_list as $art}
+		<div class="list_box" data-index="{$art.article_id}">
+			<!-- 头像 -->
+			<div class="head-portrait-box float-left">
+				<div class="head-portrait float-left box-shadow">
+					<img src="__PUBLIC_UPLOAD__/{$art.user_info.user_head}" class="picture">
+				</div>
+			</div>
+			<!-- 信息列表 -->
+			<div id="info_list" class="box-shadow info-list" data-article="{$art.article_id}">
+				<div class="isay">
+					<a href="" class="index-userHome"></a>
+				</div>
+				<div class="list-img float-left">
+					<?php $art['img']=json_decode($art['article_img']); ?>
+					{foreach $art.img  as $img}
+						<img src="{$img}">
+					{/foreach}
+				</div>
+				<!-- 文本显示 -->
+				<div class="list-text">
+					<div class="article_title">
+						<p>{$art.article_title}</p>
+					</div>
+					<div class="article_content">
+						<p>{$art.article_content}</p>
+					</div>
+				</div>
+			
+				
+				<div class="tags">
+					<!-- 标签 -->
+					<div class="labels inline-block float-left">
+						{foreach $art.tag as $tag}
+							<a data-id="{$tag.tag_id}">#{$tag.tag_content}</a>
+						{/foreach}
+					</div>
+					<!-- 功能按钮 -->
+					<div class="options inline-block float-right">
+							<a class="comment btn btn-link">评论( {$art.comment_num|default = "0"} )</a>
+						{if $art.user_info.user_id != $user_info.user_id}
+							<a class=" btn btn-link">推荐</a>
+							<a><i></i></a>
+						{else}
+							<a href="#edit_modal" data-toggle="modal" class="edit btn btn-link">编辑</a>
+							<a href="#delete" data-toggle="modal" class="del btn btn-link">删除</a>
+						{/if}
+					</div>
+				</div>
+
+			</div>
+			<!-- 评论 -->
+			<div class="comment_show">
+				<div class="comment_push">
+					<input type="text" class="comment-text">
+					<a class="btn btn-success width100" id="comment-push">发布</a>
+				</div>
+				<div class="comment-list">
+					<ul class="comment-list-box">
+						
+					</ul>
+				</div>
+			</div>
+		</div>
+			
+	{/foreach}
+</form>
