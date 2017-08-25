@@ -18,7 +18,7 @@
             </router-link>
         </div>
         <p>
-            <router-link to="/lofter/home/follow">稍后再说</router-link>
+            <router-link to="/lofter/discover/all">稍后再说</router-link>
         </p>
     </div>    
 </template>

@@ -8,19 +8,7 @@ class User extends Controller
 //    index  get  user
     public function index()
     {
-        $user_name = input('user_name');
-        $user_pwd = input('user_pwd');
-        //查询用户信息
-        $user_info = model("user")->alias("u")
-                    ->where("u.user_name='$user_name' and u.user_pwd='$user_pwd'")
-                    ->find();
-        if(count($user_info)==0){
-            return json(['status'=>0,"msg"=>"登录失败"]);
-        }
-        session("user_info",$user_info);
-        // 将需要的名字 id 头像 存入数组返回
-        $rtnInfo = array('user_name'=>$user_info['user_name'],'user_id'=>$user_info['user_id'],'user_head'=>$user_info['user_head']);
-        return json(['status' => 1, 'msg' => '登录成功','info'=>$rtnInfo]);
+        return json(['status' => 1, 'msg' => 'index']);
     }
 
 //    read get user/:id

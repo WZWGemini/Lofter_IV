@@ -2,20 +2,25 @@
     <!--公共底部  -->
     <div class='foot-nav'>
         <ul>
-            <li>
-                <router-link to='/lofter/home/follow'>
+            <!-- <li>
+                <router-link to='/lofter/home/follow' active-class="active">
+                    
+                </router-link>
+            </li> -->
+            <router-link tag="li" to='/lofter/home/follow' active-class="active">
+                <a>
                     <span class='icon-home'></span>
                     <p>首页</p>
-                </router-link>  
-            </li>
+                </a>
+            </router-link>
             <li>
-                <router-link to='/lofter/discover'>
+                <router-link to='/lofter/discover/all'>
                     <span class='icon-earth'></span>
                     <p>发现</p>
                 </router-link> 
             </li>
             <li class="camera">
-                 <router-link :to='url' @click.native="handleClick">
+                 <router-link to='' @click.native="handleClick">
                     <span class='icon-camera'></span>
                 </router-link> 
                 <mt-popup v-model="popupVisible" position="bottom" class="issue">
@@ -28,11 +33,11 @@
                         <span class="icon-play issue-icon"></span>
                         <span class="issue-text">视频</span>
                       </router-link>
-                      <router-link to="/lofter/issue/text" class="issue-box">
+                      <router-link to="/lofter/issue/text/text" class="issue-box">
                         <span class="icon-pencil issue-icon"></span>
                         <span class="issue-text">文字</span>
                       </router-link>
-                      <router-link to="" class="issue-box">
+                      <router-link to="/lofter/issue/music" class="issue-box">
                         <span class="icon-music issue-icon"></span>
                         <span class="issue-text">音乐</span>
                       </router-link>
@@ -72,7 +77,7 @@
           if (this.hasLogin) {
             this.popupVisible = true
           } else {
-            this.url = '/login'
+            this.$router.push('/login')
           }
         }
       }
@@ -87,6 +92,7 @@
     width: 100%;
     padding:4px 0;
     position:fixed;
+    z-index: 999;
     bottom:0;
 }
 .foot-nav ul{
@@ -161,5 +167,8 @@
     background-color: #efefef;
   }
 }
-
+.active{
+    color:red;
+    background-color: red;
+}
 </style>

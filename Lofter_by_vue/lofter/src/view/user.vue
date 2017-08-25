@@ -29,9 +29,9 @@
 
               <!-- 头部功能栏 -->
               <div class="heading-function">
-                <router-link to="/" active-class="a-class">关注</router-link>
-                <router-link to="/" active-class="a-class">粉丝</router-link>
-                <router-link to="/" active-class="a-class">喜欢</router-link>
+                  <router-link to="/myfollow" active-class="a-class">关注{{ffl.follow.length}}</router-link>
+                  <router-link to="/" active-class="a-class">粉丝{{ffl.fans.length}}</router-link>
+                  <router-link to="/" active-class="a-class">喜欢{{ffl.love.length}}</router-link>
               </div>
           </div>
       </div>
@@ -108,7 +108,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['hasLogin', 'uinfo', 'uarticle', 'uArticleNum', 'uLastPage', 'uCurPage'])
+    ...mapState(['hasLogin', 'uinfo', 'uarticle', 'uArticleNum', 'uLastPage', 'uCurPage', 'ffl'])
   },
   beforeRouteEnter (to, from, next) {
     // 由于beforeRouteEnter钩子 在组件被创造之前被调用，所以无法使用this获取组件定义的方法计算属性等
@@ -125,7 +125,7 @@ export default {
                 user_id: vm.uinfo.user_id
               }
             }).then((response) => {
-                // console.log(response)
+              console.log(response)
                 // 调用 mutations的setUarticle方法，将获取到的文章添加到uarticle
               vm.setUarticle(response.data.$user_article)
               vm.loading = false

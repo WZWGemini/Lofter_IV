@@ -19,7 +19,12 @@ return [
         'article'=>'api/article',
         'tag'=>'api/tag',
         'comment'=>'api/comment',
-        'concern'=>'api/concern'
+        'concern'=>'api/concern',
+        'onearticle'=>'api/onearticle',
+        'music'=>'api/music',
+        'distag'=>'api/distag',
+        'hot'=>'api/hot',
+        'personal'=>'api/personal'
     ],
     '[hello]'     => [
         ':id'   => ['index/hello', ['method' => 'get'], ['id' => '\d+']],

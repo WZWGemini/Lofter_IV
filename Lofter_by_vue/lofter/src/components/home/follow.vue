@@ -1,7 +1,7 @@
 <template>
     <div class="follow">
       <!--顶部广告照片  -->
-        <header  v-show='showHeadImg'>
+        <header  v-show='followHeadImg'>
             <span class="icon-cross" @click='showSheet()'>
             </span>
             <img src="../../assets/img/copyright_watermark_sample.png">
@@ -12,19 +12,21 @@
         </header>
           <!--内容  -->
         <div class="fol-list">
+          <mt-loadmore class="mt-loadmore" :top-method="loadTop" topLoadingText="" topPullText=""  :bottom-all-loaded="true" ref="loadmore">
           <!-- mint 下拉刷新 -->
             <ul
             v-infinite-scroll="loadMore"
             infinite-scroll-disabled="loading"
             infinite-scroll-distance="10">
-              <li v-for="val in allArticle">
+              <li v-for="(val,index) in allArticle">
                 <!-- 为了方便后续 -->
-                <list :item = val></list>
+                <list :item = val :index = index></list>
               </li>
             </ul>
+          </mt-loadmore> 
             <!--解决底部导航栏挡住内容问题  -->
-            <div style="height:1rem">
-            </div>
+          <div style="height:1rem">
+          </div>
         </div>
     </div>    
 </template>
@@ -42,29 +44,37 @@ export default{
   },
   data () {
     return {
-      // 头部广告图片
-      showHeadImg: true,
       // actionSheet
       sheetVisible: false,
       actions: [{
         name: '不再显示',
         method: () => {
-          this.closeHeadImg()
+          this.setFolHeadImg(this.followHeadImg)
         }
       }],
       loading: true // 无限刷新锁
     }
   },
   computed: {
-    ...mapState(['allArticle', 'totalAllArtNum', 'allLastPage', 'allCurPage', 'allArticleNum', 'uinfo', 'hasLogin'])
+    ...mapState(['allArticle', 'totalAllArtNum', 'allLastPage', 'allCurPage', 'allArticleNum', 'uinfo', 'hasLogin', 'followHeadImg'])
   },
   methods: {
-    ...mapMutations(['setAllArticle']),
+    ...mapMutations(['setAllArticle', 'setFolHeadImg', 'setLoadTopAllArticle']),
     showSheet () {
       this.sheetVisible = true
     },
-    closeHeadImg () {
-      this.showHeadImg = false
+    loadTop () {
+      axios.get('api/concern', {
+        params: {
+          user_id: this.uinfo.user_id,
+          curPage: this.allCurPage
+        }
+      }).then((response) => {
+        this.setLoadTopAllArticle(response.data.$user_article.data)
+      })
+      setTimeout(() => {
+        this.$refs.loadmore.onTopLoaded()  // 该方法会将加载动画结束
+      }, 1000)
     },
     loadMore () {
       this.loading = true
@@ -129,9 +139,11 @@ export default{
   }
 }
 </script>
-<style lang="scss">
+<style scoped lang="scss">
 @import "../../assets/common.scss";
-
+.mt-loadmore{
+  font-size: .4rem;
+}
 .follow{
   margin-top: 2px;
     height: 100%;

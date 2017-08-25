@@ -12,7 +12,7 @@
       
       <!-- 内容盒子 -->
       <div class="content">
-  
+
         <!-- 头部信息盒子 -->
         <div class="heading">
           
@@ -74,7 +74,7 @@
         showLoading: false,
         loading: true,
         backUrl: '',
-        followVisible: false
+        followVisible: false // true 为已关注 反之未
       }
     },
     methods: {
@@ -106,19 +106,67 @@
         }, 1000)
       },
       follow () {
-        this.followVisible = !this.followVisible
         console.log(this.followVisible)
+        if (!this.followVisible) {
+          axios.post('/api/concern', {
+            user_id: this.uinfo.user_id,
+            concern_user_id: this.ordCurId
+          }).then((response) => {
+            console.log(response)
+            this.followVisible = !this.followVisible
+          }).catch((error) => {
+            console.log(error)
+          })
+        } else {
+          axios.delete('/api/concern/7', {
+            params: {
+              user_id: this.uinfo.user_id,
+              concern_user_id: this.ordCurId
+            }
+          }).then((response) => {
+            console.log(response)
+            this.followVisible = !this.followVisible
+          }).catch((error) => {
+            console.log(error)
+          })
+        }
       }
     },
     computed: {
-      ...mapState(['ordArticle', 'ordArticleNum', 'ordLastPage', 'ordCurPage', 'ordCurId', 'ordCurName', 'ordCurHead'])
+      ...mapState([
+        'ordArticle',
+        'ordArticleNum',
+        'ordLastPage',
+        'ordCurPage',
+        'ordCurId',
+        'ordCurName',
+        'ordCurHead',
+        'uinfo',
+        'allArticle',
+        'ordCurIndex'
+      ])
     },
     beforeRouteEnter (to, from, next) {
       // 由于beforeRouteEnter钩子 在组件被创造之前被调用，所以无法使用this获取组件定义的方法计算属性等
       // 要使用next(vm => {}) 就可以获取
       next(vm => {
         vm.backUrl = from.path
-            // 判断在store中是否已经有文章，无则请求，有则不请求
+        nprogress.start()
+        // 判断当前用户是否已经关注
+        axios.get('api/onearticle', {
+          params: {
+            user_id: vm.uinfo.user_id,
+            concern_user_id: vm.ordCurId
+          }
+        }).then((response) => {
+          if (response.data.rtn === true) {
+            vm.followVisible = true
+          }
+          console.log(response)
+        }).catch((error) => {
+          console.log(error)
+        })
+        // 判断在store中是否已经有文章，无则请求，有则不请求
         if (vm.ordArticle.length === 0) {
           axios.get('api/article', {
             params: {
@@ -129,6 +177,7 @@
               // 调用 mutations的setUarticle方法，将获取到的文章添加到uarticle
             vm.setOrdarticle(response.data.$user_article)
             vm.loading = false
+            nprogress.done()
             next()
           }).catch((error) => {
             console.log(error)
@@ -137,9 +186,18 @@
           if (vm.ordCurPage <= vm.odrLastPage) {
             vm.loading = false
           }
+          nprogress.done()
           next()
         }
       })
+    },
+    beforeRouteLeave (to, from, next) {
+      if (!this.followVisible) {
+        this.allArticle.splice(this.ordCurIndex, 1)
+        console.log(!this.followVisible)
+        console.log(this.allArticles)
+      }
+      next()
     }
   }
   </script>

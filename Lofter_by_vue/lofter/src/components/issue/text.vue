@@ -8,7 +8,21 @@
             </div>
         </div>
         <div class="article-box">
-            <mt-field placeholder="文章标题（可不填）" v-model="articleTitle" class="article-title"></mt-field>
+            <!-- 文字 -->
+            <mt-field placeholder="文章标题（可不填）" v-model="articleTitle" class="article-title" v-if="$route.params.type == 'text'"></mt-field>
+
+            <!-- 音乐 -->
+            <div class="music-love border-top" v-else>
+              <div class="music-album">
+                <i></i>
+                <audio :src="'http://music.163.com/song/media/outer/url?id='+musicData.id" class="music-play" type="" controls="controls"></audio>
+                <img :src="musicData.album.picUrl" class="img">         
+              </div>
+              <h4 class="album-song">{{musicData.name}}</h4>
+              <span class="album-name">{{musicData.album.artist.name}}</span>
+              <span class="album-name song-name">{{musicData.album.name}}</span>
+            </div>
+
             <mt-field placeholder="说点什么" type="textarea" v-model="articleContent" rows="10" class="article-content"></mt-field>
             <div class="add-tag">
                 <i class="icon-price-tag article-icon"></i>
@@ -19,7 +33,7 @@
             
         </div>
         <!-- <router-link to="">发布</router-link> -->
-        <mt-button type="default" size="large" class="btn-issue" v-on:click="issueText()">发布</mt-button>
+        <mt-button type="default" size="large" class="btn-issue" v-on:click="$route.params.type == 'text'? issueText(): issueMusic()">发布</mt-button>
     </div>    
 </template>
 <script>
@@ -37,16 +51,15 @@ export default{
     }
   },
   computed: {
-    ...mapState(['uinfo', 'tag'])
+    ...mapState(['uinfo', 'tag', 'musicData'])
   },
   methods: {
     ...mapMutations(['tagSave', 'tagRemove', 'tagClear']),
     issueText: function () {
-      if (this.articleContent === '') {
+      if (this.articleConten === '') {
         Toast('内容不能为空')
         return
       }
-      console.log(this.uinfo.user_id)
       Axios.post('/api/article', {
         article_title: this.articleTitle,
         article_content: this.articleContent,
@@ -55,6 +68,21 @@ export default{
       }).then(function (rtnData) {
         Toast(rtnData.data.msg)
       })
+    },
+    issueMusic: function () {
+      if (this.musicData !== '') {
+        Axios.post('/api/article', {
+          user_id: this.uinfo.user_id,
+          tag_arr: this.tag.join(','),
+          article_content: this.articleContent,
+          article_music: this.musicData.audio,
+          article_img: JSON.stringify([this.musicData.album.picUrl])
+        }).then(function (rtnData) {
+          Toast(rtnData.data.msg)
+        })
+      } else {
+        console.log('0')
+      }
     },
     addTags: function (e) {
       // 插入标签
@@ -85,7 +113,7 @@ export default{
   }
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 @import "../../assets/common.scss";
 
 .text-nav {
@@ -184,5 +212,42 @@ export default{
     color: #fff;
     background-color: $topic_hcolor;
     border-color: $topic_hcolor
+  }
+
+  .music-love{
+    height: 9vh;
+    padding:0.15rem 0.25rem;
+    overflow: hidden;
+    font-size: 0.25rem;
+    color:#888;
+    .album-song{
+      font-size: 0.32rem;
+      color: #333;
+      margin: 0;
+      font-weight: 500;
+      width: 68%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .album-name{
+      display: inline-block;
+      float:left;
+      width: 68%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .music-album{
+      width: 1rem;
+      height: 1rem;
+      float: right;
+      display: inline-block;
+      vertical-align: middle;
+      margin-left: 0.25rem;
+      .img{
+        width: 100%;
+      }
+    }
   }
 </style>

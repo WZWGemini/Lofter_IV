@@ -17,9 +17,9 @@ Vue.directive('touchmove', {
       // console.log(e)
       mx = e.touches[0].clientX - x
       if (mx > 100) {
-        document.getElementById('desert').click()
-      } else if (mx < -100) {
         document.getElementById('follow').click()
+      } else if (mx < -100) {
+        document.getElementById('desert').click()
       }
     })
   }
