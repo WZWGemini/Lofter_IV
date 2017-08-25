@@ -24,7 +24,11 @@ return [
         'music'=>'api/music',
         'distag'=>'api/distag',
         'hot'=>'api/hot',
-        'personal'=>'api/personal'
+        'personal'=>'api/personal',
+        'shop'=>'api/shop',
+        'shopcar' => 'api/shopcar',
+        'sgoods' => 'api/sgoods',
+        'consigner' => 'api/consigner'
     ],
     '[hello]'     => [
         ':id'   => ['index/hello', ['method' => 'get'], ['id' => '\d+']],

@@ -1,4 +1,4 @@
-<template class="bottomNav-view">
+<template class="bottomNav-shop">
   <div class="bottomNav">
     <ul>
       <li>
@@ -7,27 +7,34 @@
           <p>主页</p>
         </router-link>
       </li>
-      <li>
+      <!-- <li>
         <router-link to='/' class="link-class">
           <span class="icon-indent-increase"></span>
-          <p>分类</p>
+          <p>收藏</p>
         </router-link>
-      </li>
+      </li> -->
       <li>
-        <router-link to='/' class="link-class">
+        <router-link to='/scart' class="link-class">
           <span class="icon-cart"></span>
           <p>购物车</p>
         </router-link>
       </li>
-      <li>
-        <router-link to='/' class="link-class">
+      <li class="li-class-add">
+        <router-link to='' class="link-class" @click="addCart(goods_info)">
           <span class="icon-user"></span>
-          <p>我的</p>
+          <p>加入购物车</p>
         </router-link>
       </li>
     </ul>
   </div>
 </template>
+
+<script>
+export default {
+
+}
+</script>
+
 
 <style lang="scss">
 @import '../../assets/common.scss';
@@ -40,7 +47,7 @@
   font-size: .35rem;
   background-color: #fff;
   ul {
-    text-align: center;
+    // text-align: center;
     width: 100%;
     li {
       width: 23%;
@@ -52,6 +59,14 @@
         p {
           font-size: .3rem;
         }
+      }
+    }
+    .li-class-add {
+      float: right;
+      width: 50%;
+      background-color: $topic_color;
+      .link-class {
+        color: #fff;
       }
     }
     li:hover, li:focus {

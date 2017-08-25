@@ -55,7 +55,12 @@ const Store = new Vuex.Store({
     spoTagArt: [],
     spoTagLastPage: '', // 其他标签页面文章最后一页
     spoTagArticleNum: 0, // 其他标签页面文章总数
-    spoTagCurPage: 0 // 其他标签页面文章下次加载页
+    spoTagCurPage: 0, // 其他标签页面文章下次加载页
+    // 商城模块
+    shomeInfo: [], // 用于存储首页商品信息
+    goodsInfo: [], // 用于存储商品详情页信息
+    cartList: [], // 是记录用户选择加入购物车的列表状态
+    orderList: [] // 是记录用户选择加入结算的商品列表
   },
   mutations: {
     // 设置用户信息(登录)
@@ -201,6 +206,30 @@ const Store = new Vuex.Store({
       console.log(state.spoTagLastPage)
       console.log(state.spoTagArticleNum)
       console.log(state.spoTagArt)
+    },
+    // 保存购物车信息
+    setCart (state, info) {
+      state.cartList.push(info)
+    },
+    // 保存商城首页商品信息
+    shomeInfoSave (state, info) {
+      state.shomeInfo.push(info)
+      // console.log(state.goodsInfo)
+    },
+    // 保存商品详情页信息
+    goodsInfoSave (state, info) {
+      if (state.goodsInfo !== []) {
+        state.goodsInfo = []
+        state.goodsInfo.push(info)
+      }
+    },
+    // 保存购物车信息
+    cartInfoSave (state, info) {
+      state.cartList.push(info)
+    },
+    // 保存订单信息
+    orderInfoSave (state, info) {
+      state.orderList.push(info)
     }
   },
   getters: {
