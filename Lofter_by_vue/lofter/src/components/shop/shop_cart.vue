@@ -3,43 +3,43 @@
     <shead></shead>
     <div class="null"></div>
     <div class="check-class">
-      <input type="checkbox" @click="checkAll()" :checked="checkGoods.length==cartList.length"/>
+      <input type="checkbox" @click="checkAll()" :checked="checkGoods.length==goodsList.length"/>    
       全选
     </div> 
-    <div class="carGoodsList">
-      <div class="goods-box" v-for="cart in cartList">
+    <div class="carGoodsList" v-for="(car,index) in goodsList">
+       <div class="goods-box" v-for="cart in cartList"> 
         <ul>
-          <li class="carGoodsListCheck">
-            <input type="checkbox" v-model="checkGoods" :value="cart"/>
+           <li class="carGoodsListCheck">
+            <input type="checkbox" v-model="checkGoods" :value="cart.carList[index]"/>
           </li>
           <li class="carGoodsListImg">
-            <img :src="JSON.parse(cart.goods_info.shop_img)"/>
+            <img :src="JSON.parse(cart.shop_list_a[index].shop_img)"/>
           </li>
           <li class="carGoodsListInfo">
             <ul>
-              <li class="goods-title">{{cart.goods_info.shop_name}}</li>
+              <li class="goods-title">{{cart.shop_list_a[index].shop_name}}</li>
               <li class="goods-attr">
-                <span class="goods-color">{{cart.color_attr_name}}</span>
-                <span class="goods-size">{{cart.size_attr_name}}</span>
+                <span class="goods-color">{{cart.color_attr[index]}}</span>
+                <span class="goods-size">{{cart.size_attr[index]}}</span>
               </li>
-              <li class="goods-price">售价：<span class="red">￥{{cart.attr_info.shop_price}}</span></li>
+              <li class="goods-price">售价：<span class="red">￥{{cart.shop_detail_list[index].shop_price['shop_price']}}</span></li>
               <li class="goods-amount">
-                <button class="goods-button" @click="minus(cart)">-</button>
-                <input type="text" class="goods-num" :value="cart.num">
-                <button class="goods-button" @click="add(cart)">+</button>
+                <button class="goods-button" @click="minus(cart.carList[index])">-</button>
+                 <input type="text" class="goods-num" :value="cart.carList[index].shop_num"> 
+                <button class="goods-button" @click="add(cart, index)">+</button>
               </li>
             </ul>
           </li>
-          <li class="carGoodsListDelete"><span class="icon-heart"></span></li>
+          <li class="carGoodsListDelete"><span class="icon-heart"></span></li> 
           <!-- <li class="carGoodsListDelete icon-bin2" @click="delItem(index,item)"></li> -->
-        </ul>
-      </div>
-    </div>
+         </ul>
+       </div> 
+    </div> 
     <div class="carBottom">
       <ul style="width: 100%;">
         <li class="p">
-          共{{totalNum}}件
-          <p>金额：<span class="red">￥{{totalPrice}}元</span></p>
+            共{{totalNum}}件
+          <p>金额：<span class="red">￥{{totalPrice}}元</span></p>  
         </li>
         <li class="buy" @click="setAccount(uinfo.user_id)">结算</li>
         <li class="b">
@@ -56,53 +56,82 @@ import {mapState, mapMutations} from 'vuex'
 import {Toast} from 'mint-ui'
 import shead from './home_top_nav'
 export default {
-  name: 'scart',
+  name: 'shopcar',
   data () {
     return {
       // 对添加到购车的商品 验证是否存在
       hasExists: false, // 默认否
       CheckAll: false,
       checkGoods: [],
+      checkGoodsDetail: [],
+      shopcarInfo: [],
+      goodsList: [],
       tolprice: null
     }
   },
   components: {
     shead
   },
+  mounted () {
+    this.init()
+  },
   methods: {
-    ...mapMutations(['orderInfoSave']),
+    ...mapMutations(['cartInfoSave', 'orderInfoSave']),
+    init: function () {
+      let userId = this.uinfo.user_id
+      this.$http.get('api/shopcar/' + userId)
+        .then((rtnD) => {
+          // console.log(rtnD)
+          this.shopcarInfo = rtnD.data.data
+          this.cartInfoSave(this.shopcarInfo)
+          this.goodsList = this.shopcarInfo['carList']
+          this.goodsDetail = this.shopcarInfo['shop_id_unique']
+          // console.log(this.goodsDetail)
+        })
+    },
     checkAll () {
       if (this.checkGoods.length > 0) {
         // 取消选中
+        // console.log(this.checkGoods.length)
         this.checkGoods = []
       } else {
         // 全选
-        this.cartList.forEach((item) => {
+        this.goodsList.forEach((item) => {
           this.checkGoods.push(item)
         })
       }
     },
     minus: function (info) {
-      if (info.num > 0) {
-        info.num--
+      if (info.shop_num > 0) {
+        info.shop_num--
       }
     },
-    add: function (info) {
-      if (info.num < info.attr_info.shop_store) {
-        info.num++
+    add: function (info, index) {
+      if (info.carList[index].shop_num <= info.shop_detail_list[index].shop_store['shop_store']) {
+        info.carList[index].shop_num++
       }
     },
     setAccount: function (info) {
+      this.checkGoods.forEach((item) => {
+        this.goodsDetail.forEach((i) => {
+          console.log(i)
+          if (item.shop_id === i.shop_id) {
+            this.checkGoodsDetail.push(i)
+          }
+        })
+      })
       // 还要把确认要购买的商品存入订单列表中
       let orderInfo = {
         totalNum: this.totalNum,
         totalPrice: this.totalPrice,
         orderList_arr: this.checkGoods,
+        orderList_arr_detail: this.checkGoodsDetail,
         user_id: info
       }
       this.orderList.length = 0
       this.orderInfoSave(orderInfo)
-      this.$router.push('/shop/sbalance/' + orderInfo.user_id)
+      // console.log(orderInfo.orderList_arr_detail)
+      this.$router.push('/consigner/' + orderInfo.user_id)
       Toast('正在结算中……')
     }
   },
@@ -111,14 +140,15 @@ export default {
     totalPrice: function () {
       let tPrice = 0
       this.checkGoods.forEach((item) => {
-        tPrice += Number(item.attr_info.shop_price) * Number(item.num)
+        // console.log(item)
+        tPrice += Number(item.shop_price) * Number(item.shop_num)
       })
       return tPrice
     },
     totalNum: function () {
       let tNum = 0
       this.checkGoods.forEach((item) => {
-        tNum += Number(item.num)
+        tNum += Number(item.shop_num)
       })
       return tNum
     }

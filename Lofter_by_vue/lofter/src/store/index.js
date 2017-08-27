@@ -41,7 +41,8 @@ const Store = new Vuex.Store({
     shomeInfo: [], // 用于存储首页商品信息
     goodsInfo: [], // 用于存储商品详情页信息
     cartList: [], // 是记录用户选择加入购物车的列表状态
-    orderList: [] // 是记录用户选择加入结算的商品列表
+    orderList: [], // 是记录用户选择加入结算的商品列表
+    consignerList: [] // 用于存储收货人信息
   },
   mutations: {
     // 设置用户信息(登录)
@@ -154,11 +155,20 @@ const Store = new Vuex.Store({
     },
     // 保存购物车信息
     cartInfoSave (state, info) {
-      state.cartList.push(info)
+      if (state.cartList !== []) {
+        state.cartList = []
+        state.cartList.push(info)
+      }
     },
     // 保存订单信息
     orderInfoSave (state, info) {
+      state.orderList = []
       state.orderList.push(info)
+    },
+    // 保存收货人信息
+    consignerInfoSave (state, info) {
+      state.consignerList = []
+      state.consignerList.push(info)
     }
   },
   getters: {

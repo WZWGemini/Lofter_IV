@@ -126,12 +126,16 @@ export default new Router({
     },
     // 购物车路由
     {
-      path: '/scart',
+      path: '/shopcar/:user_id',
       component: require('../components/shop/shop_cart')
     },
     // 结算路由
     { path: '/consigner/:user_id',
       component: require('../components/shop/shop_balance')
+    },
+    // 添加收货人路由
+    { path: '/address/:user_id',
+      component: require('../components/shop/shop_address')
     }
 
   ]

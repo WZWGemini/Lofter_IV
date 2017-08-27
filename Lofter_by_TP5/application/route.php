@@ -19,7 +19,11 @@ return [
         'article'=>'api/article',
         'tag'=>'api/tag',
         'comment'=>'api/comment',
-        'concern'=>'api/concern'
+        'concern'=>'api/concern',
+        'shop' => 'api/shop',
+        'shopcar' => 'api/shopcar',
+        'sgoods' => 'api/sgoods',
+        'consigner' => 'api/consigner'
     ],
     '[hello]'     => [
         ':id'   => ['index/hello', ['method' => 'get'], ['id' => '\d+']],

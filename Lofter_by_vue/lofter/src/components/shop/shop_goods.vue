@@ -30,7 +30,7 @@
       <div class="goodsChoose" is-link @click="popupVisible=true">
         <b class="bStyle">已选</b>
         <span class="choose-content">
-          {{color_attr_name}} {{size_attr_name}}
+          {{color_attr}} {{size_attr}}
         </span>
       <!-- <mt-cell class="bStyle goodsChoose" title="已选：" is-link @click.native="popupVisible=true"></mt-cell> -->
         <!-- <b>已选</b> -->
@@ -52,14 +52,14 @@
         <div class="goodsParam">
           <dl>
             <dt>颜色</dt>
-            <dd :class="{attr_class:color_id==color_attr}" v-for="(color_name, color_id) in spec_list.color_attr">
-            <span @click="selectColor(color_id,color_name)">{{color_name}}</span>
+            <dd :class="{attr_class:color==color_attr}" v-for="color in spec_list.color_attr">
+            <span @click="selectColor(color)">{{color}}</span>
           </dd>
           </dl>
           <dl>
             <dt>尺寸</dt>
-          <dd :class="{attr_class:size_id==size_attr}" v-for="(size_name, size_id) in spec_list.size_attr">
-            <span  @click="selectSize(size_id,size_name)">{{size_name}}</span>
+          <dd :class="{attr_class:size==size_attr}" v-for="size in spec_list.size_attr">
+            <span  @click="selectSize(size)">{{size}}</span>
           </dd>
           </dl>
         </div>
@@ -72,15 +72,35 @@
       </mt-popup>
     </div>
     <div class="null"></div>
-    <sfoot></sfoot>
+    <div class="bottomNav">
+      <ul>
+        <li>
+          <router-link to='/goods' class="link-class">
+            <span class="icon-home"></span>
+            <p>主页</p>
+          </router-link>
+        </li>
+        <li>
+          <router-link to='' class="link-class" @click.native="goCart(uinfo.user_id)">
+            <span class="icon-cart"></span>
+            <p>购物车</p>
+          </router-link>
+        </li>
+        <li class="li-class-add">
+          <router-link to='' class="link-class" @click.native="addCart()">
+            <span class="icon-user"></span>
+            <p>加入购物车</p>
+          </router-link>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
 <script>
 import shead from './home_top_nav'
-import sfoot from './shop_bottom_nav'
-import {mapState, mapMutations} from 'vuex'
-// import {Toast} from 'mint-ui'
+import {mapState} from 'vuex'
+import {Toast} from 'mint-ui'
 export default {
   name: 'sgoods',
   data () {
@@ -89,16 +109,13 @@ export default {
       spec_list: [], // 属性列表
       attr_price_list: [], // 属性价格
       color_attr: [], // 当前颜色属性
-      color_attr_name: [], // 当前颜色属性名称
       size_attr: [], // 当前尺寸属性
-      size_attr_name: [], // 当前尺寸属性名称
       attr_info: [], // 当前属性价格和库存
       popupVisible: false
     }
   },
   components: {
-    shead,
-    sfoot
+    shead
   },
   mounted () {
     this.init()
@@ -107,26 +124,20 @@ export default {
     'color_attr' (val) {
       // 观察当前颜色属性是否变化
       this.attr_price_list.forEach((item) => {
-        let detailArr = JSON.parse(item.shop_detail_json)
-        // console.log(222)
-        detailArr.forEach((k) => {
-          if (JSON.stringify(k) === '{"' + val + '"' + ':' + this.size_attr + '}') {
-            // 找到对应的两个规格属性就赋值当前属性价格和库存
-            this.attr_info = item
-            // console.log(this.attr_info)
-          };
-        })
+        let detailArr = item.shop_detail_json
+        if (detailArr === '[{"color":"' + val + '","size":"' + this.size_attr + '"}]') {
+          this.attr_info = item
+          // console.log(this.attr_info)
+        }
       })
     },
     'size_attr' (val) {
       this.attr_price_list.forEach((item) => {
-        let detailArr = JSON.parse(item.shop_detail_json)
-        detailArr.forEach((k) => {
-          if (JSON.stringify(k) === '{"' + this.color_attr + '"' + ':' + val + '}') {
-            this.attr_info = item
-            // console.log(this.attr_info)
-          };
-        })
+        let detailArr = item.shop_detail_json
+        if (detailArr === '[{"color":"' + this.color_attr + '","size":"' + val + '"}]') {
+          this.attr_info = item
+          // console.log(this.attr_info)
+        }
       })
     }
   },
@@ -134,60 +145,62 @@ export default {
     ...mapState(['uinfo', 'tag'])
   },
   methods: {
-    ...mapMutations(['cartInfoSave']),
+    // ...mapMutations(['cartInfoSave']),
     init: function () {
       let shopId = this.$route.params.goods_id
       this.$http.get('/api/sgoods/' + shopId)
         .then((rtnD) => {
-          // console.log(rtnD)
+          console.log(rtnD)
           // 赋值商品信息
           this.goods_info = rtnD.data.rtn.goods_info
           // 赋值属性列表
           this.spec_list = rtnD.data.rtn.spec_list
-          this.color_attr = 1
-          this.color_attr_name = this.spec_list.color_attr[this.color_attr]
-          this.size_attr = 11
-          this.size_attr_name = this.spec_list.size_attr[this.size_attr]
+          this.color_attr_list = this.spec_list.color_attr
+          this.color_attr = this.color_attr_list[0]
+          this.size_attr_list = this.spec_list.size_attr
+          this.size_attr = this.size_attr_list[0]
           // 赋值属性价格
           this.attr_price_list = rtnD.data.rtn.detail_list
-          // console.log(this.spec_list.size_attr[11])
+          this.attr_info.shop_price = this.attr_price_list[0].shop_price
+          // console.log(this.spec_list.size_attr)
         })
     },
-    selectColor: function (colorId, colorName) {
+    selectColor: function (color) {
       // 设置当前颜色属性ID
-      this.color_attr = colorId
-      this.color_attr_name = colorName
+      this.color_attr = color
       // console.log(this.color_attr)
     },
-    selectSize: function (sizeId, sizeName) {
+    selectSize: function (size) {
       // 设置当前尺寸属性ID
-      this.size_attr = sizeId
-      this.size_attr_name = sizeName
+      this.size_attr = size
       // console.log(this.size_attr)
     },
     addCart: function () {
       // 当前属性
       let cartInfo = {
         color_attr: this.color_attr,
-        color_attr_name: this.color_attr_name,
         size_attr: this.size_attr,
-        size_attr_name: this.size_attr_name,
         goods_info: this.goods_info,
         attr_info: this.attr_info,
         user_id: this.uinfo.user_id,
+        attr_json: '[{"color":"' + this.color_attr + '","size":"' + this.size_attr + '"}]',
         num: 1
       }
       // console.log(cartInfo)
       this.popupVisible = false
-      this.$http.post('/api/scart', {
+      this.$http.post('/api/shopcar', {
         cartInfo: cartInfo
       }).then((rtnD) => {
-        console.log(rtnD)
-        // if (rtnD.data.status === 1) {
-        //   this.cartInfoSave(rtnD)
-        //   Toast('加入购物车成功')
-        // }
+        // console.log(rtnD)
+        if (rtnD.data.status === 1) {
+          // this.cartInfoSave(rtnD.config.data)
+          // console.log(rtnD.config.data)
+          Toast('加入购物车成功')
+        }
       })
+    },
+    goCart: function (userId) {
+      this.$router.push('/shopcar/' + userId)
     }
   }
 }
@@ -323,5 +336,36 @@ export default {
   border: 1px solid $topic_color !important;
 }
 
-
+/* 底部导航栏样式 */
+.bottomNav{
+	width: 100%;
+	position: fixed;
+  bottom: 0;
+  font-size: .35rem;
+  background-color: #fff;
+  ul {
+    // text-align: center;
+    width: 100%;
+    li {
+      width: 23%;
+      padding: .15rem 0 .1rem;
+      display: inline-block;
+      text-align: center;
+      .link-class {
+        color: $topic_color;
+        p {
+          font-size: .3rem;
+        }
+      }
+    }
+    .li-class-add {
+      float: right;
+      width: 50%;
+      background-color: $topic_color;
+      .link-class {
+        color: #fff;
+      }
+    }
+  }
+}
 </style>
