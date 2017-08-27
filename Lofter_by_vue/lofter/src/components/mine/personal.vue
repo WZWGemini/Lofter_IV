@@ -22,9 +22,10 @@
                 <span class="user-id">ahaha1948</span>
                 <!-- 头部功能栏 -->
                 <div class="heading-function">
-                  <router-link to="/" active-class="a-class">关注</router-link>
-                  <router-link to="/" active-class="a-class">粉丝</router-link>
-                  <router-link to="/" active-class="a-class">喜欢</router-link>
+                  {{fflnum}}
+                  <router-link to="/" active-class="a-class">关注{{ffl.follow.length}}</router-link>
+                  <router-link to="/" active-class="a-class">粉丝{{ffl.fans.length}}</router-link>
+                  <router-link to="/" active-class="a-class">喜欢{{ffl.love.length}}</router-link>
                 </div>
               </div>
           </div>
@@ -40,7 +41,7 @@
           </li>  
           <li>
             <span class="icon-heart2 icon"></span>
-            <mt-cell class="cell-class" title="摄影课堂" icon="" is-link to="/"></mt-cell>
+            <mt-cell class="cell-class" title="设置头像" icon="" is-link to="/"></mt-cell>
           </li>
           <li>
             <span class="icon-bubble2 icon"></span>
@@ -59,6 +60,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 // 单独引入 辅助函数
 import {mapState, mapMutations} from 'vuex'
 export default {
@@ -71,14 +73,25 @@ export default {
   },
   data () {
     return {
-
     }
   },
   computed: {
-    ...mapState(['uinfo', 'hasLogin'])
+    ...mapState(['uinfo', 'hasLogin', 'ffl']),
+    fflnum: function () {
+      axios.get('api/personal', {
+        params: {
+          user_id: this.uinfo.user_id
+        }
+      }).then((response) => {
+        console.log(response)
+        this.setffl(response.data)
+      }).catch((error) => {
+        console.log(error)
+      })
+    }
   },
   methods: {
-    ...mapMutations(['unsetUinfo']),
+    ...mapMutations(['unsetUinfo', 'setffl']),
     loginOut () {
       this.unsetUinfo()
       this.$toast('成功退出！')

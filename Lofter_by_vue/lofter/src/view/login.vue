@@ -2,7 +2,7 @@
   <!--登陆界面  -->
   <div class="login">
     <mt-header fixed title="登录LOFTER" class="top-nav">
-      <router-link to="/guide" slot="left">
+      <router-link to="/" slot="left">
         <mt-button icon="back"></mt-button>
       </router-link>
     </mt-header>
@@ -24,7 +24,7 @@
             <input type="password" id='user_password' v-model="user_pwd"/>
           </li>
         </ul>
-          <router-link to="/lofter/discover" class="form-control btn btn-success btn-login">登录</router-link>
+          <router-link to="/lofter/discover/all" class="form-control btn btn-success btn-login">登录</router-link>
       </div>
         <p class="bottom-text">2017. Welcome to Lofter</p>
     </div>
@@ -56,7 +56,7 @@ export default {
   beforeRouteLeave (to, from, next) {
     // console.log(to)
     // console.log(from)
-    if (to.path === '/lofter/discover') {
+    if (to.path === '/lofter/discover/all') {
       // 发送请求
       axios.get('/api/user', {
         // 使用get方法必须先将参数放在params里面，否则无法传输数据

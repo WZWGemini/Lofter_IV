@@ -20,7 +20,12 @@ return [
         'tag'=>'api/tag',
         'comment'=>'api/comment',
         'concern'=>'api/concern',
-        'shop' => 'api/shop',
+        'onearticle'=>'api/onearticle',
+        'music'=>'api/music',
+        'distag'=>'api/distag',
+        'hot'=>'api/hot',
+        'personal'=>'api/personal',
+        'shop'=>'api/shop',
         'shopcar' => 'api/shopcar',
         'sgoods' => 'api/sgoods',
         'consigner' => 'api/consigner'

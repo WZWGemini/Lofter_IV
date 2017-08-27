@@ -1,25 +1,6 @@
 <template>
   <!-- 发现详情页面 -->
   <div class="detail">
-
-    <!-- 顶部固定导航栏 -->
-    <header class="header">
-      <nav class="navbar">
-        <div class="navbar-wp">
-          <router-link to="" class="top-icon icon active">
-            <span class="icon-search"></span>
-          </router-link> 
-          <div class="top-nav">
-            <div class="clear topnav-class">
-              <router-link to="" class="li-class" active-class="a-li" v-for="i in 10">推荐</router-link>
-            </div>
-          </div>
-          <router-link to="" class="open"></router-link>
-        </div>  
-      </nav> 
-    </header> 
-
-    
     <!-- 内容盒子 -->
     <div class="content">
       <!--顶部广告照片  -->
@@ -30,7 +11,6 @@
         <mt-actionsheet :actions="actions" v-model="sheetVisible">
         </mt-actionsheet>
       </div>
-
       <div class="article-box" v-for="i in 10">
         <div class="article-img-box">
           <img src="../../assets/img/user_bg.jpg" class="article-img">
@@ -103,8 +83,8 @@ export default{
   },
    // 使用导航钩子 检查跳转
   beforeRouteEnter (to, from, next) {
-    console.log(to)
-    console.log(from)
+    // console.log(to)
+    // console.log(from)
     next(vm => {
       if (to.path === '/lofter/home/follow') {
         // 发送请求
@@ -133,76 +113,10 @@ export default{
 <style lang="scss">
   @import '../../assets/common.scss';
   /* CSS Document */
-
-  
-  .header {
-    .navbar {
-      position: relative;
-      height: .8rem;
-      line-height: .8rem;
-      font-size: .35rem;
-      border-bottom: 1px solid #efefef;
-      z-index: 999;
-      text-align: center;
-      .navbar-wp {
-        position: relative;
-        height: .8rem;
-        margin: 0 .2rem 0 .8rem;
-        .top-icon {
-          position: relative;
-          display: inline-block;
-          height: 100%;
-          span {
-            color: $topic_color;
-            padding: .25rem .2rem .5rem;
-            float: left;
-          }
-        }
-        .active {
-          position: absolute;
-          top: 0;
-          width: .8rem;
-          left: -.8rem;
-        }
-        .icon:after {
-          content: "";
-          position: absolute;
-          right: -.5rem;
-          top: 0;
-          bottom: 0;
-          width: .5rem;
-          background-image: radial-gradient(ellipse at left, rgba(0, 0, 0, 0.1) 0, rgba(0, 0, 0, 0) 80%);
-        }
-        .top-nav {
-          height: 100%;
-          overflow: hidden;
-          z-index: 2;
-          .clear:after {
-            content: "";
-            display: table;
-            clear: both;
-          }
-          .topnav-class {
-            white-space: nowrap;
-            height: 100%;
-            overflow-y: hidden;
-            .li-class {
-              padding: .18rem .25rem;
-              color: $topic_color;
-            }
-            .a-li {
-              border-bottom: 2px solid $topic_color;
-            }
-          }
-        }
-      }
-    }
-  }
   .content {
     /*头部广告  */
     .ad-box{
         position:relative;
-        margin-top: .8rem;
         width: 100%;
         height: 20%;
         overflow:hidden;

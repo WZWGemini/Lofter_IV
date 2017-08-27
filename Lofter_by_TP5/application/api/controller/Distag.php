@@ -1,35 +1,30 @@
 <?php
+// discover页面下 其他标签 请求 api
 namespace app\api\controller;
 
 use think\Controller;
 
-class Concern extends Controller
+class Distag extends Controller
 {
 //    index  get  user
     public function index()
     {
         $inputData = input();
-        $page = 2;
-        if (!empty(input('curPage'))) {
-            $page = 2*(input('curPage')-1);
-        }
         unset($inputData['page']);
-        unset($inputData['curPage']);
-        $wheData = ['c.user_id'=>$inputData['user_id']];
-        $user_article = model("concern")->alias("c")
-        ->where($wheData)
-        ->join('user u','u.user_id = c.concern_user_id')
-        ->join('article a','a.user_id=c.concern_user_id')
-        ->field('a.*,u.user_name,u.user_head,c.concern_id')
-        ->order('c.concern_id desc')
-        ->paginate($page);
-        $tag = model("tag");
+        $tag = model('tag')->alias('t');
+        $user_article = $tag->where($inputData)
+                ->join('tagArticle ta','t.tag_id = ta.tag_id')
+                ->join('article a', 'a.article_id = ta.article_id')
+                ->join('user u','u.user_id=a.user_id')
+                ->field('a.*,u.user_name,u.user_head')
+                ->order('a.article_id desc')
+                ->paginate(2);
         $comment = model("comment");
         foreach ($user_article as $key => $value) {
             $articleTag = $tag->alias('t')->join('tagArticle ta','ta.tag_id=t.tag_id')
-                              ->where("ta.article_id=".$value['article_id'])
-                              ->field('t.tag_content,t.tag_id')
-                              ->select();
+                                ->where("ta.article_id=".$value['article_id'])
+                                ->field('t.tag_content,t.tag_id')
+                                ->select();
             $value['articleTag']=$articleTag;
             $value['article_time']=date('Y-m-d H:i:s',$value['article_time']); 
             $articleComment = $comment->alias('c')
@@ -37,13 +32,10 @@ class Concern extends Controller
                                 ->where("c.article_id=".$value['article_id'])
                                 ->order('c.comment_id desc')
                                 ->field('c.*,u.user_name')
-                                ->select();
-            foreach ($articleComment as $ke => $val) {
-                $val['comment_time'] = date('Y-m-d H:i:s',$val['comment_time']);
-            }             
+                                ->select();            
             $value['articleComment']=$articleComment;                    
         }
-        return json(['status' => 1, 'msg' => '请求成功！','$user_article'=>$user_article]);
+        return json(['status' => 1, 'msg' => 'index', '$user_article' => $user_article]);
     }
 
 //    read get user/:id
@@ -67,8 +59,7 @@ class Concern extends Controller
 //    save post user
     public function save()
     {
-        $rtn = model('concern')->save(input());
-        return json(['status' => 1, 'msg' => 'save','rtn' => $rtn]);
+        return json(['status' => 1, 'msg' => 'save']);
     }
 
 //    update put user/:id
@@ -80,9 +71,6 @@ class Concern extends Controller
 //    delete delete user/:id
     public function delete($id)
     {
-        $data = input();
-        unset($data['id']);
-        $rtn = model('concern')->where($data)->delete();
-        return json(['status' => 1, 'msg' => 'delete','rtn'=>$rtn]);
+        return json(['status' => 1, 'msg' => 'delete']);
     }
 }

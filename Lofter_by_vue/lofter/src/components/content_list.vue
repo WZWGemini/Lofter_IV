@@ -7,7 +7,7 @@
         <!--内容顶部  -->
         <div class="top">
           <router-link to="/personalhome">
-            <ul @click="setId(item.user_id,item.user_name,item.user_head)">
+            <ul @click="setId(item.user_id,item.user_name,item.user_head,index)">
               <!--头像 用户名 时间  -->
               <li class="head-img">
                   <img :src="item.user_head">    
@@ -40,11 +40,23 @@
         <div class="foot">
           <!--5个功能图标  -->
           <div class="btn-box">
-            <span class="icon-heart heart"></span>
-            <router-link to="/comment"><span @click="setCurInfo(item)" class="icon-bubble2 bubble"></span></router-link>
-            <span class="icon-redo2 redo"></span>
-            <span class="icon-like like"></span>
-            <span class="icon-dots-three-horizontal dot"></span>
+            <span class="love">
+              {{isloveActive}}
+              <vue-star animate="animated bounceIn" :color=" colorActive ? '#d50000':'#bdbdbd'" :class="{loveActive:colorActive }">
+                <i slot="icon"  @click="love()" class="fa fa-heart"></i>
+              </vue-star>
+            </span>
+            <span @click="setCurInfo(item)" class="icon-bubble2 bubble"></span>
+            <span class="icon-redo2 redo" @click="showShare()"></span>
+            <mt-actionsheet
+              :actions="shareActions"
+              v-model="shareSheetVisible">
+            </mt-actionsheet>
+            <span class="good">
+              <vue-star animate="animated bounceIn" color="#F05654">
+                <i slot="icon" class="fa fa-thumbs-up"></i>
+              </vue-star>
+            </span>
           </div>
           <!--评论  -->
           <div class="comment" v-if="item.articleComment.length!=0">
@@ -66,22 +78,49 @@
 </template>
 <script>
   import {mapState, mapMutations} from 'vuex'
-
+  import axios from 'axios'
   export default{
-    props: ['item'],
+    props: ['item', 'index'],
     data () {
       return {
         err: '',
-        post: ''
+        post: '',
+        shareSheetVisible: false,
+        shareActions: [
+          {name: '分享到微博',
+            method: () => {
+              this.$toast('成功分享！')
+            }
+          }
+        ],
+        colorActive: false
       }
     },
     computed: {
-      ...mapState(['curComment', 'ordCurId', 'ordCurName']),
+      ...mapState(['curComment', 'ordCurId', 'ordCurName', 'hasLogin', 'uinfo']),
       limit: function () {
         if (this.item.articleComment.length > 3) {
           return this.item.articleComment.slice(0, 3)
         } else {
           return this.item.articleComment
+        }
+      },
+      // 请求判断当前用户是否已经对该文章点赞
+      isloveActive: function () {
+        if (this.hasLogin) {
+          axios.get('api/hot', {
+            params: {
+              user_id: this.uinfo.user_id,
+              article_id: this.item.article_id
+            }
+          }).then((response) => {
+            // console.log(response.data.rtn)
+            if (response.data.rtn) {
+              this.colorActive = true
+            }
+          }).catch((error) => {
+            console.log(error)
+          })
         }
       }
     },
@@ -90,13 +129,50 @@
       // 设置目前点击微博所需要显示的评论及id
       setCurInfo: function (item) {
         this.setCurComment(item)
+        this.$router.push('/comment')
       },
-      setId: function (id, name, head) {
+      setId: function (id, name, head, index) {
         if (id !== this.ordCurId) {
           this.clearOrdInfo()
         }
-        let info = {id, name, head}
+        let info = {id, name, head, index}
         this.setCurId(info)
+      },
+      showShare: function () {
+        console.log(1)
+        this.shareSheetVisible = true
+      },
+      love: function () {
+        if (this.colorActive) {
+          // 为真， 点击则为取消点赞，反之
+          console.log('love')
+          axios.delete('api/hot/7', {
+            params: {
+              user_id: this.uinfo.user_id,
+              article_id: this.item.article_id
+            }
+          }).then((response) => {
+            console.log(response)
+            if (response.data.rtn === 1) {
+              this.colorActive = false
+            }
+          }).catch((error) => {
+            console.log(error)
+          })
+        } else {
+          console.log('unlove')
+          axios.post('api/hot', {
+            user_id: this.uinfo.user_id,
+            article_id: this.item.article_id
+          }).then((response) => {
+            console.log(response)
+            if (response.data.rtn === 1) {
+              this.colorActive = true
+            }
+          }).catch((error) => {
+            console.log(error)
+          })
+        }
       }
     },
     components: {
@@ -106,6 +182,9 @@
 </script>
 <style scoped lang="scss">
 @import "../assets/common.scss";
+.loveActive{
+  color: #d50000;
+}
 .line{
       height:.6rem;
       background-color: #F0F0F0;
@@ -149,7 +228,7 @@
       }
       .time{
         color: #ccc;
-        width: 30%;
+        width: 35%;
         font-size: .2rem;
         line-height: 1rem;
         float: right;
@@ -189,7 +268,7 @@
       font-size: .3rem;
       color:#9e9e9e;
       span{
-        margin-left: 10%;
+        margin-left: 15%;
       }
       .dot{
         margin-left:25% 
@@ -217,4 +296,21 @@
     }
   }
 }
+.love{
+  position: relative;
+  .VueStar{
+    position: absolute;
+    top:-.75rem;
+    left:-.9rem;
+  }
+}
+.good{
+  position: relative;
+  .VueStar{
+    position: absolute;
+    top:-.75rem;
+    left:-.9rem;
+  }
+}
+
 </style>

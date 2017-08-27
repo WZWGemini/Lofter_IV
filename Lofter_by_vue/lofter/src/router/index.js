@@ -62,7 +62,16 @@ export default new Router({
         // 发现子路由
         {
           path: 'discover',
-          component: require('../components/discover/detail')
+          component: require('../components/discover'),
+          children: [
+            { path: 'all', component: require('../components/discover/all') },
+            { path: 'sport', component: require('../components/discover/sport') },
+            { path: 'foot', component: require('../components/discover/music') },
+            { path: 'shoot', component: require('../components/discover/detail') },
+            { path: 'movie', component: require('../components/discover/detail') },
+            { path: 'trip', component: require('../components/discover/detail') },
+            { path: 'music', component: require('../components/discover/detail') }
+          ]
         },
         // 我的子路由
         { path: 'mine', component: require('../components/mine/personal') }
@@ -87,9 +96,14 @@ export default new Router({
       component: guide
     },
     {
-      path: '/lofter/issue/text',
+      path: '/lofter/issue/text/:type',
       name: 'text',
       component: require('../components/issue/text')
+    },
+    {
+      path: '/lofter/issue/music',
+      name: 'music',
+      component: require('../components/issue/music')
     },
     {
       path: '/personal',
@@ -105,6 +119,21 @@ export default new Router({
       path: '/personalhome',
       name: 'personalhome',
       component: require('../view/personal_home')
+    },
+    {
+      path: '/test',
+      name: 'test',
+      component: require('../components/shop/home_top_nav')
+    },
+    // 单个文章页面
+    {
+      path: '/onearticle',
+      component: require('../components/one_article')
+    },
+    // 我的关注
+    {
+      path: '/myfollow',
+      component: require('../components/mine/my_follow')
     },
     {
       path: '/shop',
@@ -137,6 +166,5 @@ export default new Router({
     { path: '/address/:user_id',
       component: require('../components/shop/shop_address')
     }
-
   ]
 })

@@ -4,9 +4,9 @@
 
     <!-- 顶部固定导航栏 -->
     <div fixed class="top-nav">
-      <router-link to="/lofter/home/follow" class="top-icon">
-        <span class="mintui mintui-back"></span>
-      </router-link>
+
+        <span  @click="$router.go(-1)" class="mintui mintui-back top-icon"></span>
+
        <mt-search v-model="value" placeholder="搜索" class="top-search"></mt-search> 
        <router-link to="" @click.native="follow()" class="follow_class"><span>+</span> 关注</router-link> 
     </div>
@@ -131,16 +131,14 @@ export default {
     height: .8rem;
     position: fixed;
     width: 100%;
-    .top-icon {
+    .top-icon, span{
       display: inline-block;
       height: 100%;
       float: left;
       font-weight: 600;
-      span {
-        color: $topic_color;
-        padding: .25rem .2rem .5rem;
-        float: left;
-      }
+      color: $topic_color;
+      padding: .25rem .2rem .5rem;
+      float: left;
     }
     .top-search {
       width: 65%;

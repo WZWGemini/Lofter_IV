@@ -4,7 +4,7 @@
 
   <!-- 顶部固定导航栏 -->
    <mt-header fixed class="top-nav" title="评论">
-    <router-link :to="backUrl" slot="left">
+    <router-link to="" @click.native="$router.go(-1)" slot="left">
     <mt-button icon="back"></mt-button>
     </router-link>
   </mt-header> 
@@ -43,13 +43,13 @@
 
 <script>
 import {mapState} from 'vuex'
+// import {toast} from 'mint-ui'
 import axios from 'axios'
 export default {
   name: 'comment',
   data () {
     return {
-      comment_content: '',
-      backUrl: ''
+      comment_content: ''
     }
   },
   methods: {
@@ -87,15 +87,20 @@ export default {
     }
   },
   computed: {
-    ...mapState(['curComment', 'uinfo'])
+    ...mapState(['curComment', 'uinfo', 'hasLogin'])
   },
   beforeRouteEnter (to, from, next) {
     next(vm => {
-      // 通过 `vm` 访问组件实例
-      console.log(to)
-      console.log(from)
-      vm.backUrl = from.path
-      next()
+      if (vm.hasLogin) {
+        // 通过 `vm` 访问组件实例
+        console.log(to)
+        console.log(from)
+        vm.backUrl = from.path
+        next()
+      } else {
+        vm.$toast('请先登陆！')
+        next('/login')
+      }
     })
   }
 }
