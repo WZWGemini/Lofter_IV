@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="__PUBLIC_LOFTER__/css/art.css">
+</head>
+<body>
+	<div class="page">
+		<!-- 头部 -->
+		{include file='element/ele-artHeader'}
+		
+		<div id="art">
+			<!-- 购物车 -->
+			<div class="art-cart">
+				<div class="g-box3 f-cb">
+		        	<h2 class="w-fttl">
+		        		购物车
+		        	</h2>
+		        </div>
+
+		        <!-- 没有商品显示 -->
+		        <!-- {//include file='element/ele-noGoodsCart'}  -->
+		        
+
+	            <!-- 有商品显示 -->
+	            {include file='element/ele-hasGoodsCart'}            
+			</div>
+		</div>
+		<!-- 底部 -->
+		{include file='element/ele-artFooter'}
+	</div>
+</body>
+</html>
+<script src="__PUBLIC_LOFTER__/lib/Bootstrap3.3.7/js/jquery-1.11.1.min.js"></script>
+<script src="__PUBLIC_LOFTER__/lib/vue/vue/vue-2.4.2.min.js"></script>
+<script src="__PUBLIC_LOFTER__/lib/vue/vuex/vuex-2.3.0.js"></script>
+<!-- <script src="__PUBLIC_LOFTER__/js/cart.js"></script> -->
+<script>
+window.onload=function () {
+	const store = new Vuex.Store({
+		state: {
+			data: {}
+		},
+		mutations: {
+			getSettlement (state, data_info) {
+				state.data = data_info
+				console.log(state.data)
+			}
+		}
+	})
+	new Vue({
+		el:"#art",
+		data:{
+			check: [],
+			all_check: true,
+			piece: 1,
+			cart: [
+				{foreach $shopInfo as $key=>$value}
+				{
+					shopcar_id: {$value.shopcar_id},
+					img: "{$value.shop_img}",
+					sum: {$value.shop_num},
+					price: {$value.shop_price},
+					name: "{$value.shop_name}",
+					author: "{$value.user_name}",
+					color: JSON.parse('{$value.shop_detail_json}').color,
+					size: JSON.parse('{$value.shop_detail_json}').size
+				},
+				{/foreach}
+			],
+			select_cart: []
+		},		
+		computed:{
+			totalPrice:function  () {
+				let tPrice=0
+				this.select_cart.forEach((item)=>{
+						tPrice+=Number(item.price)*Number(item.sum)
+				})
+				return tPrice
+			},
+			totalNum:function  () {
+				let tNum=0
+				this.select_cart.forEach((item)=>{
+						tNum+=Number(item.sum)
+				})
+				return tNum
+			},
+		},
+		methods:{
+			// 全选
+			checkall: function () {
+				if (this.select_cart.length>0) {
+					// 取消选中
+					this.select_cart = [] 
+				}else{
+					// 全选
+					this.cart.forEach((item)=>{
+						this.select_cart.push(item)
+					})
+				}
+			},
+			// 加一
+			add: function (index) {
+				this.cart[index].sum++
+				$.post("{:url('shop/updateShopCar')}",{"num":this.cart[index].sum, "shopcar_id":this.cart[index].shopcar_id})				
+			},
+			// 减一
+			reduce: function (index) {
+				if (this.cart[index].sum > 1) {					
+					this.cart[index].sum--
+					$.post("{:url('shop/updateShopCar')}",{"num":this.cart[index].sum, "shopcar_id":this.cart[index].shopcar_id})
+				} else {
+					this.cart[index].sum = 1
+				}
+			},
+			// 删除
+			del: function (index) {
+				let flag = confirm("确定要删除吗？")
+				if (flag) {
+					this.cart.splice(index,1)
+					this.select_cart.forEach((item,i)=>{
+						if(item.shopcar_id = this.cart[index].shopcar_id){
+							this.select_cart.splice(i,1)
+						}
+					})
+					$.post("{:url('shop/removeShopCar')}",{"shopcar_arr":JSON.stringify([this.cart[index].shopcar_id])})
+				}else{
+					return
+				}
+			},
+			// 结算
+			settlement: function () {
+				if(this.select_cart.length == 0) return;
+				sessionStorage.data = JSON.stringify(this.select_cart);
+				sessionStorage.price = this.totalPrice;
+				location.href = "{:url('shop/sureOrder')}";
+				store.commit('getSettlement',this.select_cart)
+			}
+		}
+	})
+}
+</script>

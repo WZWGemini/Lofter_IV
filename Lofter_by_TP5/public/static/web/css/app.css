@@ -43,7 +43,7 @@ footer .m-ft2 span {
 }
 
 #app .m-appbox2-1 .iteml {
-    background: url('../../public/img/AppDownload/bg2-1.png?005') left 145px no-repeat;
+    background: url('../img/AppDownload/bg2-1.png?005') left 145px no-repeat;
 }
 
 #app .m-appbox2-1 .iteml a, .m-appbox2-4 .item a {
@@ -69,8 +69,8 @@ footer .m-ft2 span {
 
 #app .m-appbox2-1 .txt, .m-appbox2-4 .txt {
     position: absolute;
-    left: 0;
-    top: 418px;
+    left: 3px;
+    top: 685px;
     width: 376px;
     font-size: 18px;
     color: #fff;
@@ -84,7 +84,7 @@ footer .m-ft2 span {
     margin: 0 -20px 0 0;
 }
 #app .m-appbox2-1 .itemr {
-    background: url('../../public/img/AppDownload/bg2-2.png?005') right 65px no-repeat;
+    background: url('../img/AppDownload/bg2-2.png?005') right 65px no-repeat;
 }
 
 #app .m-appbox2-2 {
@@ -92,12 +92,12 @@ footer .m-ft2 span {
     /* background-color: #2e2e2e; */
 }
 #app .m-appbox2-2 {
-    background: url('../../public/img/AppDownload/bg2-4.png?005') center 75px no-repeat #2e2e2e;
+    background: url('../img/AppDownload/bg2-4.png?005') center 75px no-repeat #2e2e2e;
 }
 
 #app .m-appbox2-3 {
     height: 800px;
-    background: url('../../public/img/AppDownload/bg2-3.jpg?006') center 75px no-repeat;
+    background: url('../img/AppDownload/bg2-3.jpg?006') center 75px no-repeat;
 }
 
 #app .m-appbox2-4 {
@@ -105,7 +105,7 @@ footer .m-ft2 span {
 	/* background-color: #181818; */
 }
 #app .m-appbox2-4 {
-    background: url('../../public/img/AppDownload/bg2-5.png?007') center 80px no-repeat #181818;
+    background: url('../img/AppDownload/bg2-5.png?007') center 80px no-repeat #181818;
 }
 #app .m-appbox2-4 .item {
     position: relative;

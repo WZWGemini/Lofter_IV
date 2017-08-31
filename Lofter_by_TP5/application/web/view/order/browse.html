@@ -3,31 +3,18 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Document</title>
+	<link rel="stylesheet" href="__PUBLIC_LOFTER__/lib/Bootstrap3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="__PUBLIC_LOFTER__/css/rebuild.css">
 	<link rel="stylesheet" href="__PUBLIC_LOFTER__/css/index.css?001">
 	<link rel="stylesheet" href="__PUBLIC_LOFTER__/css/browse.css?001">
 	<link rel="stylesheet" href="__PUBLIC_LOFTER__/css/common.css?001">	
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="__PUBLIC_LOFTER__/lib/Bootstrap3.3.7/js/jquery-1.11.1.min.js"></script>
+	<script src="__PUBLIC_LOFTER__/lib/Bootstrap3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
 	<div class="page">
 		<!-- 顶部导航 -->
-		<div id="nav"> 
-			<div class="container">
-				<div class="nav-logo"></div>
-				<div class="nav-head">
-					<ul class="nav-ul">
-						<li><a href="index.html">首页</a></li>
-						<li><a href="browse.html">浏览</a></li>
-						<li><a href="app.html">APP</a></li>
-						<li><a href="ART.html">ART</a></li>
-						<li><a href="potoshop.html">摄影课堂</a></li>
-						<li><a href="">更多</a></li>
-					</ul>
-				</div>
-				<div class="nav-search"></div>
-			</div>
-		</div>
-
+		{include file='element/ele-header'}
 		<!-- tab选项卡 -->
 		<div class="bro-tab">
 			<ul class="bro-tab-ul container">
@@ -38,240 +25,39 @@
 				<li><a class="zt">专题</a></li>
 			</ul>
 		</div>
-		
 		<div id="page_center">
 			<!-- 趋势（瀑布流） -->
-			<div id="waterfall">
-				<!-- 第一列 -->
-				<div class="waterfall-col col01">
-					<div class="waterfall-box">
-						<div class="waterfall-user">
-							<a class="span-img float-left">
-								<img src="../public/img/sc4-4.png" class="img">
-							</a>
-							<a>
-								<span class="txt bro-txt">用户名称</span>
-							</a>
-							<a href="" class="bro-follow">关注</a>
-						</div>
-						<div class="waterfall-img">
-							<img src="../public/img/lofter.jpg" class="img">
-						</div>
-						<div class="waterfall-content">
-							<div class="content-txt">
-								<p>一堆文字显示这个东西能不能在放大的同时缩小一点🙃</p>
+			<div id="waterfall" class=" clearfix">
+					<!-- <div class="waterfall-box">
+							<div class="waterfall-innerbox">
+								<div class="waterfall-user">
+									<a class="span-img float-left">
+										<img src="__PUBLIC_UPLOAD__/img\user_1/1.jpg" class="img">
+									</a>
+									<a>
+										<span class="txt bro-txt">用户名称</span>
+									</a>
+									<a href="" class="bro-follow">关注</a>
+								</div>
+								<div class="waterfall-img">
+									<img src="__PUBLIC_UPLOAD__/2.jpg" class="img">
+								</div>
+								<div class="waterfall-content">
+									<div class="content-txt">
+										<p>一堆文字显示这个东西能不能在放大的同时缩小一点🙃</p>
+									</div>
+								</div>
+								<div class="waterfall-likeIt">
+									<a class="bro-likeIt"></a>
+									<span>58人喜欢</span>
+								</div>
 							</div>
-						</div>
-						<div class="waterfall-likeIt">
-							<a class="bro-likeIt"></a>
-							<span>58人喜欢</span>
-						</div>					
-					</div>
-
-					<div class="waterfall-box">
-						<div class="waterfall-user">
-							<a class="span-img float-left">
-								<img src="../public/img/sc4-4.png" class="img">
-							</a>
-							<a>
-								<span class="txt bro-txt">用户名称</span>
-							</a>
-							<a href="" class="bro-follow">关注</a>
-						</div>
-						<div class="waterfall-img">
-							<img src="../public/img/lofter.jpg" class="img">
-						</div>
-						<div class="waterfall-content">
-							<div class="content-txt">
-								<p>一堆文字显示这个东西能不能在放大的同时缩小一点🙃</p>
-							</div>
-						</div>
-						<div class="waterfall-likeIt">
-							<a class="bro-likeIt"></a>
-							<span>58人喜欢</span>
-						</div>					
-					</div>
-
-					<div class="waterfall-box">
-						<div class="waterfall-user">
-							<a class="span-img float-left">
-								<img src="../public/img/sc4-4.png" class="img">
-							</a>
-							<a>
-								<span class="txt bro-txt">用户名称</span>
-							</a>
-							<a href="" class="bro-follow">关注</a>
-						</div>
-						<div class="waterfall-img">
-							<img src="../public/img/lofter.jpg" class="img">
-						</div>
-						<div class="waterfall-content">
-							<div class="content-txt">
-								<p>一堆文字显示这个东西能不能在放大的同时缩小一点🙃</p>
-							</div>
-						</div>
-						<div class="waterfall-likeIt">
-							<a class="bro-likeIt"></a>
-							<span>58人喜欢</span>
-						</div>					
-					</div>
-				</div>
-				<!-- 第二列 -->
-				<div class="waterfall-col col02">
-					<div class="waterfall-box">
-						<div class="waterfall-user">
-							<a class="span-img float-left">
-								<img src="../public/img/sc4-4.png" class="img">
-							</a>
-							<a>
-								<span class="txt bro-txt">用户名称</span>
-							</a>
-							<a href="" class="bro-follow">关注</a>
-						</div>
-						<div class="waterfall-img">
-							<img src="../public/img/lofter.jpg" class="img">
-						</div>
-						<div class="waterfall-content">
-							<div class="content-txt">
-								<p>一堆文字显示这个东西能不能在放大的同时缩小一点🙃</p>
-							</div>
-						</div>
-						<div class="waterfall-likeIt">
-							<a class="bro-likeIt"></a>
-							<span>58人喜欢</span>
-						</div>					
-					</div>
-
-					<div class="waterfall-box">
-						<div class="waterfall-user">
-							<a class="span-img float-left">
-								<img src="../public/img/sc2-1.png" class="img">
-							</a>
-							<a>
-								<span class="txt bro-txt">用户名称</span>
-							</a>
-							<a href="" class="bro-follow">关注</a>
-						</div>
-						<div class="waterfall-img">
-							<img src="../public/img/sc2-1.png" class="img">
-						</div>
-						<div class="waterfall-content">
-							<div class="content-txt">
-								<p>一堆文字显示这个东西能不能在放大的同时缩小一点🙃</p>
-							</div>
-						</div>
-						<div class="waterfall-likeIt">
-							<a class="bro-likeIt"></a>
-							<span>58人喜欢</span>
-						</div>					
-					</div>
-				</div>
-
-				<!-- 第三列 -->
-				<div class="waterfall-col col03">
-					<div class="waterfall-box">
-						<div class="waterfall-user">
-							<a class="span-img float-left">
-								<img src="../public/img/sc4-4.png" class="img">
-							</a>
-							<a>
-								<span class="txt bro-txt">用户名称</span>
-							</a>
-							<a href="" class="bro-follow">关注</a>
-						</div>
-						<div class="waterfall-img">
-							<img src="../public/img/lofter.jpg" class="img">
-						</div>
-						<div class="waterfall-content">
-							<div class="content-txt">
-								<p>一堆文字显示这个东西能不能在放大的同时缩小一点🙃</p>
-							</div>
-						</div>
-						<div class="waterfall-likeIt">
-							<a class="bro-likeIt"></a>
-							<span>58人喜欢</span>
-						</div>					
-					</div>
-
-					<div class="waterfall-box">
-						<div class="waterfall-user">
-							<a class="span-img float-left">
-								<img src="../public/img/sc4-4.png" class="img">
-							</a>
-							<a>
-								<span class="txt bro-txt">用户名称</span>
-							</a>
-							<a href="" class="bro-follow">关注</a>
-						</div>
-						<div class="waterfall-img">
-							<img src="../public/img/lofter.jpg" class="img">
-						</div>
-						<div class="waterfall-content">
-							<div class="content-txt">
-								<p>一堆文字显示这个东西能不能在放大的同时缩小一点🙃</p>
-							</div>
-						</div>
-						<div class="waterfall-likeIt">
-							<a class="bro-likeIt"></a>
-							<span>58人喜欢</span>
-						</div>					
-					</div>
-				</div>
-
-				<!-- 第四列 -->
-				<div class="waterfall-col col04">
-					<div class="waterfall-box">
-						<div class="waterfall-user">
-							<a class="span-img float-left">
-								<img src="../public/img/sc4-4.png" class="img">
-							</a>
-							<a>
-								<span class="txt bro-txt">用户名称</span>
-							</a>
-							<a href="" class="bro-follow">关注</a>
-						</div>
-						<div class="waterfall-img">
-							<img src="../public/img/sc2-1.png" class="img">
-						</div>
-						<div class="waterfall-content">
-							<div class="content-txt">
-								<p>一堆文字显示这个东西能不能在放大的同时缩小一点🙃</p>
-							</div>
-						</div>
-						<div class="waterfall-likeIt">
-							<a class="bro-likeIt"></a>
-							<span>58人喜欢</span>
-						</div>					
-					</div>
-
-					<div class="waterfall-box">
-						<div class="waterfall-user">
-							<a class="span-img float-left">
-								<img src="../public/img/sc4-4.png" class="img">
-							</a>
-							<a>
-								<span class="txt bro-txt">用户名称</span>
-							</a>
-							<a href="" class="bro-follow">关注</a>
-						</div>
-						<div class="waterfall-img">
-							<img src="../public/img/lofter.jpg" class="img">
-						</div>
-						<div class="waterfall-content">
-							<div class="content-txt">
-								<p>一堆文字显示这个东西能不能在放大的同时缩小一点🙃</p>
-							</div>
-						</div>
-						<div class="waterfall-likeIt">
-							<a class="bro-likeIt"></a>
-							<span>58人喜欢</span>
-						</div>					
-					</div>
-				</div>
+					<!-- </div> -->
 			</div>
-
+			
+			<!-- 瀑布流/ -->
 			<!-- 话题 -->
-			<div id="topic" class="hidden">
+			<div id="topic" class="" style="display:none;">
 				<div id="topic_box" class="box-shadow container">
 					<!-- 发起话题、最新、热门 -->
 					<div class="topic-nav">
@@ -281,7 +67,6 @@
 							<li class="float-right"><a href="">发起话题</a></li>
 						</ul>
 					</div>
-
 					<!-- 大盒子 -->
 					<div class="topic-body">
 						<!-- 左边栏位大盒子 -->
@@ -488,7 +273,7 @@
 			</div>
 
 			<!-- 标签 -->
-			<div id="random-tags" class="container hidden">
+			<div id="random-tags" class="container" style="display:none;">
 				<div class="ran-box box-shadow">
 					<!-- 随机标签盒子 -->
 					<div class="ran-center">
@@ -655,275 +440,15 @@
 			</div>
 			
 			<!-- 达人 -->
-			<div id="master" class="hidden">
-				<!-- 达人页面	 -->
-				<div id="daren">
-					<header>
-						<ul>
-							<li class="active">
-								<a href="#" >领域达人</a>
-							</li>
-							<li>
-								<a href="#">标签达人</a>
-							</li>
-							<li>
-								<a href="#">我关注的人
-									<span>(12)</span>
-								</a>
-							</li>
-							<li>
-								<a href="#">寻找好友</a>
-							</li>
-						</ul>
-						<a href="#" class="apply-btn">申请lofter认证</a>
-					</header>
-					<section>
-						<div class="left">
-							<ul id="blog" class="content-list">
-								<li class="itm">
-									<div class="itmc">
-										<div class="user-info">
-											<a class="user-info-head">
-												<img src="">
-											</a>
-											<h3 class="user-name">
-												<a href="#">bing</a>
-												<span class="orther"></span>
-											</h3>
-											<!-- 两个按钮切换 -->
-											<a class="user-care">
-												<b>+</b>
-												<span>关注</span>
-											</a>
-											<a class="user-uncare">
-												<span>取消关注</span>
-											</a>
-											<!-- /两个按钮切换 -->
-											<div class="user-info-tag">
-												<ul>
-													<li><a href="#">号好</a></li>
-													<li><a href="#">gay</a></li>
-													<li><a href="#">gay</a></li>
-													<li><a href="#">gay</a></li>
-												</ul>
-											</div>
-										</div>					</div>
-									<div class="photo">
-										<ul>
-											<li></li>
-											<li></li>
-											<li></li>
-											<li></li>
-										</ul>
-									</div>
-								</li>
-								<li class="itm">
-									<div class="itmc">
-										<div class="user-info">
-											<a class="user-info-head">
-												<img src="">
-											</a>
-											<h3 class="user-name">
-												<a href="#">bing</a>
-												<span class="orther"></span>
-											</h3>
-											<a class="user-care">
-												<b>+</b>
-												<span>关注</span>
-											</a>
-											<div class="user-info-tag">
-												<ul>
-													<li><a href="#">gay</a></li>
-													<li><a href="#">gay</a></li>
-													<li><a href="#">gay</a></li>
-													<li><a href="#">gay</a></li>
-												</ul>
-											</div>
-										</div>					</div>
-									<div class="photo">
-										<ul>
-											<li></li>
-											<li></li>
-											<li></li>
-											<li></li>
-										</ul>
-									</div>
-								</li>
-							</ul>
-						</div>
-						<div class="right">
-							<ul>
-								<li class="first">
-									<a href="#">猜你喜欢</a>
-								</li>
-								<li>
-									<a href="#">热门</a>
-								</li>
-								<li>
-									<a href="#">女神</a>
-								</li>
-								<li>
-									<a href="#">明星</a>
-								</li>
-							</ul>
-						</div>
-					</section>
-				</div>
+			<div id="master" class="" style="display:none;">
+				
 			</div>
-
-			<!-- 专题 -->
-			<div id="special" class="hidden">
-				<!-- 返回顶部的按钮 -->
-				<a href="#" id="return_top">
-					顶部按钮
-				</a>
-				<!-- 专题内容 -->
-				<div id="zhuanti">
-					<div class="out-box">
-						<div class="inner-box">
-
-							<div class="cont">
-								<a href="#">
-									<img src="__PUBLIC_LOFTER__/img/zhuanti/4.jpg">
-									<span class="cover"></span>
-									<span class="title">
-										<span>不负此生 | 这个盛夏，用才华致敬青春</span>
-									</span>
-								</a>
-							</div>
-							<div class="cont">
-								<a href="#">
-									<img src="__PUBLIC_LOFTER__/img/zhuanti/5.jpg">
-									<span class="cover"></span>
-									<span class="title">
-										<span>您有一份夏季美食福利，请查收！</span>
-									</span>
-								</a>
-							</div>
-							<div class="cont">
-								<a href="#">
-									<img src="__PUBLIC_LOFTER__/img/zhuanti/6.jpg">
-									<span class="cover"></span>
-									<span class="title">
-										<span>白敬亭：“国民初恋”的另一种打开方式</span>
-									</span>
-								</a>
-							</div>
-							<div class="cont">
-								<a href="#">
-									<img src="__PUBLIC_LOFTER__/img/zhuanti/7.jpg">
-									<span class="cover"></span>
-									<span class="title">
-										<span>铲屎官的活怎么干比较轻松？看这篇测评找答案！</span>
-									</span>
-								</a>
-							</div>
-							<div class="cont">
-								<a href="#">
-									<img src="__PUBLIC_LOFTER__/img/zhuanti/8.jpg">
-									<span class="cover"></span>
-									<span class="title">
-										<span>《LOFTER摄影周刊》印象派思维下的光与色</span>
-									</span>
-								</a>
-							</div>
-							<div class="cont">
-								<a href="#">
-									<img src="__PUBLIC_LOFTER__/img/zhuanti/9.jpg">
-									<span class="cover"></span>
-									<span class="title">
-										<span>深夜十点，广州故事展</span>
-									</span>
-								</a>
-							</div>
-							<div class="cont">
-								<a href="#">
-									<img src="__PUBLIC_LOFTER__/img/zhuanti/10.jpg">
-									<span class="cover"></span>
-									<span class="title">
-										<span>严选文具的清凉打开方式？还能顺便吸个猫...</span>
-									</span>
-								</a>
-							</div>
-							<div class="cont">
-								<a href="#">
-									<img src="__PUBLIC_LOFTER__/img/zhuanti/11.jpg">
-									<span class="cover"></span>
-									<span class="title">
-										<span>EXO强势回归，来场和爱豆的夏日约会</span>
-									</span>
-								</a>
-							</div>
-							<div class="cont">
-								<a href="#">
-									<img src="__PUBLIC_LOFTER__/img/zhuanti/12.jpg">
-									<span class="cover"></span>
-									<span class="title">
-										<span>盆友，你听说过养鸡style吗？</span>
-									</span>
-								</a>
-							</div>
-							<div class="cont">
-								<a href="#">
-									<img src="__PUBLIC_LOFTER__/img/zhuanti/13.jpg">
-									<span class="cover"></span>
-									<span class="title">
-										<span>一声岁月情长，竹马已成双</span>
-									</span>
-								</a>
-							</div>
-							<div class="cont">
-								<a href="#">
-									<img src="__PUBLIC_LOFTER__/img/zhuanti/14.jpg">
-									<span class="cover"></span>
-									<span class="title">
-										<span>夏日吃瓜指南： 吃西瓜也要来点freestyle</span>
-									</span>
-								</a>
-							</div>
-							<div class="cont">
-								<a href="#">
-									<img src="__PUBLIC_LOFTER__/img/zhuanti/15.jpg">
-									<span class="cover"></span>
-									<span class="title">
-										<span>欢迎来到凹凸世界！</span>
-									</span>
-								</a>
-							</div>
-							<div class="cont">
-								<a href="#">
-									<img src="__PUBLIC_LOFTER__/img/zhuanti/16.jpg">
-									<span class="cover"></span>
-									<span class="title">
-										<span>像一条自由的鱼在花间游荡|专访LOFT插画师哆多</span>
-									</span>
-								</a>
-							</div>
-							<div class="cont">
-								<a href="#">
-									<img src="__PUBLIC_LOFTER__/img/zhuanti/17.jpg">
-									<span class="cover"></span>
-									<span class="title">
-										<span>夏至已至，青春未远</span>
-									</span>
-								</a>
-							</div>
-							<div class="cont">
-								<a href="#">
-									<img src="__PUBLIC_LOFTER__/img/zhuanti/18.jpg">
-									<span class="cover"></span>
-									<span class="title">
-										<span>有了这9个小物，厨房变得好有趣</span>
-									</span>
-								</a>
-							</div>	
-
-						</div>
-					</div>
-				</div>
-			</div>		
+	
 		</div>		
 	</div>
 </body>
 </html>
-<script src="__PUBLIC_LOFTER__/js/browse.js"></script>
+<script src="__PUBLIC_LOFTER__/js/browse.js?0.01"></script>
+<script src="__PUBLIC_LOFTER__/js/tag.js?0.001"></script>
+<script src="__PUBLIC_LOFTER__/js/index.js"></script>
+

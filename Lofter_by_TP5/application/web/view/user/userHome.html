@@ -11,30 +11,42 @@
 		<div class="a-bar">
 			<ul class="a-bar-ul">
 				<li>
-					<a href="" class="top02">
+					<a href="javescript:void(0);" class="top02">
 						<em>主页设置</em>
 					</a>
 				</li>
 				<li>
-					<a href="/Lofter_by_TP5/public/web/index">
+					<a href="{:url('index/index')}">
 						<em>返回首页</em>
 					</a>
 				</li>
+				<!-- 关注连接没写 -->
+				{if $user.user_id != $Think.session.user_info.user_id}
+				<li>
+					<a href="javascrpt:void(0);" class="concern">
+						{if inArray($user.user_id,$concern_list,'cid')}
+						<em>取消关注</em>
+						{else}
+						<em>关注</em>
+						{/if}
+					</a>
+				</li>
+				{/if}
 			</ul>
 		</div>
 		
 		<!-- 右上角关注用户 -->
-		<div class="follow-user">
+		<div class="follow-user" data-uid="{$user.user_id}">
 			<a href="" class="text-left user-name">
 				<span class="span-img vertical">
-					<img src="__PUBLIC_UPLOAD__/{$user.user_head}" class="img">
+					<img src="{$user.user_head}" class="img">
 				</span>
 				<span class="name">{$user.user_name}</span>
 				<span class="user-close">x</span>
 			</a>
 			<a href="" class="color01 radius-bor color-white">				
 				<span>关注</span>
-			</a>
+			</a> 
 			<a href="" class="color02 radius-bor">				
 				<span>注册LOFTER</span>
 			</a>
@@ -49,17 +61,14 @@
 		<div class="width700 box">
 			<div class="selfInfo">
 				<div class="middle-img float-left border-radius">
-					<img src="__PUBLIC_UPLOAD__/{$user.user_head}" class="img">
+					<img src="{$user.user_head}" class="img">
 				</div>
 				<h1 class="float-left margin-left25"><a href="">{$user.user_name}</a></h1>
 			</div>
-			<div class="search">
+			<!-- <div class="search">
 				<input type="search" placeholder="搜索">
-			</div>
+			</div> -->
 			<ul class="user-tag">
-				<li>
-					<a href="">私信</a>
-				</li>
 				<li>
 					<a href="">归档</a>
 				</li>
@@ -75,10 +84,10 @@
 				<!-- 左边月份显示 -->
 				<div class="aside">
 					<div class="border-radius middle-img border">
-						<a class="date border-radius">{$key.article_time|date="d",###}</a>
+						<a class="date border-radius">{$key.article_time|date="d",(int)###}</a>
 					</div>
 					<div class="month">
-						<a href="">{$key.article_time|date="m",###}</a>
+						<a href="">{$key.article_time|date="m",(int)###}</a>
 					</div>
 				</div>
 				<!-- 中心盒子 -->
@@ -99,7 +108,7 @@
 						</div>
 						{/if}
 						<div class="music">
-							<audio src="__PUBLIC_UPLOAD__/{$key.article_music}" preload="none" controls="controls"></audio>
+							<audio src="{$key.article_music}" preload="none" controls="controls"></audio>
 							<!-- <p style="text-indent:5px;">情绪挑拨——任然</p> -->
 						</div>
 						{/if}
@@ -110,16 +119,6 @@
 							{/if}
 							{if $key.article_content != null}
 							<!-- 说明标题显示 -->
-							<!-- <div class="subtitle">
-								<span>发布了长文章：</span>
-								<strong><u>{$key.article_title}</u></strong>
-							</div>
-							<br>
-							<br>
-							<a href="" style="color: #73A8DE;">点击查看</a>
-							<br>
-							<br>
-							<br> -->
 							{/if}
 							 <p>{$key.article_content}</p> 
 						</div>
@@ -133,11 +132,32 @@
 					</div>
 					{/if}
 					<!-- 全文链接 -->
-					<div class="lin"><a href="" style="color: #828d95;">全文链接</a></div>
+					<div class="lin"><a href="{:url('blog/BlogDetail?a_id='. $key.article_id)}" style="color: #828d95;">全文链接</a></div>
 				</div>
 			</div>
 			{/foreach}
 		</div>
 	</div>
 </body>
+<script src="__PUBLIC_LOFTER__/lib/Bootstrap3.3.7/js/jquery-1.11.1.min.js"></script>
+<script src="__PUBLIC_LOFTER__/js/browse.js?0.01"></script>
+<script src="__PUBLIC_LOFTER__/js/tag.js?0.001"></script>
+<script src="__PUBLIC_LOFTER__/js/index.js"></script>
+<script src="__PUBLIC_LOFTER__/js/user.js?001"></script>
+<script>
+	$(function(){
+		$(".concern").on("click",function(){
+			let obj = $(".follow-user").get(0);
+			if( $(this).find("em").html() == "关注" ){
+				user.doSave(obj);
+				$(this).html("<em>取消关注</em>");
+				alert("关注成功");
+			}else{
+				user.doDelete(obj);
+				alert("取消关注成功");
+				$(this).html("<em>关注</em>");
+			}
+		})
+	})
+</script>
 </html>

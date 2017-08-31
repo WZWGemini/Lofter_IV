@@ -14,7 +14,10 @@ class Article extends Model
         return $this->belongsTo('User');
     }
 
-
+    public function getCreateTimeAttr($time)
+    {
+        return $time;
+    }
 }
 
 

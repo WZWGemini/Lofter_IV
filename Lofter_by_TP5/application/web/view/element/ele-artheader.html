@@ -1,0 +1,47 @@
+<!-- 头部 -->
+		<div id="art_nav">
+			<div class="g-hdsale">
+				<div class="g-hdsalebg"></div>
+				<div class="container">
+					<div class="art-container">
+						<div class="nav-logo">
+							<a href="{:url('art')}"></a>
+						</div>
+						<div class="nav-head">
+							<ul>
+								<li>
+									<a href="{:url('shop/goFrame')}">框画</a>
+								</li>
+								<li>
+									<a href="{:url('shop/goPostcard')}">明信片</a>
+								</li>
+							</ul>
+						</div>
+						<div class="nav-cart">
+							<ul>
+								<li>
+									<script src="__PUBLIC_LOFTER__/lib/Bootstrap3.3.7/js/jquery-1.11.1.min.js"></script>
+									<script>
+									$.post("{:url('ShopCarNum')}",function(res){
+										html = `购物车(${res})`
+										$("#car_num").text(html)
+									})
+									</script>
+									<a href="{:url('ShopCar')}" id="car_num"></a>
+								</li>
+								<li class="w-moreList">
+									<a href="" class="art-btn">我的ART</a>
+									<ul class="art-navShow">
+				                        <li><a href="{:url('shop/salesRecord')}">销售记录</a></li>
+				                        <li><a href="{:url('shop/shopManage')}">商品管理</a></li>
+				                        <li><a href="/art/join">关于ART</a></li>
+				                        <li><a href="/logout">退出登录</a></li>
+				                        <li><a href="{:url('index/index')}" target="_blank" class="llink">LOFTER</a></li>
+				                    </ul>								
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>

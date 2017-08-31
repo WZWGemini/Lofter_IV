@@ -5,10 +5,38 @@ use think\Controller;
 
 class Concern extends Controller
 {
-//    index  get  user
+//   页面显示
     public function index()
-    {
+    {   
 
+        // 考虑用户登录没有
+        $user_info = !empty( session("user_info") )?session("user_info"):array();
+        $user_concern_list = model("concern")->alias('c')
+                             ->join("user u", "u.user_id = c.concern_user_id")
+                             ->field("u.user_name, u.user_head, u.user_id")
+                             ->where("c.user_id", $user_info->user_id)
+                             ->limit(20)
+                             ->select();
+        foreach($user_concern_list as &$user){
+            $time =  model("article")
+                                ->field("article_time")
+                                ->order("article_time DESC")
+                                ->find()
+                                ->article_time;
+            $time = strtotime($time)!==false?strtotime($time):$time;
+            $time = timeago($time);
+            $user["new_time"] = $time ;
+        }
+        //可改进，使用limint（最高，数量）
+        $user_orther_list = model("user")
+                            ->field("user_name, user_head,user_id")
+                            ->order('rand()')
+                            ->limit(6)
+                            ->select();
+        $this->assign("user_list", $user_concern_list);
+        $this->assign("concern_other", $user_orther_list);
+        return $this->fetch('browse/guanzhu');
+    
     }
 
 //    read get user/:id

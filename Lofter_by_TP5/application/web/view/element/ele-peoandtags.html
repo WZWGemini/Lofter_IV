@@ -1,0 +1,23 @@
+<!-- 搜索相关的标签和人 -->
+<!-- <div id="peoAndTags" class="search-subscribe box-shadow"> -->
+	{if !empty($search_data['tag'])}
+	<div class="subttl sctag">进入<span style="color: white;margin:0 4px;" id="tag_title"><!-- 通过js来动态 --></span>的标签 > </div>
+	{foreach $search_data['tag'] as $data_tag}
+	<div class="sctag-tag">
+		<a data-tid="{$data_tag.tag_id}" onclick="tag.goTagIndex(this)" class="tag-key">
+			<span>{$data_tag.tag_content}</span>
+		</a>
+	</div>
+	{/foreach}
+	{/if}
+	{if !empty($search_data['user'])}
+	<div class="subttl peop"><span style="color: white;margin:0 4px;" id="user_title"><!-- 通过js来动态 --></span>相关的人 > </div>
+	{foreach $search_data['user'] as $data_user}
+	<div class="sctag-tag">
+		<a data-uid="{$data_user.user_id}" onclick="user.goUserHome(this)" class="tag-key">
+			<span>{$data_user.user_name}</span>
+		</a>
+	</div>
+	{/foreach}
+	{/if}
+<!-- </div> -->

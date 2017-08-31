@@ -18,7 +18,7 @@ class User extends Controller
 //   index  get user/index
     public function index(){//渲染用户列表或者查询
     //   获取列名
-       $user = userModel::withTrashed();
+       $user = new userModel;
        $column = $user->getTableFields();//获取所有表字段
        $result = $user
                     //   ->order('user_id ASCE')
@@ -56,9 +56,14 @@ class User extends Controller
         $user_id = $request->only(["user_id"]) ;
         $edit_info = $request->except(["user_id","delete_time"]);
 
-        $post = $request->post();
-        $user = userModel::get($user_id);
-        $res = $user->save($post);
+        // $post = $request->post();
+        if( $user_id["user_id"] == "user_id" ){
+            $user = new userModel;
+        }else{
+            $user = userModel::get($user_id);
+        }
+        // dump($edit_info);
+        $res = $user->save($edit_info);
         if($res){
             return [
                 "status" => 1,

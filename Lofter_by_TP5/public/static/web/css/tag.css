@@ -2,6 +2,14 @@
     margin-top: 0px;
     margin-bottom: 0px;
 }
+a {
+    text-decoration: none;
+    color: #444;
+    outline: none;
+}
+a, button {
+    cursor: pointer;
+}
 .options a{
 	margin-right: 24px;
 	font-size: 14px;
@@ -97,6 +105,36 @@
     background: url(../img/icon7.png);
     background-position: 0 -60px;
 }
-/* #tag_archive .change a{
-	background-position: 0 0;
-} */
+.big li{
+    position: relative;
+}
+.w-icn2 {
+    background: url('../img/icon2-8.png?047') no-repeat 999px 999px;
+
+    display: block;
+    width: 18px;
+    height: 16px;
+    overflow: hidden;
+    text-indent: -2000px;
+    background-position: 0 -830px;
+
+    position: absolute;
+    top: 12px;
+    right: 15px;
+    clear: both;
+    z-index: 2;
+
+    top: 18px;
+}
+
+.icn-4 {
+    background: url(../img/icon24.png?042) no-repeat 999px 999px;
+
+    background-position: 0 -103px;
+
+    float: left;
+    width: 25px;
+    height: 18px;
+    margin: 0 0 0 5px;
+    overflow: hidden;
+}

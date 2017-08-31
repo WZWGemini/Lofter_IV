@@ -1,47 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>ofter</title>
-	<link rel="stylesheet" href="__PUBLIC_LOFTER__/lib/Bootstrap3.3.7/css/bootstrap.min.css">
-	<link rel="stylesheet" href="__PUBLIC_LOFTER__/css/index.css?0.00">
-	<link rel="stylesheet" href="__PUBLIC_LOFTER__/css/tag.css?0.00">
-	<script src="__PUBLIC_LOFTER__/lib/Bootstrap3.3.7/js/jquery-1.11.1.min.js"></script>
-	<script src="__PUBLIC_LOFTER__/lib/Bootstrap3.3.7/js/bootstrap.min.js"></script>
+		<meta charset="UTF-8">
+		<title>Lofter</title>
+		<link rel="stylesheet" href="__PUBLIC_LOFTER__/lib/Bootstrap3.3.7/css/bootstrap.min.css">
+		<link rel="stylesheet" href="__PUBLIC_LOFTER__/css/rebuild.css?001">
+		<link rel="stylesheet" href="__PUBLIC_LOFTER__/css/index.css?001">
+		<link rel="stylesheet" href="__PUBLIC_LOFTER__/css/common.css?001">
+		<link rel="stylesheet" href="__PUBLIC_LOFTER__/css/tag.css?001">
+		<script src="__PUBLIC_LOFTER__/lib/Bootstrap3.3.7/js/jquery-1.11.1.min.js"></script>
+		<script src="__PUBLIC_LOFTER__/lib/Bootstrap3.3.7/js/bootstrap.min.js"></script>
+		<script src="__PUBLIC_LOFTER__/js/user.js?001"></script>
 </head>
 <body style="background: #EDEDEF;">
 	<div class="page">
 		<!-- 顶部导航 -->
-		<div id="nav">
-			<div class="container">
-				<div class="nav-logo"></div>
-				<div class="nav-head">
-					<ul class="nav-ul">
-						<li><a href="">首页</a></li>
-						<li><a href="">浏览</a></li>
-						<li><a href="">APP</a></li>
-						<li><a href="">ART</a></li>
-						<li><a href="">摄影课堂</a></li>
-						<li><a href="">更多</a></li>
-					</ul>
-				</div>
-				<div class="nav-search"></div>
-			</div>
-		</div>		
+		{include file='element/ele-header'}
 
 		<div class="container" id="archive">
-			<div id="" class="float-right bottom20">
-				<div id="tag_top">
-					<div id="tag_info">
-						<h2>人物</h2>
-						<div class="subscription">	
-							<a href=""></a> 
-						</div>
-						<div class="change">
-							<a href="{:url()}"></a>
+			<div class="g-bd5 g-bd5-1">
+				<div class="g-bdc">
+					<div class="g-mn">
+						<div class="m-itag m-itag-1 f-cb">
+							<div class="itagt f-cb"><!--640:790-->
+								<h2 class="f-thide" style="max-width:484px;">穿搭</h2>
+									<div class="itagfav" style="float: left;">
+										<a href="#" class="a-itagicon w-vsbtn w-vsbtn-3" id="favtag">
+											订阅
+										</a>
+									</div>
+								
+								<div class="itagbtn">
+									<a class="" href="http://www.lofter.com/tag/%E7%A9%BF%E6%90%AD"></a>
+								</div>
+							</div>
 						</div>
 					</div>
-				</div>				
+				</div>
 			</div>
 
 			<!-- 用户列表大盒子-->
@@ -59,9 +54,7 @@
 					</a>
 					<div class="user-footer">
 						<a class="span-img float-left">
-							<a>		
-								<img src="__PUBLIC_UPLOAD__/{$art.user_info.user_head}" class="picture">
-							</a>
+								<img src="{$art.user_info.user_head}" class="picture">		
 							<!-- <img src="../public/img/sc4-4.png" class="img"> -->
 						</a>
 						<a href="" class="name">{$art.user_info.user_name}</a>
@@ -73,6 +66,7 @@
 	</div>
 </body>
 </html>
-<script>
-	
-</script>
+<script src="__PUBLIC_LOFTER__/lib/ueditor/ueditor.config.js"></script>
+<script src="__PUBLIC_LOFTER__/lib/ueditor/ueditor.all.min.js"></script>
+<script src="__PUBLIC_LOFTER__/js/index.js?001"></script>
+<script type="text/javascript" src="__PUBLIC_LOFTER__/js/tag.js?001"></script>

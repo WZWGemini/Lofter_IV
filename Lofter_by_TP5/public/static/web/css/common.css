@@ -1,3 +1,7 @@
+body{
+	font-size: 12px;
+    color: #444;
+}
 .user-care{
 	float: right;
 	width: 78px;
@@ -36,4 +40,16 @@
 	color: #fff;
 	text-shadow: 0 1px 0 rgba(117,155,0,0.65);
 	vertical-align: 2px;
+}
+
+.loading{
+	width: 100%;
+}
+.loading-box{
+	width: 200px;
+	height: 50px;
+	margin: 0 auto;
+}
+.loading-box img{
+
 }

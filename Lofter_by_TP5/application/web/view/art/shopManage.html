@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="__PUBLIC_LOFTER__/css/art.css">
+</head>
+<body>
+<div class="page">
+	<!-- 头部 -->
+	{include file='element/ele-artHeader'}
+	
+	<div id="art">
+		<!-- 商品管理 -->
+		<div class="goods-management">
+			<div class="g-box3 f-cb">
+	        	<h2 class="w-fttl">我的ART</h2>
+	        	<a href="{:url('salesRecord')}" class="w-flag">销售记录</a>
+	        	<a href="{:url('shopManage')}" class="w-flag cur-1">商品管理</a>
+	        	<a href="" target="_blank" class="m-aboutart">关于ART</a>
+	        </div>
+	        <div class="g-box12">
+		        <div class="f-cb m-title">
+		        	<a href="{:url('')}" class="w-flag cur-1">框画</a>
+		        	<a href="{:url('')}" class="w-flag">明信片</a>
+		        	<span class="w-btn ztag">
+		        		<span><a href="{:url('publish')}" target="_blank" class="add">添加商品</a></span>
+		        		<div class="a-w-sel a-w-sel-8 ztag">
+			            	<div class="w-sel w-sel-8" style="margin-top: -90px;">
+			                	<div class="selc">
+			                    	<div class="selcc">
+			                            <div class="seli"><a href="" target="_blank">框画</a></div>
+			                            <div class="seli"><a href="" target="_blank">明信片</a></div>
+			                        </div>
+			                    </div>
+			                </div>
+			            </div>
+		        	</span>
+		       	</div>
+		        <div class="m-sctop">
+					<div class="thd" @click="a()">商品信息</div>
+					<div class="div">操作</div>
+				</div>
+
+				<!-- 没有上架商品显示 -->
+				<!-- <div class="m-empty">
+					<p>还没有添加框画</p>
+					<a href="{:url('publish')}" target="_blank" class="w-btn">马上添加</a>
+				</div> -->
+
+				<!-- 有上架商品显示 -->
+				<div class="m-sccontent">
+					<ul class="f-cb ztag">
+						<li class="first" v-for="(item,key) in shopInfo">
+							<div class="fb">
+								<a target="_blank" href="{:url('addCart')}">
+									<img class="xtag" :src="item.shop_img">
+									<span class="border xtag" style="display:none;"></span>
+								</a>
+							</div>
+							<div class="sec">
+								<p class="title">
+									<a target="_blank" class="xtag" href="{:url('addCart')}">《{{item.shop_name}}》</a>
+								</p>
+								<p class="info xtag">{{item.shop_describe}}</p>
+							</div>
+							<div class="del xtag">
+								<p style="display:none;" class="xtag">该商品违反相关条款已被下架</p>
+								<div class="act">
+									<a target="_blank" href="{:url('addCart')}" class="xtag">查看</a>
+									|
+									<a target="_blank" href="http://www.lofter.com/art/store/edit/35033100/" class="xtag">编辑</a>
+									<b class="xtag">|</b>
+									<span class="xtag" style="display:none;">删除</span>
+									<b class="xtag" style="display:none;">|</b>
+									<span class="xtag" style="display:none;">申请上架</span>
+									<span class="xtag gmc" v-if="item.is_show == 0">上架</span>
+									<span class="xtag gmc" v-if="item.is_show == 1">下架</span>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+
+	        </div>
+		</div>
+	</div>
+
+	<!-- 底部 -->
+	{include file='element/ele-artFooter'}
+</div>
+</body>
+</html>
+<script src="__PUBLIC_LOFTER__/lib/Bootstrap3.3.7/js/jquery-1.11.1.min.js"></script>
+<script src="__PUBLIC_LOFTER__/lib/vue/vue/vue-2.4.2.min.js"></script>
+<script>
+	let vm = new Vue({
+		el: '#art',
+		data: {
+			shopInfo: JSON.parse('{$shopInfo}')
+		},
+		methods: {
+			add: function(){
+				let data = {
+					'shop_name' : this.name,
+					'shop_img' : this.img,
+					'shop_describe' : this.describe,
+					'shop_type_id' : this.radio
+				}
+				$.post("{:url('shop/add')}",data,function(res){
+					if(res.status==1){
+						alert(res.msg);
+						location.href = "{:url('shop/shopmanage')}";
+					}
+				})
+			},
+			a: function(){
+				console.log(this.shopInfo);
+			}
+		}
+	})
+</script>

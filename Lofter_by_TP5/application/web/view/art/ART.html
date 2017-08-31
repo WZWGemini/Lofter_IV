@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ART</title>
+	<link rel="stylesheet" href="__PUBLIC_LOFTER__/css/art.css">
+	<link rel="stylesheet" href="__PUBLIC_LOFTER__/css/art_index.css?0.0.1">
+	<script src="__PUBLIC_LOFTER__/lib/Bootstrap3.3.7/js/jquery-1.11.1.min.js"></script>
+	<script src="__PUBLIC_LOFTER__/js/index.js"></script>
+</head>
+<body>
+	<div class="page">
+
+		<!-- 头部 -->
+		{include file='element/ele-artHeader'}
+
+		<!-- 轮播 -->
+		<div class="g-sbox">
+	    	<div class="m-slbanner" id="m-slbanner">
+	            <ul class="f-cb xtag">
+		            	<li class="item" style="visibility: hidden; opacity: 0;">
+		                    <div class="iteml">
+		                    	<div class="img">
+			                    	<a target="_blank" href="#">
+			                    		<img src="http://imgsize.ph.126.net/?imgurl=http://imglf0.ph.126.net/E7QANIoNWp2YKbKtOYTWrw==/6630884147259540132.jpg_290x195x1.jpg">
+			                    	</a>
+		                    	</div>
+		                    </div>
+		                    <div class="itemr">
+								<div class="txt">
+								    <p class="tit">
+								    	<a target="_blank" href="#"><i>《</i>The fog rainart》</a>
+								    </p>
+								    <p class="author">
+								    	作者：<a target="_blank" href="/art/qiqilingyi?act=qbartbb482189929_20130908_01">小河无一</a>
+								    </p>
+								    <p class="desc">爱情</p>
+								</div>
+		                    </div>
+		                </li>
+		            	<li class="item2" style="visibility: hidden; opacity: 0;">
+		                    <div class="iteml">
+								<div class="txt">
+								    <p class="tit">
+								    	<a target="_blank" href="#"><i>《</i>荒原之心 PATAGONIA》</a>
+								    </p>
+								    <p class="author">
+								    	作者：<a target="_blank" href="/art/ssunsun?act=qbartbb46263_20130908_01">一空之间 老飘飘的阴暗面</a>
+								    </p>
+								    <p class="desc">PATAGONIA的荒原将视野和心力延伸到了南美大陆的边缘。最美的风景，留给愿意独行的那一个人。</p>
+								</div>
+		                    </div>
+		                    <div class="itemr">
+		                        <div class="img2">
+			                        <a target="_blank" href="#">
+				                        <img src="http://imgsize.ph.126.net/?imgurl=http://imglf2.ph.126.net/C0TiX55TxdBbeXoyAvaffw==/6630516910375135769.jpg_447x298x1.jpg">
+				                        <i class="cover"></i>
+			                        </a>
+		                        </div>
+		                    </div>
+		                </li>
+		            	<li class="item" style="visibility: hidden; opacity: 0;">
+		                    <div class="iteml">
+		                    	<div class="img img-1">
+			                    	<a target="_blank" href="#">
+			                    		<img src="http://imgsize.ph.126.net/?imgurl=http://imglf0.ph.126.net/ES7OS7Rk5rECrPZrsgv9UA==/6597833927239914969.jpg_230x230x1.jpg">
+			                    	</a>
+		                    	</div>
+		                    </div>
+		                    <div class="itemr">
+								<div class="txt">
+								    <p class="tit">
+								    	<a target="_blank" href="#"><i>《</i>花》</a>
+								    </p>
+								    <p class="author">
+								    	作者：<a target="_blank" href="/art/hzbfmbco?act=qbartbb2439697_20130908_01">H Z</a>
+								    </p>
+								    <p class="desc">花</p>
+								</div>
+		                    </div>
+		                </li>
+		            	<li class="item2" style="visibility: visible; opacity: 1;">
+		                    <div class="iteml">
+								<div class="txt">
+								    <p class="tit">
+								    	<a target="_blank" href="#"><i>《</i>我与我的喵星人（二）》</a>
+								    </p>
+								    <p class="author">
+								    	作者：<a target="_blank" href="/art/sihaogor?act=qbartbb2928718_20130908_01">Kwok·untitle</a>
+								    </p>
+								    <p class="desc">《我与我的喵星人（二）》</p>
+								</div>
+		                    </div>
+		                    <div class="itemr">
+		                        <div class="img2">
+			                        <a href="{:url('')}">
+				                        <img src="http://imgsize.ph.126.net/?imgurl=http://imglf1.ph.126.net/RXszgxetnyMx2bSE2nekqw==/66146619544829833.jpg_447x298x1.jpg">
+				                        <i class="cover"></i>
+			                        </a>
+		                        </div>
+		                    </div>
+		                </li>
+	            </ul>
+	            <div class="icons xtag" style="display: block;">
+	            	<a href="#" class=""></a>
+	            	<a href="#" class=""></a>
+	            	<a href="#" class=""></a>
+	            	<a href="#" class="j-curr"></a>
+	            </div>
+	            <div class="btns xtag" style="display: block;">
+	            	<div class="prev"><a href="">上一页</a></div>
+	            	<div class="next"><a href="">下一页</a></div>
+	            </div>
+	        </div>
+    	</div>
+		
+    	<div class="g-bdsale">
+		    <div class="g-sbox">
+		        <div class="g-box1">		        
+		        	<!-- 框画 -->
+		            <div class="m-artinfo">
+		                <h2 class="w-sltit"><span>框画</span></h2>
+		                <div class="m-artlist m-artlist-1">
+		                	<ul class="f-cb">
+								{foreach $pic_res as $key=>$value}
+								<li class="item">
+								    <div class="img">
+								        <a target="_blankshop_img" href="{:url('shop/addCart')}?shopInfo={$value.shop_id}">
+								        	<span class="bor"></span>
+								        	<span class="bor"></span>
+								            <span class="bor"></span>
+								            <span class="bor"></span>
+								            <img src="{$value.shop_img}">
+								        </a>
+								    </div>
+								    <div class="txt">
+								        <p class="f-thide pname"><a target="_blank" href="/art/product-31979102">{$value.shop_name}</a></p>
+								        <p class="f-thide bname"><a target="_blank" href="/art/bao4170617">{$value.user_name}</a></p>
+								    </div>
+								</li>
+								{/foreach}
+							</ul>
+						</div>
+						<div class="w-slmore"><a href="/art/print">查看更多 &gt;&gt;</a></div>
+					</div>
+
+					<!-- 明信片 -->
+					<div class="m-artinfo m-artinfo-1">
+		                <h2 class="w-sltit"><span>明信片</span></h2>
+		                <div class="m-artlist m-artlist-2">
+		                	<ul class="f-cb">
+								{foreach $card_res as $key=>$value}
+								<li class="item">
+								    <div class="img">
+								        <a target="_blankshop_img" href="{:url('shop/addCart')}?shopInfo={$value.shop_id}">
+								        	<span class="bor"></span>
+								        	<span class="bor"></span>
+								            <span class="bor"></span>
+								            <span class="bor"></span>
+								            <img src="{$value.shop_img}">
+								        </a>
+								    </div>
+								    <div class="txt">
+								        <p class="f-thide pname"><a target="_blank" href="/art/product-31979102">{$value.shop_name}</a></p>
+								        <p class="f-thide bname"><a target="_blank" href="/art/bao4170617">{$value.user_name}</a></p>
+								    </div>
+								</li>
+								{/foreach}
+		                	</ul>
+		                </div>
+		                <div class="w-slmore"><a href="/art/postcard">查看更多 &gt;&gt;</a></div>
+		            </div>
+		        </div>
+			</div>
+		</div>
+
+		<!-- 底部 -->
+		{include file='element/ele-artFooter'}
+
+	</div>
+</body>
+</html>

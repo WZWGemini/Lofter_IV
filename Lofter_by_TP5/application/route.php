@@ -17,18 +17,7 @@ return [
         // 指向index模块的blog控制器
         'user'=>'api/user',
         'article'=>'api/article',
-        'tag'=>'api/tag',
-        'comment'=>'api/comment',
-        'concern'=>'api/concern',
-        'onearticle'=>'api/onearticle',
-        'music'=>'api/music',
-        'distag'=>'api/distag',
-        'hot'=>'api/hot',
-        'personal'=>'api/personal',
-        'shop'=>'api/shop',
-        'shopcar' => 'api/shopcar',
-        'sgoods' => 'api/sgoods',
-        'consigner' => 'api/consigner'
+        'tag'=>'api/tag'
     ],
     '[hello]'     => [
         ':id'   => ['index/hello', ['method' => 'get'], ['id' => '\d+']],

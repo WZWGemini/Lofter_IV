@@ -14,6 +14,7 @@ class Tag extends Controller
         self::$_data = $_POST;//接收请求
     }
 
+    // 添加标签
     public function addTag(){
         $tagModel = model('tag');
         // 查询是否有重复标签
@@ -28,7 +29,10 @@ class Tag extends Controller
             return ['status'=>1,"msg"=>"插入成功","html"=>'',"data"=>$data];
         }
     }
+
+    // 
     public function tagIndex(Request $request){
+        $user_info = empty(session('user_info'))? self::$_user_info : session('user_info');
         $tag_id = empty($request->get()["tag_id"])?1:$request->get()["tag_id"];
         $tag =tagModel::get($tag_id);
         $type = empty($request->get()["type"])?"tag":$request->get()["type"];
@@ -36,23 +40,31 @@ class Tag extends Controller
                               ->where("t.tag_id",$tag_id)
                               ->join("tag_article ta","t.tag_id = ta.tag_id")
                               ->join("article a","a.article_id=ta.article_id")
+                              ->limit(10)
                               ->select();
-        foreach($arts as $key => $art){
-            $tags = DB::name('tag_article')->alias("ta")
-                                        ->join("tag t","t.tag_id = ta.tag_id")
-                                        ->where("ta.article_id", $art["article_id"])
-                                        ->select();
-            $user_info =DB::name('user')->field("user_name , user_id , user_head")
-                                        ->where("user_id",$art["user_id"])
-                                        ->find();
-            $arts[$key]["tag"] = $tags;
-            $arts[$key]["user_info"]= $user_info;
-        }
-        // dump($arts);
-        $this->assign("tag" ,$tag);
+        ///采集用户信息:判断是否有用户登录？采用默认值
+        $user_info = empty(session('user_info'))? self::$_user_info : session('user_info');
+        // 采集博文内容
+        $arts = $this->getBlogDetial($arts, $user_info);
+        
+        //可改进，使用limint（最高，数量）
+        $user_orther_list = model("user")
+                    ->field("user_name, user_head,user_id")
+                    ->order('rand()')
+                    ->limit(6)
+                    ->select();
+        $tag_orther_list = model('tag')
+                    ->field("tag_id, tag_content,tag_photo")
+                    ->order('rand()')
+                    ->limit(6)
+                    ->select();
+        $this->assign("orther_user", $user_orther_list);
+        $this->assign("orther_tag", $tag_orther_list);
+         //注册samrty变量           
+         $this->assign('user_info' ,$user_info);  //用户信息
+        $this->assign("tagM" ,$tag);
         $this->assign('blog_list' ,$arts);
         return $this->fetch($type);
-        // dump($html)
     }
     public function archive(){
         return $this->fetch("tabArchive");
@@ -105,7 +117,78 @@ class Tag extends Controller
         if($tag_articles){
             echo "完成";
         }
+    }
+    public function getBlogDetial($select_art, $user_info){
+        foreach ($select_art as $key => $value) {
+            //文章id
+            $article_id = $select_art[$key]["article_id"];
+            //查询评论数
+            $commnet_count = model("comment")->field("count(comment_id) AS num")
+                            ->where("article_id = $article_id")
+                            ->find();
+             //查询热度数量
+            $hot_count = model("hot")->field("count(hot_id) AS num")
+                            ->where("article_id = $article_id")
+                            ->find();  
+            // 添加数据                             
+            $select_art[$key]["comment_num"] =  $commnet_count['num'] ;
+            $select_art[$key]["hot_num"]     =  $hot_count['num'] ;
+            // 查询tag标签
+            $select_art[$key]["tag"] = model("tagArticle")->join("lofter_tag","lofter_tag_article.tag_id = lofter_tag.tag_id","inner")
+                        ->where("article_id = $article_id")->select();
+            //查询发表的用户
+            $user_id = $select_art[$key]["user_id"];
+            $select_art[$key]["user_info"] = model("user")->field("user_name , user_id , user_head")
+                                            ->where("user_id = $user_id")->find();
 
+            //判断登录的用户是否已经推荐？点赞？
+            $hot_recommend = model("hot")->field("hot_love, hot_recommend")
+                            ->where([
+                                "user_id"    => $user_info["user_id"],
+                                "article_id" => $article_id,
+                                "hot_recommend" => 1
+                                ])
+                            ->find();
+            $isRecommend = !empty($hot_recommend)?true:false;
+            $hot_love = model("hot")->field("hot_love, hot_recommend")
+                        ->where([
+                            "user_id"    => $user_info["user_id"],
+                            "article_id" => $article_id,
+                            "hot_love" => 1
+                        ])
+                        ->find();
+            $isLove = !empty($hot_love)?true:false;
+            $select_art[$key]["isRecommend"] = $isRecommend;
+            $select_art[$key]["isLove"] = $isLove;            
+        }
+        return $select_art;
+    }
+
+    // 加载更多
+    public function loadMore (Request $request) {
+        $user_info = empty(session('user_info'))? self::$_user_info : session('user_info');
+        $tag_id = empty($request->get()["tag_id"])?1:$request->get()["tag_id"];
+        $tag =tagModel::get($tag_id);
+        $type = empty($request->get()["type"])?"tag":$request->get()["type"];
+        $page = input('page');
+        $arts = Db::name("tag")->alias("t")
+                              ->where("t.tag_id",$tag_id)
+                              ->join("tag_article ta","t.tag_id = ta.tag_id")
+                              ->join("article a","a.article_id=ta.article_id")
+                              ->page($page, 10)
+                              ->select();
+        ///采集用户信息:判断是否有用户登录？采用默认值
+        $user_info = empty(session('user_info'))? self::$_user_info : session('user_info');
+       
+        // 采集博文内容
+        $arts = $this->getBlogDetial($arts, $user_info);        
+        if( !empty( $arts) ){//渲染页面
+            $this->assign('blog_list',$arts);
+            $html = $this->fetch('element/ele-list');            
+            return ['status'=>1,"msg"=>"成功",'html'=>$html,"data"=>$arts];
+        }else{
+            return ['status'=>0,"msg"=>"获取失败","html"=>"","data"=>""];
+        }
     }
 }
 

@@ -15,8 +15,10 @@ li {
 	list-style: none;
 }
 
-a {
+a {	
 	text-decoration: none;
+    color: #444;
+    outline: none;
 }
 a:hover{
 	text-decoration: none;
@@ -165,8 +167,9 @@ li.small{
 }
 .form-control {
     display: inline-block;
+    width: 100%;
+    line-height: 1.42857143;
 }
-
 #nav a:hover {
 	text-decoration: none;
 	color: white;
@@ -272,6 +275,7 @@ li.small{
 	width: 670px;
 	clear: both;
 	margin-bottom: 20px;
+	font-size: 12px;
 }
 .list_box .box-shadow {
     box-shadow: -1px 2px 4px #cbcbcb;
@@ -369,12 +373,20 @@ li.small{
 	display: inline-block;
 }
 .tags .options a{
-	padding-left: 16px;
+	padding:6px;
+	font-size: 12px;
 	text-align: right;
 }
 .tags .labels a{
 	padding-right: 16px;
 	text-align: left;
+}
+
+.tags .options .love{
+	font-size: 14px;
+}
+.tags .options .love-sure{
+	color: red;
 }
 
 /********评论************/
@@ -394,7 +406,7 @@ li.small{
 }*/
 .comment-text {
 	height: 38px;
-	width: 380px;
+	width: 390px;
 	vertical-align: middle;
 }
 .comment-list {
@@ -419,6 +431,49 @@ li.small{
 .comment-list .comment-btn{
 	float: right;
 }
+/**************热度显示列表*************/
+.hot_show{
+	width: 560px;
+	background: white;
+	margin-left: 110px;
+	padding: 5px 30px;
+	border: 1px solid #eee;
+	display: none;   
+}
+.hot{	
+	line-height: 80px;
+}
+/*#send{	
+	line-height: 80px;
+}*/
+.hot-text {
+	height: 38px;
+	width: 380px;
+	vertical-align: middle;
+}
+.hot-list {
+	font-size: 12px;
+}
+.hot-list ul li{
+	border-bottom: 1px solid #e7e7e7;
+	padding: 10px 0;
+	overflow: hidden;
+}
+.hot-list ul li span{
+	display: inline-block;
+	margin-left: 7px;
+	float: left;
+}
+.hot-list .user-head{
+	width: 20px;
+	height: 20px;
+	background-color: #eee;
+}
+
+.hot-list .hot-btn{
+	float: right;
+}
+
 /*********长文章信息列表**************/
 .article-img {
 	width: 100%;
@@ -478,6 +533,12 @@ li.small{
 	padding: 10px 15px;
 	cursor: pointer;
 	height: 39px;
+}
+#menu #user_home{
+	height: 55px;
+}
+#menu #user_home span{
+	line-height: 35px;
 }
 #menu ul li span,.menu ul li span{
 	display: inline-block;
@@ -669,7 +730,7 @@ span.count_article{
 }
 .btn {
     display: inline-block;
-    padding: 0;
+    /* padding: 0; */
 }
 /*******************标签盒子*****************/
 #tags_hide{
@@ -681,7 +742,7 @@ span.count_article{
 	background: white;
 	width: 100%;
 	height: 90px;
-	margin:-20px auto 50px auto;
+	margin:-20px auto 30px auto;
 }
 .bro-tab-ul{	
 	height: 90px;
@@ -706,8 +767,10 @@ span.count_article{
 }
 /****************鼠标经过弹窗************************/
 .page{
+	
 	position: relative;
-	overflow: hidden;
+	min-width: 960px;
+	/* overflow: hidden; */
 }
 #window_show{
 	background: #191919;
@@ -818,4 +881,261 @@ span.count_article{
 
 .tag-show-footer>span{
 	font-size: 16px;
+}
+/*******首页更新（图片详细）******/
+.list-img{
+	position: relative;
+	overflow: hidden;
+}
+.list-img .img,.list-img span{
+	display: block;
+}
+.list-img .img{
+	width: 100%;
+}
+.img-number{
+	position: absolute;
+	right: 5px;
+	bottom: 5px;
+	width: 20px;
+	height: 20px;
+	line-height: 20px;
+	background: url(../img/icon2-8.png) no-repeat 999px 999px;
+	background-position: -65px -313px;
+	opacity: 0.5;
+	color: white;
+	text-align: center;
+	font-size: 12px;
+	display: block;
+}
+.img-details{
+	width: 100%;
+	overflow: hidden;
+}
+.see-img{
+	font-size: 12px;
+	color: #888;
+	float: left;
+}
+.list-img .hide{
+	display: none;
+}
+/****************轮播****************/
+#full_screen{
+	background: transparent;
+	position: fixed;
+	font-size: 0;
+	top: 0;
+	left:0;
+	z-index: 999999999999999;
+	display: none;
+}
+#full_screen #mb .Carousel{
+	position: relative;
+	width: 100%;
+	height: 100vh;
+	overflow: hidden;
+}
+.Carousel .Carousel-ul{	
+	height: 100vh;
+	background: rgba(0,0,0,0.8);
+	/*要用js改变*/
+	width: 200vw;
+}
+.Carousel .Carousel-ul li{
+	width: 100vw;
+	height: 100vh;
+	display: inline-block;
+	line-height: 100vh;
+	float: left;
+	overflow: hidden;		
+	position: relative;
+	left:0;
+	top:0;
+}
+.Carousel .Carousel-ul .widthAuto{
+	position: absolute;
+	height: 86vh;
+	top:7vh;
+	/*要用js居中*/
+	left: 50%;	
+}
+.Carousel .img{
+	height: 100%;
+	width: auto;
+}
+#full_screen .Carousel .next,
+#full_screen .Carousel .prev{
+	display: inline-block;
+	width: 10vw;
+	height: 16vh;
+	color: white;
+	font-size: 50px;
+	text-align: center;
+	line-height: 14vh;
+	position: absolute;
+	top:50%;
+	margin-top:-8vh;
+	left: 0;
+	z-index: 999999999999999;
+}
+#full_screen .Carousel .next{
+	left:90vw;
+}
+#full_screen .box-shadow{
+	box-shadow: 1px 2px 4px #000;
+}
+
+/********************搜索完善部分样式************************/
+#nav .nav-search .search-box{
+	position: relative;
+	height: 30px;
+	padding: 0;
+	border: none;
+	background: transparent;	
+}
+#nav .nav-search .search-box .form-control{
+	color: #fff;
+	background: #000;
+	border: none;
+	border-radius: 30px;
+	height: 30px;
+	font-size: 12px;
+	text-indent: 12px;
+	width: 100%;
+	outline: none;
+}
+#nav .nav-search .search-new {
+	position: absolute;
+	display: inline-block;
+	width: 36px;
+	height: 18px;
+	line-height: 18px;
+	text-align: center;
+	background: #888888;
+	border-radius: 18px;
+	top: 6px;
+	right: 6px;
+}
+#nav .nav-search .search-new:hover{
+	/*cursor: pointer;*/
+	background: #eee;
+}
+/*************我的订阅****************/
+.search-subscribe{
+	width: 207px;
+	overflow: hidden;
+	position: absolute;
+	top: 40px;
+	left: 0;
+	z-index: 9999999;
+	background: #000;
+}
+.search-subscribe .subttl {
+    height: 40px;
+    line-height: 40px;
+    padding-left: 17px;
+    color: #888;
+    font-size: 12px;
+    background-color: #191919;
+}
+.search-subscribe .selcc {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    zoom: 1;
+    margin-bottom: -2px;
+    background-color: #333;
+}
+.search-subscribe .seli {
+    position: relative;
+    float: left;
+    z-index: 2;
+    zoom: 1;
+    width: 100%;
+    margin: -1px 0 1px;
+    border-top: 1px solid #202020;
+    border-bottom: 1px solid #0c0c0c;
+    background-color: #191919;
+}
+.search-subscribe .seli a {
+    display: block;
+    color: #bcbcbc;
+    position: relative;
+    height: 52px;
+    padding: 7px 50px 9px 17px;
+}
+.search-subscribe .seli .name,
+.search-subscribe .sctag,
+.search-subscribe .peop{
+	background: url(../img/icon4-24.png) -9999px -9999px no-repeat;
+}
+.search-subscribe .seli .name {
+    padding-left: 22px;
+    font-size: 14px;
+    line-height: 18px;    
+    overflow: hidden;
+    text-overflow: ellipsis;
+    
+    background-position: 0px -111px;
+}
+.search-subscribe .seli a:hover .name{
+	background-position: -238px -111px;
+	color: #fff;
+}
+.search-subscribe .seli .img {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    width: 34px;
+    height: 34px;
+    overflow: hidden;
+}
+.search-subscribe .seli .img img {
+    display: block;
+    width: 34px;
+    height: 34px;
+    border: 0 none;
+}
+.search-subscribe .seli .count {
+    padding: 4px 0 0 22px;
+    font-size: 12px;
+    line-height: 14px;
+    color: #888;
+}
+/******************标签**********************/
+.search-subscribe .sctag {
+	padding-left: 42px;
+    background-position: 18px -100px;
+}
+.search-subscribe .sctag:hover,
+.search-subscribe .peop:hover{
+	cursor: pointer;
+	color: white;
+	background-color: #333;
+}
+.search-subscribe .sctag-tag{
+    display: block;
+    height: 40px;
+    padding: 9px 16px 9px 42px;
+    line-height: 22px;
+    color: #AAA;
+}
+.search-subscribe .sctag-tag:hover{
+	background-color: #333;
+}
+.sctag-tag a{
+	color: #aaa;
+}
+/******************人**********************/
+.search-subscribe .peop{
+	padding-left: 42px;
+	color:#aaa;
+	background-position: -220px -462px;
+}
+#index_subscribe{
+	display: none;
+}
+#peoAndTags{
+	display: none;
 }

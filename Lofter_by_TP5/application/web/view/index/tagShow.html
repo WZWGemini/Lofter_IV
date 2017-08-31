@@ -5,7 +5,7 @@
             {foreach $tag_img as $key=>$value}
             <?php $img_arr=json_decode($value['article_img']); ?>
             <li>
-                <a href="" class="show-img">
+                <a href="{:url('blog/BlogDetail?a_id='.$value.article_id)}" class="show-img">
                     <img src="{$img_arr[0]}" class="img">
                 </a>
             </li>

@@ -51,44 +51,47 @@
 						</div>
 						<div class="article-edit">
 
-							<textarea name="long_content" id="baiduEditor" style="height:280px"></textarea>
+							<textarea name="long_content" id="baiduEditor" style="height:280px;width: 100%;"></textarea>
 							<!-- 配置文件 -->
 						<!-- <button class="btn btn-primary" id="long-submit">提交</button> -->
 						</div>
 				</form>
 				</div>
+<!-- 
+				<script type="text/javascript" src="./public/lib/ueditor/ueditor.config.js"></script>
 
-				<script type="text/javascript" src="./public/libarary/ueditor/ueditor.config.js"></script>
+				<script type="text/javascript" src="./public/lib/ueditor/ueditor.all.min.js"></script> -->
 
-				<script type="text/javascript" src="./public/libarary/ueditor/ueditor.all.min.js"></script>
-
-				<!-- 实例化编辑器 -->
-				<script type="text/javascript">
-					$(function(){
-						UE.getEditor("baiduEditor")
-						// action="index.php" method="post"
-						$('#long-submit').click(function(e){
-							e.preventDefault();
-							let formdata = new FormData( $("#longArticle").get(0) );
-							$.ajax({
-								url : "index.php",
-								type : 'post',
-								data : formdata ,
-								processData : false ,
-								contentType : false ,
-							}).success(function(data){
-								data = JSON.parse(data);
-								localStorage.setItem('longData',data.data)
-								console.log( data );
-								console.log( data["msg"] );
-								alert(data.msg);
-							});
-						})					
-					})
-				</script>
+				
 			</div>
 		</div>
 	</div>
 </body>
 
 </html>
+<script src="__PUBLIC_LOFTER__/lib/ueditor/ueditor.config.js"></script>
+<script src="__PUBLIC_LOFTER__/lib/ueditor/ueditor.all.min.js"></script>
+<!-- 实例化编辑器 -->
+<script type="text/javascript">
+	$(function(){
+		UE.getEditor("baiduEditor")
+		// action="index.php" method="post"
+		$('#long-submit').click(function(e){
+			e.preventDefault();
+			let formdata = new FormData( $("#longArticle").get(0) );
+			$.ajax({
+				url : "index.php",
+				type : 'post',
+				data : formdata ,
+				processData : false ,
+				contentType : false ,
+			}).success(function(data){
+				data = JSON.parse(data);
+				localStorage.setItem('longData',data.data)
+				console.log( data );
+				console.log( data["msg"] );
+				alert(data.msg);
+			});
+		})					
+	})
+</script>

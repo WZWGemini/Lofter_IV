@@ -1,6 +1,6 @@
 ///Lofter_by_TP5/public/web/user/login/
 window.user = {
-        uid : 0,
+        uid : 0, 
         formData : [],
         doAjax : function(action){
              $.ajax({
@@ -13,7 +13,7 @@ window.user = {
                     if( action == 'logout'){
                         this.uid = 0;
                         sessionStorage.removeItem("user_info");
-                        location.href = "/Lofter_by_TP5/public/web/index/login";                         
+                        location.href = "/Lofter_by_TP5/public/web/index/login";
                     }else{
                     //    data = JSON.parse(data);
                         if(data.status == 1){
@@ -32,9 +32,7 @@ window.user = {
                             location.href = "/Lofter_by_TP5/public/web/index"; 
                         }else{
                             alert('请求失败');
-                        }
-
-                        
+                        }  
                     }
                     //   
                 }
@@ -50,6 +48,7 @@ window.user = {
             let form = $("#R_L").get(0);
             // 填入表单数
             this.formData = new FormData( form );
+            
             this.doAjax("register");
         },
         doLogout : function(){
@@ -66,52 +65,53 @@ window.user = {
                         }else{
                             alert("该用户已注册");
                         }
-            });
+            }); 
         },
         // 跳转个人页面
         goUserHome: function (obj) {
-            var uid = $(obj).attr("data-uid");
+            var uid = $(obj).data("uid");
             location.href = "/Lofter_by_TP5/public/web/user/goUserHome?uid="+uid;
         },
         //关注他人
-        doSave: function(uid){
+        doSave: function(obj){
+            let uid = $(obj).attr("data-uid");
             $.post("/lofter_by_tp5/public/web/concern/save?concern_user_id="+uid,function(res){
                 if(res.status == 1){
+                    // alert("关注成功");
                     return true;
                 }
-                return false;
+                    // alert("关注失败");
+                    return false;
             })
         },
         //取消关注
-        doDelete: function(uid){
+        doDelete: function(obj){
+            let uid = $(obj).attr("data-uid");
             $.post("/lofter_by_tp5/public/web/concern/delete?concern_user_id="+uid,function(res){
                 if(res.status == 1){
+                    // alert("取消关注成功");
                     return true;
                 }
-                return false;
+                    // alert("取消关注失败");
+                    return false;
             })
         }
     }
 
 /********************触发*****************/
 $(function(){
-    //去个人主页
-    $("#user_home").click(function(){
-        var uid = $(this).attr("data-uid");
-        user.goUserHome(uid);
-    })
-    ///--------------------------------------------------------------------------
+    // ///--------------------------------------------------------------------------
     //关注与取消关注
     $("#window_show").on("click", '.user-care', function () {
         $type = $(this).find('span').attr("data-type");
-        $uid = $(this).attr("data-uid");
+        // $uid = $(this).attr("data-uid");
         if ($type == "save") {
-            user.doSave($uid);
+            user.doSave(this);
             $(this).html('<span data-type="delete">取消关注</span>');
             //关注数量+1
             $("#concern_num").text(parseInt($("#concern_num").text()) + 1);
         } else if ($type == "delete") {
-            user.doDelete($uid);
+            user.doDelete(this);
             $(this).html('<b>+</b><span data-type="save">关注</span>');
             //关注数量-1
             $("#concern_num").text(parseInt($("#concern_num").text()) - 1);

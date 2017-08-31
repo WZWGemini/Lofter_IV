@@ -10,7 +10,7 @@ class Index extends Controller{
         'user_name'=>"未登录",
         'user_head'=>'upload/img/default_head.jpg',
         'user_article_num' => 0,
-        'user_message_num' => 0,
+        'user_recommend_num' => 0,
         'user_attention_num' => 0
     );
     
@@ -18,36 +18,40 @@ class Index extends Controller{
     public function index(){
         ///采集用户信息:判断是否有用户登录？采用默认值
         $user_info = empty(session('user_info'))? self::$_user_info : session('user_info');
+        session("user_info",$user_info);        
         // 查询显示的文章列表
         $select_art = model("article")->alias("a")
-                    ->order("a.article_id desc")->page(1,10)->select();
-                    
-
-        foreach ($select_art as $key => $value) {
-            //文章id
-            $article_id = $select_art[$key]["article_id"];
-            //查询评论数
-            $commnet_count = model("comment")->field("count(comment_id) AS num")
-                            ->where("article_id = $article_id")
-                            ->find();
-            $select_art[$key]["comment_num"] =  $commnet_count['num'] ;
-            // 查询tag标签
-            $select_art[$key]["tag"] = model("tagArticle")->join("lofter_tag","lofter_tag_article.tag_id = lofter_tag.tag_id","inner")
-                        ->where("article_id = $article_id")->select();
-            //查询发表的用户
-            $user_id = $select_art[$key]["user_id"];
-            $select_art[$key]["user_info"] = model("user")->field("user_name , user_id , user_head")
-                                            ->where("user_id = $user_id")->find();
-        }
+                    ->order("a.article_id DESC")->page(1, 10)->select();
         // 采集博文内容
-        $blog_list = $select_art;
+        $blog_list = $this->getBlogDetial($select_art, $user_info);
         //注册samrty变量           
         $this->assign('user_info' ,$user_info );  //用户信息
         if( !empty( $blog_list) ){//渲染页面
-            $this->assign('blog_list',$blog_list);  
-            }          
-        return $this->fetch();
+            $this->assign('blog_list',$blog_list);            
+        }
+        return $this->fetch();    
+    }
 
+    // 加载更多
+    public function loadMore ($page = 2) {
+        $user_info = empty(session('user_info'))? self::$_user_info : session('user_info');
+        session("user_info",$user_info);
+        $page = input('page');
+        // 查询显示的文章列表
+        $select_art = model("article")->alias("a")
+                ->order("a.article_id desc")->page($page, 10)->select();
+        // 采集博文内容
+        $blog_list = $this->getBlogDetial($select_art, $user_info);
+        //注册samrty变量           
+        $this->assign('user_info' ,$user_info );  //用户信息
+        if( !empty( $blog_list) ){//渲染页面
+            $this->assign('blog_list',$blog_list);
+            $html = $this->fetch('element/ele-list');
+            
+            return ['status'=>1,"msg"=>"成功",'html'=>$html,"data"=>$blog_list];
+        }else{
+            return ['status'=>0,"msg"=>"获取失败","html"=>"","data"=>""];
+        }
     }
 
     // 登录页面显示
@@ -62,7 +66,7 @@ class Index extends Controller{
 
     // 浏览页面显示
     public function browse() {
-        
+       
         return $this->fetch("order/browse");
     }
 
@@ -70,12 +74,6 @@ class Index extends Controller{
     public function app() {
         return $this->fetch("order/app");
     }
-
-    // // 摄影课堂页面显示
-    // public function potoshop() {
-    //     return $this->fetch("order/potoshop");
-    // }
-
     // 个人主页页面显示
     public function userHome() {
         return $this->fetch("order/userHome");
@@ -85,14 +83,14 @@ class Index extends Controller{
     public function lognArticle() {
         return $this->fetch("order/lognArticle");
     }
-    //  // 摄影课堂页面显示
-    // public function potoshop(){
-    //     $file = $_SERVER['DOCUMENT_ROOT']."/Lofter_by_TP5/application/bin/pic.json";
-    //     $pic_json = file_get_contents($file);
-    //     $pic_arr = json_decode($pic_json,true);
-    //     $this->assign('pic_arr',$pic_arr);
-    //     return $this->fetch();
-    // }
+     // 摄影课堂页面显示
+    public function potoshop(){
+        $file = $_SERVER['DOCUMENT_ROOT']."/Lofter_by_TP5/application/bin/pic.json";
+        $pic_json = file_get_contents($file);
+        $pic_arr = json_decode($pic_json,true);
+        $this->assign('pic_arr',$pic_arr);
+        return $this->fetch();
+    }
     // // 数据采集
     // public function collectPic() {
     //     $path = $_SERVER['DOCUMENT_ROOT']."/Lofter_by_TP5/application/bin/sheying";
@@ -135,13 +133,13 @@ class Index extends Controller{
         $this->assign("user_img",$user_img);
         $html = $this->fetch();
         return ['status'=>1,"msg"=>"成功","html"=>$html,"data"=>""];
-    }
+    }    
      //传标签id tag_id------------------------
-     public function tagShow(){
+    public function tagShow(){
         $tagId = input("tag_id");
         //查询三个有图片的该标签微博
         $tag_img = model("article")->alias("a")
-                    ->field("article_img")
+                    ->field("a.article_id,article_img")
                     ->join("tagArticle ta","a.article_id=ta.article_id")
                     ->join("tag t","t.tag_id=ta.tag_id")
                     ->where("a.article_img != '[]' and t.tag_id=$tagId")
@@ -153,6 +151,65 @@ class Index extends Controller{
         $this->assign("tag_content",$tag_content);        
         $html = $this->fetch();
         return ['status'=>1,"msg"=>"成功","html"=>$html,"data"=>""];
+    }
+
+    public function care(){
+
+    }
+
+    public function recommend(){
+
+    }
+
+    public function article(){
+
+    }
+
+    //获取文章详细内容
+    public function getBlogDetial($select_art, $user_info){
+        foreach ($select_art as $key => $value) {
+            //文章id
+            $article_id = $select_art[$key]["article_id"];
+            //查询评论数
+            $commnet_count = model("comment")->field("count(comment_id) AS num")
+                            ->where("article_id = $article_id")
+                            ->find();
+             //查询热度数量
+            $hot_count = model("hot")->field("count(hot_id) AS num")
+                            ->where("article_id = $article_id")
+                            ->find();  
+            // 添加数据                             
+            $select_art[$key]["comment_num"] =  $commnet_count['num'] ;
+            $select_art[$key]["hot_num"]     =  $hot_count['num'] ;
+            // 查询tag标签
+            $select_art[$key]["tag"] = model("tagArticle")->join("lofter_tag","lofter_tag_article.tag_id = lofter_tag.tag_id","inner")
+                        ->where("article_id = $article_id")->select();
+            //查询发表的用户
+            $user_id = $select_art[$key]["user_id"];
+            $select_art[$key]["user_info"] = model("user")->field("user_name , user_id , user_head")
+                                            ->where("user_id = $user_id")->find();
+
+            //判断登录的用户是否已经推荐？点赞？
+            $hot_recommend = model("hot")->field("hot_love, hot_recommend")
+                            ->where([
+                                "user_id"    => $user_info["user_id"],
+                                "article_id" => $article_id,
+                                "hot_recommend" => 1
+                                ]) 
+                            ->find();
+            $isRecommend = !empty($hot_recommend)?true:false;
+            $hot_love = model("hot")->field("hot_love, hot_recommend")
+                        ->where([
+                            "user_id"    => $user_info["user_id"],
+                            "article_id" => $article_id,
+                            "hot_love" => 1
+                        ])
+                        ->find();
+            $isLove = !empty($hot_love)?true:false;
+            $select_art[$key]["isRecommend"] = $isRecommend;
+            $select_art[$key]["isLove"] = $isLove;            
+        }
+        return $select_art;
     }
 }
 

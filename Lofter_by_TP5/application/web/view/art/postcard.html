@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="__PUBLIC_LOFTER__/css/art.css">
+	<link rel="stylesheet" href="__PUBLIC_LOFTER__/css/art_index.css?0.0.1">
+</head>
+<body>
+	<div class="page">
+		
+		<!-- 头部 -->
+		{include file='element/ele-artHeader'}
+
+		<!-- 明信片 -->
+		<div class="g-bdsale">
+		    <div class="g-sbox">
+		        <div class="g-box1">
+		        	<!-- 明信片 -->
+					<div class="m-artinfo m-artinfo-1">
+		                <h2 class="w-sltit"><span>明信片</span></h2>
+		                <div class="m-artlist m-artlist-2">
+		                	<ul class="f-cb">
+								{foreach $card_res as $key=>$value}
+								<li class="item">
+								    <div class="img">
+								        <a target="_blankshop_img" href="{:url('shop/addCart')}?shopInfo={$value.shop_id}">
+								        	<span class="bor"></span>
+								        	<span class="bor"></span>
+								            <span class="bor"></span>
+								            <span class="bor"></span>
+								            <img src="{$value.shop_img}">
+								        </a>
+								    </div>
+								    <div class="txt">
+								        <p class="f-thide pname"><a target="_blank" href="/art/product-31979102">{$value.shop_name}</a></p>
+								        <p class="f-thide bname"><a target="_blank" href="/art/bao4170617">{$value.user_name}</a></p>
+								    </div>
+								</li>
+								{/foreach}
+		                	</ul>
+		                </div>
+		                <div class="w-slmore"><a href="/art/postcard">查看更多 &gt;&gt;</a></div>
+		            </div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="__PUBLIC_LOFTER__/css/art.css">
+</head>
+<body>
+	<div class="page">
+		<!-- 头部 -->
+		{include file='element/ele-artHeader'}
+		
+		<div id="art">
+			<!-- 销售记录 -->
+			<div class="sales-record">
+				<div class="g-box3 f-cb">
+		        	<h2 class="w-fttl">我的ART</h2>
+		        	<a href="{:url('salesRecord')}" class="w-flag cur-1">销售记录</a>
+	        		<a href="{:url('shopManage')}" class="w-flag">商品管理</a>
+		        	<a href="" target="_blank" class="m-aboutart">关于ART</a>
+		        </div>
+				<div class="g-box12">
+			       <div class="g-box12">
+				        <div class="m-calcsales f-cb">
+				        	<div class="item">
+				        		<p>未结算金额</p>
+				        		<p class="money">0 元</p>
+				        		<div class="colorlayer color-1">
+				        			<span id="fillwaiting"></span>
+				        		</div>
+				        	</div>
+				        	<div class="item">
+				        		<p>已结算金额</p>
+				        		<p class="money">0 元</p>
+				        		<div class="colorlayer color-2">
+				        			<span>查看 <a id="showdetails">明细</a></span>
+				        		</div>
+				        	</div>
+				        	<div class="item">
+				        		<p>总收入</p>
+				        		<p class="money">0 元</p>
+				        		<div class="colorlayer color-3">
+				        			<span></span>
+				        		</div>
+				        	</div>
+				       	</div>
+				        <div class="m-sctop">
+							<div class="fb"><p>商品</p></div>
+							<div>售价</div>
+							<div>分成</div>
+							<div>付款时间</div>
+							<div class="sec">状态</div>
+						</div>
+						<div class="m-empty">
+							<p>没有销售记录</p>
+							<p>上传更多优质的作品可能会带来销售量</p>
+						</div>
+			        </div>			        
+		        </div>
+			</div>
+		</div>
+
+		<!-- 底部 -->
+		{include file='element/ele-artFooter'}
+	</div>
+</body>
+</html>

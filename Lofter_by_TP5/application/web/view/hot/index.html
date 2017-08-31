@@ -1,0 +1,25 @@
+ {foreach $hot as $hot_ele}
+ {if $hot_ele.hot_love ||  $hot_ele.hot_recommend }
+    <li class="" data-hid="{$hot_ele.hot_id}">
+        <div class="hot-one clearfix" data-comment="">
+            <span class="user-head" data-user="">
+                    <img src="{$hot_ele.user_head}" alt="">
+                </span>
+            <span class="user-name" data-user="">
+                <a href="javescript:void(0)">
+                    {$hot_ele.user_name}	
+                </a>
+            </span>
+            {if $hot_ele.hot_love}
+                <span class="hot-content">
+                    我喜欢这图片
+                </span>
+            {else if $hot_ele.hot_recommend}
+                <span class="hot-content">
+                    推荐了这篇文章
+                </span>
+            {/if}
+        </div>
+    </li>
+{/if}
+{/foreach}

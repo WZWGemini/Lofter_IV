@@ -1,4 +1,4 @@
-<?php
+    <?php
 namespace app\admin\validate;
 use think\Validate;
 

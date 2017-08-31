@@ -22,6 +22,9 @@ h1 a, h2 a {
     font-weight: 400;
     display: inline-block;
 }
+fieldset, img, html, body, iframe, input {
+    border: 0;
+}
 /*****************工具箱*************/
 .box{
 	margin: 0 auto 40px;
@@ -299,3 +302,74 @@ h1 a, h2 a {
 	form{transform: rotate(0deg);}
 	to{transform: rotate(360deg);}
 }
+
+.block {
+    margin: 0 0 35px;
+}
+
+.main {
+    margin-left: 110px;
+    padding-bottom: 48px;
+}
+.nctitle {
+    padding-bottom: 10px;
+}
+h3 {
+    font-size: 14px;
+    font-weight: bold;
+    color: #939393;
+}
+.notes {
+    margin: 0;
+    padding: 0;
+    line-height: 20px;
+    font-size: 12px;
+    zoom: 1;
+}
+
+.notes .note {
+    list-style: none;
+    margin: 0;
+    float: left;
+    width: 100%;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+}
+a, a:hover, .day {
+    color: #828d95;
+}
+a {
+    -webkit-transition-property: background-color, color;
+    -webkit-transition-duration: .4s, .5s;
+    -webkit-transition-timing-function: ease, ease;
+    -moz-transition-property: background-color, color;
+    -moz-transition-duration: .4s, .5s;
+    -moz-transition-timing-function: ease, ease;
+    -ms-transition-property: background-color, color;
+    -ms-transition-duration: .4s, .5s;
+    -ms-transition-timing-function: ease, ease;
+    -o-transition-property: background-color, color;
+    -o-transition-duration: .4s, .5s;
+    -o-transition-timing-function: ease, ease;
+    transition-property: background-color, color;
+    transition-duration: .4s, .5s;
+    transition-timing-function: ease, ease;
+}
+.notes .avatar {
+    float: left;
+    width: 16px;
+    height: 16px;
+    border: 0;
+}
+.notes .action {
+	float: right;
+    width: 500px;
+}
+
+.notes .clear {
+    clear: both;
+    height: 0;
+    overflow: hidden;
+}
+
+

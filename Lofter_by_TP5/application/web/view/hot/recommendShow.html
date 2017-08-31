@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Lofter</title>
+	<link rel="stylesheet" href="__PUBLIC_LOFTER__/lib/Bootstrap3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="__PUBLIC_LOFTER__/css/rebuild.css?001">
+	<link rel="stylesheet" href="__PUBLIC_LOFTER__/css/index.css?001">
+	<link rel="stylesheet" href="__PUBLIC_LOFTER__/css/common.css?001">
+	  <!-- <link rel="stylesheet" href="__PUBLIC_LOFTER__/css/editor.css">   -->
+	<script src="__PUBLIC_LOFTER__/lib/Bootstrap3.3.7/js/jquery-1.11.1.min.js"></script>
+	<script src="__PUBLIC_LOFTER__/lib/Bootstrap3.3.7/js/bootstrap.min.js"></script>
+	<script src="__PUBLIC_LOFTER__/js/user.js?001"></script>
+</head>
+<body style="background: #EDEDEF;">
+	<div class="page">
+		<!-- 顶部导航 -->
+        {include file='element/ele-header'}
+        
+        
+		<div id="center" class="container">
+            {include file='element/ele-customer'}
+
+                <!-- 信息列表大盒子 -->    
+                <div id="information" class="float-left">
+                    <!-- 正常文章显示块 -->
+                    {include file='element/ele-list'}
+                    <!-- 长文章显示块 -->
+                </div>
+                
+        </div>
+
+    </div>
+        <!-- 鼠标经过显示头像悬浮框 -->
+        {include file='element/hover'}
+        <!-- 标签悬浮框 -->
+        <!-- 删除 -->
+        <div class="modal fade" id="delete" role="dialog" aria-labelledby="myModalLabel"> 
+            <div class="modal-dialog" role="document">  
+                <div class="modal-content">  
+                    <div class="modal-header">  
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">  
+                            <span aria-hidden="true">×</span>  
+                        </button>  
+                        <h4 class="modal-title" id="myModalLabel">删除信息</h4>
+                    </div>  
+                    <div class="modal-body">  
+                        <p>是否删除</p>
+                        <input type="hidden" id="del_blog_id" value=""> 
+                    </div>  
+                    <div class="modal-footer">  
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button> 
+                        <button type="button" class="btn btn-success" onclick="blog.deleted()">确认</button>  
+                    </div>  
+                </div>  
+            </div>  
+        </div>
+    
+    </body>
+    </html>
+    <script src="__PUBLIC_LOFTER__/lib/ueditor/ueditor.config.js"></script>
+    <script src="__PUBLIC_LOFTER__/lib/ueditor/ueditor.all.min.js"></script>
+    <script src="__PUBLIC_LOFTER__/js/index.js?001"></script>
+    <script type="text/javascript" src="__PUBLIC_LOFTER__/js/tag.js?001"></script>
+    

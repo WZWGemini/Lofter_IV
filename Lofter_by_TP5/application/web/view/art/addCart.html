@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="__PUBLIC_LOFTER__/css/art.css">
+	<style>
+	</style>
+</head>
+<body>
+	<div class="page">		
+		<!-- 头部 -->
+		{include file='element/ele-artHeader'}
+		
+		<div id="art">
+			<!-- 加入购物车(框画) -->
+			<div class="art-product">
+				<div class="art-protop">
+					<div class="art-left">
+						<div id="imgbox" class="frame2">
+			        		<img :src="img">
+			        	</div>
+					</div>
+					<div class="art-right">					
+			        	<p class="title">《<span>{{name}}</span>》</p>
+			        	<p class="username">作者：<a target="_blank" href="">{{author}}</a></p>
+			        	<div class="frame ztag">
+				        	<div class="color f-cb">
+				        		<p>请选择画框颜色</p>
+				        		<div class="chose">
+				        			<span v-for="(c,key) in color" class="ftag" :class="key == 0 ? 'cl1': 'cl2'" @click="colorChoose(key)">
+				        				<em :class="off[key] ? 'ckflag' : ''"></em>
+				        			</span>
+				        			<!-- <span class="cl2 ftag">
+				        				<em :class="{'ckflag': off}"></em>
+				        			</span> -->
+				        		</div>
+				        	</div>
+				        	<div class="size f-cb">
+				        		<p>请选择画框尺寸</p>
+				        		<div class="chose">
+				        			<!-- <span class="big ftag">
+				        				<b>大</b>
+				        				<em class="ckflag hide"></em>
+				        			</span>
+				        			<span class="mid ftag">
+				        				<b>中</b>
+				        				<em class="ckflag hide"></em>
+				        			</span> [{big : cla}, {mid : cla}]-->
+				        			<span v-for="(s,key) in size" class="ftag big" @click="sizeChoose(key)">
+				        				<b>{{s.size_desc}}</b>
+				        				<em :class="{'ckflag': flag[key]}"></em>
+				        			</span>
+				        			<p id="scale">
+					        			外框：{{size_data[0]}}
+					        			<br>
+					        			图片：{{size_data[1]}}
+				        			</p>
+				        		</div>
+				        	</div>
+			        	</div>
+			        	
+			        	<p class="price ztag">价格：{{size_data[2]}}元</p>
+			        		
+			        		<a href="#" @click="addToCar" class="btn ztag">加入购物车</a>
+			        		
+			        	<p class="sharetext">分享到</p>
+			        	<div class="m-share">
+			        		<a href="javascript:void(0);" class="shtag sh1"></a>
+			        		<a href="javascript:void(0);" class="shtag sh2"></a>
+			        		<a href="#" class="shtag sh3"></a>
+			        		<a href="#" class="shtag sh4"></a>
+			        		<a href="#" class="shtag sh5"></a>
+			        		<a href="#" class="shtag sh6"></a>
+			        	</div>		        
+					</div>
+				</div>
+
+				<div class="art-probot">
+		        	<div class="img">
+		        		<img src="__PUBLIC_LOFTER__/img\art/6597286370449020473.jpg">
+			        	<img src="__PUBLIC_LOFTER__/img/art/6608253998934878674.jpg">
+			        	<img src="__PUBLIC_LOFTER__/img/art/6608253998934878675.jpg">
+			        	<div class="imgbox">
+			        		<p class="title">《<span>{{name}}</span>》</p>
+			        		<p class="desc"></p>
+			        		<img :src="img" class="showimgtag">
+			        	</div>
+			        	
+			        	<p class="cctype">此作品由创作者提供100%高清原图授权</p>
+		        	</div>
+		        	<div class="author">
+		        		<div class="m-blogInfo">
+		                    <div class="logo"><a target="_blank" href="http://www.lofter.com/art/qiqilingyi/"><img :src="user_head"></a></div>
+		                    <h2 class="f-fs3 s-fc12"><a target="_blank" href="http://www.lofter.com/art/qiqilingyi/">{{author}}</a></h2>
+		                </div>
+		        	</div>
+		        	<a href="#" class="btn ztag">返回顶部购买</a>
+		        </div>
+			</div>
+		</div>
+		<!-- 底部 -->
+		{include file='element/ele-artFooter'}
+	</div>
+</body>
+</html>
+<script src="__PUBLIC_LOFTER__/lib/Bootstrap3.3.7/js/jquery-1.11.1.min.js"></script>
+<script src="__PUBLIC_LOFTER__/lib/vue/vue/vue-2.4.2.min.js"></script>
+<script src="__PUBLIC_LOFTER__/lib/vue/vuex/vuex-2.3.0.js"></script>
+<!-- <script src="__PUBLIC_LOFTER__/js/addCart.js"></script> -->
+<script>
+	let vm = new Vue({
+		el: '#art',
+		data: {
+			off: [false, true],
+			flag: [false, false, true],
+			user_head: '{$shop.user_head}',
+			img: "{$shop.shop_img}",
+			id: "{$shop.shop_id}",
+			name: "{$shop.shop_name}",
+			author: '{$shop.user_name}',
+			color: ['黄色框画', '黑色框画'],
+			size: [
+				{
+					size_desc: '大',
+					frame: '72x55cm',
+					pic: '51x34cm',
+					price: 240
+				},
+				{
+					size_desc: '中',
+					frame: '56x43cm',
+					pic: '39x26cm',
+					price: 190
+				},
+				{
+					size_desc: '小',
+					frame: '40x31cm',
+					pic: '27x18cm',
+					price: 140
+				}
+			],
+			size_data: ['40x31cm', '27x18cm', 140],
+			data: {
+					'color': "黑色框画",
+					'size': "小"
+				}
+
+		},
+		methods: {
+			sizeChoose: function (index) {
+				this.size.forEach((item, i) => {
+					if (index == i) {
+						this.$set(this.flag, i, true)
+						this.$set(this.size_data, 0, item.frame)
+						this.$set(this.size_data, 1, item.pic)
+						this.$set(this.size_data, 2, item.price)
+						//设置大小
+						this.data.size = this.size[i].size_desc
+					} else {
+						this.$set(this.flag, i, false)
+					}
+				})
+			},
+			colorChoose: function (index) {
+				this.color.forEach((item, i) => {
+					if (index == i) {
+						this.$set(this.off, i, true)
+						//设置颜色
+						this.data.color = this.color[i]
+						console.log(this.data)
+						console.log(JSON.stringify(this.data))
+					} else {
+						this.$set(this.off, i, false)
+					}
+				})
+			},
+			addToCar: function () {
+				var data = {
+					'shop_detail_json' : JSON.stringify(this.data),
+					'shop_id' : this.id,
+					'shop_price' : this.size_data[2]
+				};
+				$.ajax({
+					url: "{:url('shop/addToShopCar')}",
+					type: "post",
+					data: data
+				}).done((res)=>{
+					if(res.status==1){
+						alert("加入购物车成功");
+					}else{
+						alert(res.msg);
+					}
+				})
+			}
+		}
+	})
+</script>

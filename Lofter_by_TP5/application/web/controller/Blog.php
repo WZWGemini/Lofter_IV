@@ -139,13 +139,44 @@ class Blog extends Controller{
         return ['status'=>1,"msg"=>"更新成功","html"=>"","data"=>[$blog]];
     }
 
-    // 查询
-    public function selectBlog(){
-        $blog_list = model('user')->alias('u')->join("article a","a.user_id = u.user_id")
-                        ->field('u.user_name, u.user_head, u.user_id, a.article_id, a.article_img, a.article_content')->limit(15)->select();
+    // 瀑布流文章列表
+    public function selectBlog(Request $request){
+        $page = $request->post("page");
+        
+        $start = $page*12 ;
+        $end = ($page-1)*12;
+        $myId = empty(session("user_info")['user_id'])?0:session("user_info")['user_id'];
+         //自己关注的列表
+        $concern_list = model("concern")->field("concern_user_id as cid")
+                        ->where("user_id=$myId")->select();
+        $blog_list =  model('user')->alias('u')
+                     ->join("article a","a.user_id = u.user_id")
+                     ->field('u.user_name, u.user_head, u.user_id, a.article_id, a.article_img, a.article_content')
+                     ->limit($start, $end)
+                     ->select();
+        
+        foreach($blog_list as &$blog){
+            // 计算是点赞次数
+            $blog["num"]    = model("hot")
+                                ->where("article_id", $blog["article_id"])
+                                ->count();
+            $isLove         = model("hot")->where([
+                                    "user_id" => $request->session("user_info")["user_id"],
+                                    "article_id" => $blog["article_id"],
+                                    "hot_love" => 1
+                              ])->find();
+            $blog["isLove"] = !empty($isLove)?true:false;
+            if(inArray($blog["user_id"],$concern_list,'cid')){
+                $blog["isFollow"] = true;
+            }else{
+                $blog["isFollow"] =false;
+            }
+        }
         if(!empty($blog_list)){
-            $this->assign('blog_list',$blog_list);
+            // $this->assign("concern_list",$concern_list);
+            // $this->assign('blog_list',$blog_list);
             // $html=$this->fetch('element/ele-browseQS');
+
             return ['status'=>1,"msg"=>"获取成功","html"=>"","data"=>$blog_list];
         }else{
             return ['status'=>0,"msg"=>"获取失败","html"=>"","data"=>""];
@@ -186,6 +217,54 @@ class Blog extends Controller{
         $blog_arr = json_decode($blog_json);
         dump($blog_arr);
     }
+    // 跳转文章详情页
+    public function BlogDetail($a_id = null){
+        $myId = empty(session("user_info")['user_id'])?0:session("user_info")['user_id'];
+        if($a_id){
+
+            $article_info = model("article")->alias("a")
+                          ->join("user u","u.user_id = a.user_id")
+                          ->field('a.*,u.user_name,u.user_head')
+                          ->where("a.article_id" ,$a_id)
+                          ->find();
+            $article_info["tag"] =model("tagArticle")->alias('ta')
+                                ->join('tag t','ta.tag_id = t.tag_id')
+                                ->field("t.tag_content")
+                                ->where("ta.article_id", $article_info['article_id'])
+                                ->select();
+            $result         = model("hot")->alias("h")
+                                ->join("user u","u.user_id = h.user_id")
+                                ->field("h.hot_id, h.user_id, h.hot_love, h.hot_recommend, u.user_head, u.user_name")
+                                ->where("article_id",$a_id)
+                                ->select();
+            $concern_list = model("concern")->field("concern_user_id as cid")
+                                ->where("user_id=$myId")->select();
+            $this->assign("concern_list",$concern_list);
+            $this->assign('hot' , $result);
+            $this->assign("article_info",$article_info);
+            return $this->fetch();
+        }else{
+            echo "没有正确的参数";
+            exit();
+        }
+    }
+
+    // 搜索
+    public function getSearchInfo (Request $request) {
+        $search_key = $request->post("key");
+        $tag['tag_content'] = array('like', '%'.$search_key.'%');
+        $user['user_name'] = array('like', '%'.$search_key.'%');
+        $search_data['tag'] = model('tag')->where($tag)->select();
+        $search_data['user'] = model('user')->where($user)->field("user_id, user_name, user_head")->select();
+        if (!empty($search_data)) {
+            $this->assign('search_data',$search_data);
+            $html = $this->fetch('element/ele-peoAndTags');
+            return ['status'=>1,"msg"=>"获取成功","html"=>$html,"data"=>$search_data];
+        }else{
+            return ['status'=>0,"msg"=>"获取失败","html"=>"","data"=>""];
+        }
+    }
+    
     
 }
 

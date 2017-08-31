@@ -1,0 +1,48 @@
+<!-- 有商品显示 -->
+<div class="g-box12 ztag" style="">
+	<!-- <p class="m-notice f-dn">尊敬的用户，新年期间从1月23日开始的订单将会推迟到2月21日后开始发货，带来不便敬请谅解。感谢您对LOFTER ART的支持：）</p> -->         	
+	<div class="m-sctop">
+		<div class="fb"><span class="checkall"><input type="checkbox" class="ztag" @click="checkall()">全选</span>作品</div>
+		<div class="sec">商品信息</div>
+		<div>单价</div>
+		<div>数量</div>
+		<div class="thi">操作</div>
+	</div>
+	<div class="m-sccontent ztag">
+		<ul class="ztag">
+			<li v-for="(item,key) in cart" class="first" data-index="0">
+				<div class="fb">
+					<input type="checkbox" v-model="select_cart" :value="item" class="checkbox">
+					<div class="prodimg">
+						<a href="javascript:;" target="_blank" class="sz2">
+							<img :src=item.img>
+						</a>
+					</div>
+						<div class="prodname">
+						<p class="name">《{{item.name}}》</p>                        
+						<p class="f-fs0 s-fc1">{{item.author}}</p>
+						</div>
+				</div>
+				<div class="sec"><p>&nbsp;{{item.color}}</p><p>{{item.size}}</p></div>
+
+				<div class="price">{{item.price}}</div>
+
+				<div class="piece">
+					<a class="lf" href="javascript:;" v-on:click="reduce(key)"><span class="btn btn-1 disa"></span></a>
+
+						<span class="num">{{item.sum}}</span>
+
+					<a href="javascript:;" v-on:click="add(key)"><span class="btn btn-2"></span></a>
+				</div>
+
+				<div class="del thi" @click="del(key)">删除</div>            
+			</li>
+		</ul>
+	</div>
+	<div class="m-scbot">
+		<button class="w-bbtn f-fr ztag w-bbtn-0" @click="settlement()">结算</button>
+		<span class="total ztag">¥{{totalPrice}}</span>
+		<span class="norm">合计:&nbsp;</span>
+		<span class="prdnum ztag">已选商品{{totalNum}}件</span>
+	</div>
+</div>

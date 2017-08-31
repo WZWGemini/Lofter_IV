@@ -1,0 +1,91 @@
+{include file='browse/browseHeader'}
+<div class="bro-tab"> 
+    <ul class="bro-tab-ul container">
+        <li><a href="{:url('browse/browseQushi')}" class="qs">趋势</a></li>
+        <li><a href="{:url('browse/browseHuati')}" class="ht">话题</a></li>
+        <li><a href="{:url('browse/browseTags')}" class="bq">标签</a></li>
+        <li><a href="{:url('browse/browseMaster')}" class="tab-border dr">达人</a></li>
+        <li><a href="{:url('browse/browseZhuanti')}" class="zt">专题</a></li>
+    </ul>
+</div>
+<div id="page_center">
+<!-- 达人 -->
+<div id="master" class="" style="">
+    <!-- 达人页面	 -->
+    <div id="daren">
+        <header>
+            <ul>
+                <li >
+                    <a href="{:url('browse/browseMaster')}">领域达人</a>                    
+                </li>
+                <li>
+                    <a href="#">标签达人</a>
+                </li>
+                <li class="active">
+                    <a href="{:url('browse/browseFollow')}">我关注的人
+                        <span>({$user_list | count})</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">寻找好友</a>
+                </li>
+            </ul>
+            <a href="#" class="apply-btn">申请lofter认证</a>
+        </header>
+           <!-- 关注的人 -->
+           <div class="concern">
+                <div class="top-bar">
+                    <a href="javascript:void(0);" class="cur-bar">最近互动</a>
+                    <span> | </span>
+                    <a href="javascript:void(0);">最新关注</a>                            
+                </div>
+                <div class="user-list">
+                    <ul>
+                        {foreach $user_list as $user}
+                        <li data-uid="{$user.user_id}">
+                            <div class="user-head" >
+                                <a href="javascript:void(0)" data-uid="{$user.user_id}"  onclick='user.goUserHome(this)'>
+                                    <img src="{$user.user_head}" alt="头像">
+                                </a>
+                            </div>
+                            <div class="user-info">
+                                <h4 class="user-name">{$user.user_name}</h4>
+                                <p>{$user.new_time}</p>
+                            </div>
+                            <a href="javascript:void(0);" class="lost-follow" title="关注">取消关注</a>
+                        </li>
+                        {/foreach}
+                    </ul>
+                </div>
+                <div class="side-bar">
+                    <div class="search">
+                        <form class="xtag">
+                            <input class="xtag" type="text" placeholder="输入用户名称，查找关注的人">
+                            <button type="submit">&nbsp;</button>
+                        </form>
+                    </div>
+                    <div class="g-box searchtip" style="display:none;">
+                        <p class="ztag s-fc5">您没有关注含有“调度”的博客</p>
+                    </div>
+                    <div style="display: block;" id="recomFollowArea" class="recomFollowArea">
+                        <h3>推荐关注</h3>
+                        <div id="recomFollowList" class="recomFollowList">
+                            <div>
+                                {foreach $concern_other as $orther}
+                                <div class="recomItem" onmouseover="" onmouseout="" data-uid="{$orther.user_id}">
+                                    <a title="{$orther.user_name}" href="javascript:void(0);" data-uid="{$orther.user_id}" onclick='user.goUserHome(this)' target="_blank">
+                                        <img src="{$orther.user_head}">
+                                    </a>                                                
+                                    <a href="javascript:void(0);" class="icon2-8 btn followbtn" title="添加关注">添加关注</a>
+                                </div>
+                                {/foreach}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+           </div>
+        
+    </div>
+</div>
+
+{include file="browse/browserFooter"}

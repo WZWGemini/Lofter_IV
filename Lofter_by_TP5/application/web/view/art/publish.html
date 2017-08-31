@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="__PUBLIC_LOFTER__/css/art.css">
+</head>
+<body>
+	<div class="page">
+		<!-- 头部 -->
+		{include file='element/ele-artHeader'}
+		
+		<div id="art">
+			<!-- 发布框画 -->
+			<div class="picture-frame">
+				<div id="m-artCreate" class="m-artCreate">
+		            <div class="ttlbar">
+		                <h1>发布框画</h1>
+		            </div>
+		            <div class="formarea">
+		                <div class="item item-upload ztag ">
+		                    <h3><em>*</em> 上传图片</h3>
+		                    <div class="cnt" :class=" flag ? '': 'pic-cnt'">
+		                      <div>
+		                        <!-- 没上传图片时显示 -->
+		                        <div class="choosewrap js-showChooseWrap" v-if="flag">
+		                            <div id="choosebtn" class="f-pbicons choosebtn ztag">
+		                            	选择图片
+		                            	<form style="visibility: hidden;">
+		                            		<input @click="imgUpload($event)" @change="change()" id="dt_upload" style="visibility: visible;" class="inputimgfile ztag" type="file" accept="image/*" title="选择图片">
+		                            	</form>
+		                            </div>
+		                            <p id="chooseTips">图片像素大于2658px*1772px或两边大于1970px，文件小于20MB</p>
+		                           <!--  <input @click="upload()" id="dt_upload" style="visibility: visible;" class="inputimgfile ztag" type="file" accept="image/*"> -->
+		                        </div>
+		                        
+		                        <!-- 上传时加载时缓冲 -->
+		                        <!-- <div class="uploading">
+		                            <div class="uploadinfo">
+		                                <div class="f-pbicons infoicon"></div>
+		                                <div class="infotext ztag">0%</div>
+		                            </div>
+		                        </div> -->
+
+		                        <!-- 上传成功 -->
+		                        <div class="uploadsuccess" v-else>
+		                            <img class="ztag" :src="dataURL">
+		                             <!-- <img src="__PUBLIC_LOFTER__/img/lofter.jpg"> -->
+		                            <div class="f-pbicons successinfo">图片上传成功</div>
+		                        </div>
+
+		                        <!-- 上传失败 -->
+		                        <!-- <div class="uploadfail">
+		                            <div class="failbg"></div>
+		                            <div class="f-pbicons failinfo">图片上传失败 <span class="reupload ztag">重新上传</span></div>
+		                        </div> -->
+		                        
+		                      </div>                     
+		                    </div>
+		                </div>
+		                
+		                <div class="item item-workname">
+		                    <h3><em>*</em> 作品名称</h3>
+		                    <div class="cnt">
+		                        <div class="namewrap">
+		                            <input type="text" v-model="name" class="workname ztag" maxlength="25">
+		                        </div>
+		                    </div>
+		                </div>
+		                
+		                <div class="item item-worktype">
+		                    <h3>
+			                    <em>*</em> 作品类型 
+			                    <label class="sheying">
+			                    	<input type="radio" name="worktype" v-model="radio" :value="{$state[0]}" class="worktype ztag">&nbsp;摄影类
+			                    </label>
+			                    <label class="yishu">
+			                    	<input type="radio" name="worktype" v-model="radio" :value="{$state[1]}"  class="worktype ztag">&nbsp;绘画类/设计类
+								</label>
+		                    </h3>
+		                </div>
+		                <div class="item item-workdesc">
+		                    <h3><em style="visibility:hidden;">*</em> 作品说明</h3>
+		                    <div class="cnt">
+		                        <p class="tip">更好的作品描述，将有助于消费者理解并购买，还有机会获得官方推荐</p>
+		                        <div class="descwrap">
+		                            <textarea type="text" v-model="describe" class="workdesc ztag" maxlength="200"></textarea>
+		                        </div>
+		                    </div>
+		                </div>
+		                
+		                <div class="btnsbar">
+		                    <div class="upshelf ztag" @click="add()">上架</div>
+		                </div>
+		            </div>
+		        </div>
+			</div>
+		</div>
+
+		<!-- 底部 -->
+		{include file='element/ele-artFooter'}
+	</div>
+</body>
+</html>
+<script src="__PUBLIC_LOFTER__/lib/Bootstrap3.3.7/js/jquery-1.11.1.min.js"></script>
+<script src="__PUBLIC_LOFTER__/lib/vue/vue/vue-2.4.2.min.js"></script>
+<script src="__PUBLIC_LOFTER__/lib/vue/vuex/vuex-2.3.0.js"></script>
+<!-- <script src="__PUBLIC_LOFTER__/js/publish.js"></script> -->
+<script>
+	let vm = new Vue({
+		el: '#art',
+		data: {
+			img : "http://imgsize.ph.126.net/?enlarge=true&imgurl=http://imglf0.ph.126.net/SQjv7xGqr2q46xA-CYqGYg==/6632637868303152204.jpg_100x100x1x90.jpg",
+			radio:"",
+			describe:"",
+			name:"",
+			dataURL: '',
+			flag: true,
+		},
+		methods: {
+			add: function(){
+				let data = {
+					'shop_name' : this.name,
+					// 'shop_img' : this.img,
+					'shop_describe' : this.describe,
+					'shop_type_id' : this.radio
+				}
+				this.form.append('data', JSON.stringify(data));
+				$.ajax({
+					url: "{:url('shop/add')}",
+					type: 'POST',
+					data:this.form,
+					processData: false,  
+			        contentType: false,
+					success:function(res){
+						if(res.status==1){
+							alert(res.msg);
+							location.href = "{:url('shop/shopmanage')}";
+						}
+					}
+				})
+			},			
+			imgUpload: function (event) {
+				// console.log(event);
+				this.e = event;
+			},			
+			change: function () {
+				var event = this.e || event;
+				var files = event.target.files[0];
+				// console.log(this.e);
+				if(files){
+					 var windowURL = window.URL || window.webkitURL;
+					 this.dataURL = windowURL.createObjectURL(files);
+					 console.log(this.dataURL);
+					 if(this.dataURL){
+					 	this.flag = false;
+					 	this.form =new FormData();
+					 	this.form.append('img', files);
+					 	this.img = this.form;					 	
+					 }					
+				}
+				// if (window.FileReader) {    
+		  //           var reader = new FileReader();    
+		  //           reader.readAsDataURL(files);    
+		  //           //监听文件读取结束后事件    
+		  //         reader.onloadend = function (e) {
+		  //           // $(".img").attr("src",e.target.result);    //e.target.result就是最后的路径地址
+		  //           console.log(e.target.result);
+		  //           };    
+		  //      } 
+			}
+		}
+	})
+</script>

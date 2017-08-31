@@ -17,7 +17,7 @@ class Article extends Controller
 {
     public function index(){//渲染用户列表或者查询
     //   获取列名
-       $art = artModel::withTrashed();
+       $art = new artModel;
        $column = $art->getTableFields();//获取所有表字段
        $result = $art
                     //   ->order('art_id ASCE')

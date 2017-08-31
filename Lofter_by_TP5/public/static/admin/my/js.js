@@ -1,7 +1,7 @@
 $(document).ready(function(){
     var lock = true;
-    var cur_tr = 8;
-    console.log(cur_tr);
+    var cur_tr = 7;
+    // console.log(cur_tr);
     var cur_span = 0    ;//点击的是哪个元素
     let $column = $("#data-show").find("th");//获取字段名
     $("#data-show").on("click", "td>span", function (e) {
@@ -37,6 +37,7 @@ $(document).ready(function(){
     })
 
    $("#save").on('click',function(){
+
        let $tr = $("#data-show tbody").find("tr").eq(cur_tr);//被点中的
        let formdata = getdata();
        let $edit = $tr.next().find('input');//获取所有input
@@ -58,6 +59,7 @@ $(document).ready(function(){
                }     
            }
        });
+    //    console.log(formdata.get("user_id"));
        
        
    });
@@ -89,7 +91,6 @@ $(document).ready(function(){
         });
         $("#data-show tbody").append($tr);
         showBtn(true);
-        
    });
     $("#cancel").on('click',function(){
         let $tr = $("#data-show").find("tr").eq(cur_tr+1);//被点中的
@@ -107,15 +108,16 @@ $(document).ready(function(){
                 $trn.append("<td><span style='width:100%;height:100%;'></span></td>");                           
             }
         });
+
         $tr.replaceWith($trn);
    }
 
 
    function getdata(){//获取数据,打包数据
        let formdata = new FormData();//存放数据
-       
        let $tr = $("#data-show tbody").find("tr").eq( cur_tr );//被点中的tr
     //    let values = {};
+        console.log($tr.html());
        $tr.next().find('input').each(function(index, item){
             let col =$column.eq($(item).parent().index()).html()
             // values[col]  = item.value;
@@ -124,6 +126,7 @@ $(document).ready(function(){
         let $id = $tr.find("span").html();
         formdata.append($column.eq(0).html(),$id);//添加userId
         return formdata;//返回一个formdata对象
+        
    }
 
 

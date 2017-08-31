@@ -1,16 +1,28 @@
+{include file='browse/browseHeader'}
+<div class="bro-tab"> 
+    <ul class="bro-tab-ul container">
+        <li><a href="{:url('browse/browseQushi')}" class="qs">趋势</a></li>
+        <li><a href="{:url('browse/browseHuati')}" class="ht">话题</a></li>
+        <li><a href="{:url('browse/browseTags')}" class="bq">标签</a></li>
+        <li><a href="{:url('browse/browseMaster')}" class="tab-border dr">达人</a></li>
+        <li><a href="{:url('browse/browseZhuanti')}" class="zt">专题</a></li>
+    </ul>
+</div>
+<div id="page_center">
+<!-- 达人 -->
 <div id="daren">
     <header>
-        <ul>
+        <ul> 
             <li class="active">
-                <a href="#">领域达人</a>
+                <a href="{:url('browseMaster')}">领域达人</a>
             </li>
             <li>
                 <a href="#">标签达人</a>
             </li>
             <li>
-                <a href="#">我关注的人
-									<span>(12)</span>
-								</a>
+                <a href="{:url('browseFollow')}" >我关注的人
+                    <span>({$user_follow_num})</span>
+                </a>
             </li>
             <li>
                 <a href="#">寻找好友</a>
@@ -25,21 +37,26 @@
                 <li class="itm">
                     <div class="itmc">
                         <div class="user-info">
-                            <a class="user-info-head">
-                                <img src="__PUBLIC_UPLOAD__/{$value.user_head}">
+                            <a class="user-info-head" data-uid="{$value.user_id}"  onclick='user.goUserHome(this)'> 
+                                <img src="{$value.user_head}">
                             </a>
                             <h3 class="user-name">
                                 <a href="#">{$value.user_name}</a>
                                 <span class="orther"></span>
                             </h3>
-                            <a class="user-care">
-												<b>+</b>
-												<span>关注</span>
-											</a>
+                            {if $value.user_id != $Think.session.value.user_id && $Think.session.value.user_id!=0}
+                            <a class="user-care" data-uid="{$value.user_id}">
+                                {if inArray($value.user_id,$concern_list,'cid')}
+                                <span data-type="delete">取消关注</span>
+                                {else}
+                                <b>+</b><span data-type="save">关注</span>
+                                {/if}
+                            </a>
+                            {/if}
                             <div class="user-info-tag">
                                 <ul>
                                     {foreach $value['tag'] as $key2=>$value2}
-                                    <li><a href="#" data-tagId="{$value2.tag_id}">{$value2.tag_content}</a></li>
+                                    <li><a data-tId="{$value2.tag_id}" onclick="tag.goTagIndex(this)">{$value2.tag_content}</a></li>
                                     {/foreach}
                                 </ul>
                             </div>
@@ -60,18 +77,15 @@
         <div class="right">
             <ul>
                 <li class="first">
-                    <a href="#">猜你喜欢</a>
+                    <a href="javascript:void(0);">猜你喜欢</a>
                 </li>
+                {foreach $tag_list as $tag}
                 <li>
-                    <a href="#">热门</a>
+                    <a href="#" data-tid="{$tag.tag_id}">{$tag.tag_content}</a>
                 </li>
-                <li>
-                    <a href="#">女神</a>
-                </li>
-                <li>
-                    <a href="#">明星</a>
-                </li>
+                {/foreach}
             </ul>
         </div>
     </section>
 </div>
+{include file="browse/browserFooter"}

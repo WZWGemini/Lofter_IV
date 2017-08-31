@@ -1,0 +1,347 @@
+/***定义动画***/
+@keyframes opacity{
+    0%{opacity: 0;}
+    100%{opacity: 1;}
+}
+@keyframes opacity1{
+    0%{opacity: 1;}
+    100%{opacity: 0;}
+}
+
+.g-bdsale2 .g-sbox {
+    position: relative;
+}
+/*字体溢出隐藏*/
+.f-thide{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.g-sbox {
+    width: 1200px;
+    margin: 0 auto;
+}
+.m-slbanner {
+    position: relative;
+    height: 568px;
+}
+.m-slbanner .item, .m-slbanner .item2 {
+    position: absolute;
+    left: 0;
+    top: 68px;
+    width: 100%;
+    height: 480px;
+    overflow: hidden;
+}
+
+.m-slbanner .item {
+    background: url(../img/art/bannerbg1.png) 612px bottom no-repeat;
+}
+.m-slbanner li {
+    -webkit-transition: opacity .4s linear;
+    -o-transition: opacity .4s linear;
+    -ms-transition: opacity .4s linear;
+    -moz-transition: opacity .4s linear;
+    transition: opacity .4s linear;
+}
+.m-slbanner .iteml {
+    float: left;
+    width: 520px;
+}
+.m-slbanner .img a {
+    display: block;
+    width: 290px;
+    height: 195px;
+    padding: 45px;
+    margin: 0 auto;
+    border: 10px solid #000;
+    background: #fff;
+    box-shadow: 6px 4px 2px rgba(0,0,0,.1);
+}
+.m-slbanner .itemr {
+    float: right;
+    width: 680px;
+}
+.m-slbanner .img a {
+    display: block;
+    width: 290px;
+    height: 195px;
+    padding: 45px;
+    margin: 0 auto;
+    border: 10px solid #000;
+    background: #fff;
+    box-shadow: 6px 4px 2px rgba(0,0,0,.1);
+}
+.m-slbanner .img2 a {
+    display: inline-block;
+    width: 447px;
+    height: 298px;
+}
+.m-slbanner .txt {
+    position: relative;
+    top: -10px;
+    font-size: 18px;
+    color: #999;
+    line-height: 1.5;
+    text-align: left;
+    letter-spacing: 0.6px;
+}
+.m-slbanner .tit {
+    font-size: 38px;
+    color: #000;
+}
+.m-slbanner .author {
+    margin: 5px 0 8px;
+}
+.m-slbanner .author a {
+    color: #999;
+}
+.m-slbanner .desc {
+    word-wrap: break-word;
+    height: 230px;
+    overflow: hidden;
+}
+.m-slbanner .item2 {
+    top: 0;
+    padding-top: 135px;
+    height: 433px;
+}
+.m-slbanner .item2 .iteml {
+    position: relative;
+    z-index: 2;
+    width: 345px;
+    margin: 0 0 0 130px;
+}
+.m-slbanner .tit i {
+    position: relative;
+    left: -18px;
+    display: inline-block;
+    width: 20px;
+    font-style: normal;
+}
+
+/**轮播下的圆点控制器**/
+.m-slbanner .icons {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+}
+.m-slbanner .icons a {
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    background-position: -16px -30px;
+    overflow: hidden;
+}
+.m-slbanner .icons .j-curr{
+    background-position: -16px -30px;
+}
+/***左右两边按钮***/
+.m-slbanner .prev, .m-slbanner .next {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+}
+.m-slbanner .prev a, .m-slbanner .next a {
+    opacity: 0;
+    filter: alpha(opacity=0);
+    position: absolute;
+    right: 50px;
+    top: 50%;
+    width: 50px;
+    height: 100px;
+    margin: -25px 0 0;
+    background-position: -5px -119px;
+    background-color: #fff;
+    border-radius: 4px;
+    text-indent: -999px;
+    overflow: hidden;
+}
+.m-artlist-2 img, .m-artlist-2 .bor, .m-artlist-2 a, .m-slbanner .prev a, .m-slbanner .next a {
+    -webkit-transition: .3s;
+    -moz-transition: .3s;
+    -o-transition: .3s;
+    -ms-transition: .3s;
+    transition: .3s;
+}
+.m-slbanner .next {
+    left: auto;
+    right: -100%;
+}
+.m-slbanner .prev, .m-slbanner .next {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+}
+.m-slbanner .next a {
+    left: 50px;
+    right: auto;
+    background-position: -5px -213px;
+}
+
+/*******框画**********/
+.g-bdsale .g-sbox {
+    background: #fff;
+    text-align: left;
+}
+.g-sbox {
+    width: 1200px;
+    margin: 0 auto;
+}
+.g-box1 {
+    padding: 0 30px;
+}
+.w-sltit, .w-sltit2 {
+    font-size: 38px;
+    color: #333;
+    font-weight: normal;
+}
+.m-artlist {
+    margin: 0 -30px 0 0;
+}
+.m-artlist li {
+    float: left;
+    width: 262px;
+    margin: 0 30px 0 0;
+}
+.m-artlist .img {
+    position: relative;
+    height: 262px;
+}
+.m-artlist-1 .img a {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 262px;
+    height: 262px;
+    overflow: hidden;
+}
+.m-artlist .img a, .m-artlist .img img,
+ .m-artlist .bor, .m-artlist-2 .imgbg {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+.m-artlist .bor {
+    width: 240px;
+    height: 240px;
+    border: 10px solid #000;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+.m-artlist-1 .size1 .bor {
+    width: 162px;
+    height: 212px;
+    margin: 15px 0 0 40px;
+}
+.m-artlist-1 .size2 .bor {
+    width: 240px;
+    height: 180px;
+    margin-top: 30px;
+}
+/***********动画******************/
+.m-artlist-1 a img{
+    transition: all 0.5s cubic-bezier(.22,.07,0,1.02) 0.3s;
+}
+.m-artlist-1 a .bor{
+    animation: opacity1 0.4s ease both;
+}
+/**************动画*********************/
+.m-artlist-1 a:hover img {
+    top: 50px\0;
+    left: 50px\0;
+    width: 160px\0;
+    height: 160px\0;
+    -webkit-transform: scale(0.6);
+    -moz-transform: scale(0.6);
+    -o-transform: scale(0.6);
+}
+.m-artlist-1 .size1 a:hover img {
+    top: 50px\0;
+    left: 78px\0;
+    width: 106px\0;
+    height: 159px\0;
+    -webkit-transform: scale(0.4);
+    -moz-transform: scale(0.4);
+    -o-transform: scale(0.4);
+}
+.m-artlist-1 .size2 a:hover img {
+    top: 78px\0;
+    left: 50px\0;
+    width: 159px\0;
+    height: 106px\0;
+    -webkit-transform: scale(0.4);
+    -moz-transform: scale(0.4);
+    -o-transform: scale(0.4);
+}
+.m-artlist-1 a:hover .bor{
+    animation: opacity 0.7s ease 0.4s both;
+}
+.m-artlist-1 a:hover img {
+    -webkit-transition: all 0.8s cubic-bezier(.22,.07,0,1.02) 0.3s;
+    -moz-transition: all 0.8s cubic-bezier(.22,.07,0,1.02) 0.3s;
+    -o-transition: all 0.8s cubic-bezier(.22,.07,0,1.02) 0.3s;
+    -ms-transition: all 0.8s cubic-bezier(.22,.07,0,1.02) 0.3s;
+    transition: all 0.8s cubic-bezier(.22,.07,0,1.02) 0.3s;
+}
+.m-artlist-1 .size1 a:hover img, .m-artlist-1 .size2 a:hover img{
+    transition: all 0.5s cubic-bezier(.22,.07,0,1.02) 0.3s;
+}
+.m-artlist-1 .bor:nth-child(2), .m-artlist-1 .bor:nth-child(3), .m-artlist-1 .bor:nth-child(4) {
+    display: none;
+}
+/************动画end*****************/
+.m-artlist .txt {
+    height: 50px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #666;
+    line-height: 50px;
+}
+.m-artlist .pname {
+    float: left;
+    width: 50%;
+}
+.m-artlist .bname {
+    float: right;
+    width: 45%;
+    text-align: right;
+}
+/****查看更多***/
+.m-artinfo .w-slmore {
+    margin: 25px 0 0;
+}
+.w-slmore {
+    border-radius: 5px;
+}
+.w-slmore a {
+    display: block;
+    background: #f6f6f6;
+    font-size: 18px;
+    color: #666;
+    line-height: 60px;
+    text-align: center;
+}
+/********明信片******/
+.m-artinfo {
+    padding: 0 0 30px;
+}
+.m-artinfo .w-sltit {
+    padding: 35px 0;
+    text-align: center;
+}
+.m-artinfo-1 {
+    border-top: 1px solid #ededef;
+}
+
+

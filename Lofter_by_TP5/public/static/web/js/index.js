@@ -1,4 +1,36 @@
 $(function(){
+
+	let k = 0;
+	blog.showBigImg($('.list_box'));
+
+
+	// 搜索
+	let search_obj = $("#search_peoAndTag"),
+		box_obj = $("#index_subscribe");
+	let delay=true;
+	search_obj.on("focus", function () {
+		// box_obj.stop().show(300);
+		search_obj.on("keyup", function (e) {
+			delay = e.timeStamp
+			setTimeout(function() {
+				if (delay - e.timeStamp == 0) {
+					let val = search_obj.val();
+					if (val && delay) {
+						delay = !delay						
+						// 调用接口						
+						blog.search(val);
+						// console.log("接口");
+					}else{
+						return;
+					}
+				}
+			}, 500);			
+		})
+	}).on("blur", function () {
+		box_obj.stop().hide(300);
+		$("#peoAndTags").stop().fadeOut(300);
+		search_obj.val("");
+	})	
 	//个人页面
 	$("#menu").click(function(e){
 		var curr=$(e.target);
@@ -22,7 +54,7 @@ $(function(){
 			}
 		}
 	});
-
+	
 	// 音乐搜索
 	let time;
 	let $music_publish=$("#search_music");
@@ -44,7 +76,8 @@ $(function(){
 	});
 	
 	//评论显示
-	$("#information").on('click','.options .comment',function(e){
+	var $information_obj = $("#information");
+	$information_obj.on('click','.options .comment',function(e){
 			let $comment_show = $(this).parents('.list_box').find('.comment_show');
 			// 判断是否评论以显示
 			if( $comment_show.is(":hidden") ){
@@ -66,7 +99,7 @@ $(function(){
 		// }
 	});
 	// 评论发布
-	$("#information").on('click','#comment-push',function(e){
+	$information_obj.on('click','#comment-push',function(e){
 		if(sessionStorage.user_info == null){
 			alert("请先登录");
 			return;
@@ -83,15 +116,17 @@ $(function(){
 					$comment_show.prepend(data.html);			
 			   }
 		);
+		let $com_count = $(this).parents(".list_box").find("#com_count");
+		// console.log(com_count);
+		$com_count.html(+$com_count.html()+1); 
 		//清空输入框
 		$(this).prev().val("");
 	});	
 
 	//获取微博id
-	$("#information").on('click',".options",blog.getArticleId);
+	$information_obj.on('click',".options", blog.getArticleId);
 
-
-	$("#information").on("click",'.list_box a',function(e){info_list_click(e)});
+	$information_obj.on("click",'.list_box a',function(e){info_list_click(e)});
 
 	function info_list_click(e){
 		let curr=$(e.target);
@@ -116,8 +151,6 @@ $(function(){
 				$("#tags_area .tag_lists").append("<span data-id='" + tag_id + "'>" + $(item).text() + "</span>");
 				tag_save.push(parseInt(tag_id));
 			});
-			
-
 			article_content=article_img + article_content;
 			ue.setContent(article_content);
 			$("#blog_title_edit").val(article_title);
@@ -126,7 +159,7 @@ $(function(){
 	//标签弹框
 	var tag_en = false;
 	var tag_show_en = false;
-	$("#information").on("mouseenter",".labels>a",function(){
+	$information_obj.on("mouseenter",".labels>a",function(){
 		var $left = $(this).offset().left-$(this).width()/2-$("#tag_show").width()/2;
 		$left = $left>10?$left:10;
 		var $top = $(this).offset().top-$("#tag_show").height()-5;
@@ -140,7 +173,7 @@ $(function(){
 			}
 		})
 	})
-	$("#information").on("mouseleave",".labels>a",function(){
+	$information_obj.on("mouseleave",".labels>a",function(){
 		$("#tag_show").hide(200);
 	})
 	$("#tag_show").on("mouseleave",function(){	
@@ -160,8 +193,9 @@ $(function(){
 		}).on("mouseout",function(){
 			objHide();
 		})
-	}	
+	}
 
+	// 对悬浮框定位并且获取数据
 	function eleEvent(e,obj,obj1,obj2){
 		let $curr=$(e.target);
 		if($curr.hasClass(obj1)){			
@@ -182,7 +216,6 @@ $(function(){
 					objShow();
 				} 
 			})
-
 			obj2.css({
 				left: w+'px',
 				top: h+img_h+20+'px'
@@ -211,84 +244,37 @@ $(function(){
 	function objShow(){
 		obj2.stop().show(100);
 	}
-
-
-	
-// 鼠标滑过显示弹窗 me
-	// eleHover();
-	// let obj2=$("#window_show");
-	// function eleHover(){
-	// 	let obj=$(".head-portrait-box");
-	// 	obj.on("mouseenter",function(e){
-	// 		eleEvent(e,obj2,'picture');
-	// 		// 显示并请求
-	// 		var user_id = $(this).data("uid");
-	// 		console.log(user_id);
-	// 		$.get("/Lofter_by_TP5/public/web/user/hoverShow",
-	// 			  {user_id},
-	// 			  function(data){
-	// 				// 需要一个预加载
-	// 				obj2.html(data.html);
-	// 			  }
-	// 		);
-	// 	}).on("mouseleave",function(){
-	// 		objHide();
-	// 	})
-	// }	
-	// // 弹窗显示位置调整
-	// function eleEvent(e,obj,obj1){
-	// 	let $curr=$(e.target);
-	// 	if($curr.hasClass(obj1)){
-	// 		//获取鼠标经过的目标对象的高 
-	// 		let	img_h=$curr.height(),
-	// 		// 获取目标对象到顶部的距离
-	// 			h=$curr.offset().top,
-	// 		// 获取目标对象到左边的距离
-	// 			w=$curr.offset().left,
-	// 		// 弹窗对象本身的宽度
-	// 			obj2_w=obj2.width();
-			
-	// 		obj.mousemove(function(ev){
-	// 			let e=ev||event;
-	// 			// 获取鼠标移动的坐标想x,y
-	// 			let x=e.pageX;
-	// 			let y=e.pageY;
-	// 			// a：左右可以移动的范围（弹窗不会消失）
-	// 			let a=(x < w + obj2_w) && (x > w);
-	// 			// b：上下可以移动的范围（弹窗不会消失）
-	// 			let b=(y > h) && (y < h + img_h +20);
-				
-	// 			if(a && b){
-	// 				objShow();
-	// 			} 
-	// 		});
-	// 		obj2.css({
-	// 			left: w+'px',
-	// 			top: h+img_h+20+'px'
-	// 		}).stop().show(100);
-	// 	}				
-	// }
-	// obj2.on('mouseover',function(){
-	// 	objShow();
-	// }).on('mouseout',function(){
-	// 	objHide();
-	// })
-	// function objHide(){
-	// 	obj2.stop().hide(100);
-	// }
-	// function objShow(){
-	// 	obj2.stop().show(100);
-	// }
-
-
 })
 
+// 博客对象
 window.blog={
 	weibo_id : null,
 	user_info : (function(){
 		let user_info = sessionStorage.getItem('user_info');
 		user_info = JSON.parse(user_info);
 	})(),
+	showBigImg:function () {
+
+	},	
+	search:function(val){
+		$.post("/Lofter_by_TP5/public/web/blog/getSearchInfo", {key:val}, function (data) {
+			if (data.status == 1) {				
+				if (data.data[tag] !=[] && data.data[user] != []) {
+					console.log(data.data);
+					let my_obj = $("#index_subscribe"),
+						html_obj = $("#peoAndTags");
+					my_obj.stop().fadeOut(150);
+					html_obj.html(data.html);
+					$("#tag_title").html(val);
+					$("#user_title").html(val);
+					html_obj.stop().fadeIn(300);
+				}
+			}else{
+				console.log(data.msg);
+				return;
+			}
+		})
+	},
 	music_publish:function(article_music){
 		$.getJSON("http://s.music.163.com/search/get/?version=1&src=lofter&type=1&filterDj=false&s="+article_music+"&limit=8&offset=0&callback=?",function(data){
 			let str="";
@@ -369,11 +355,13 @@ window.blog={
 		var obj=$("#text_form_modal").get(0);
 		var objT=$("#text_modal");
 		this.common(ue,'/Lofter_by_TP5/public/web/blog/insertBlog',obj,objT,this.callback);	
+		// 为何没有执行？
+		blog.showBigImg($("list_box"));
 		//文章数+1
 		let num = parseInt($("#article_allnum").text())+1;
 		$("#article_allnum").text(num);
 		//清空标签
-		tag_save = [];
+		tag_save = [];		
 	},
 	deleted:function(){
 		if(sessionStorage.user_info == null){
@@ -410,8 +398,7 @@ window.blog={
 		this.common(ue,'/Lofter_by_TP5/public/web/blog/updateBlog',obj,objT,this.callback,article_id);
 		$("edit_modal").hide();
 		//清空标签
-		tag_save = [];
-//		location.reload();
+		tag_save = [];	
 	},
 	getArticleId:function(){
 		blog.weibo_id = $(this).parents(".list_box").attr("data-index");
@@ -469,7 +456,213 @@ window.blog={
 	},
 	callback:function(data,obj){
 		$("#information").prepend(data.html);
+		console.log($("#information").find(".list_box") );
 		obj.modal('hide');
+
+	},
+	showBigImg: function($obj) {
+		// this.$target = $obj;	
+		let k =0;
+		$obj.on('click', '.list-img', function (e) {
+			e.stopPropagation();
+			let $curr = $(e.target);			
+			if ($curr.hasClass('img')) {
+				let flag = $curr.siblings('span.img-number').css('display');
+				if (flag == 'block') {
+					blog.showImg($curr);					
+					flag = $curr.siblings('span.img-number').css('display');
+				} else if (flag == 'none') {
+					blog.hideImg($curr);
+					flag = $curr.siblings('span.img-number').css('display');
+				}					
+			} else if ($curr.hasClass('see-img')) {			
+				// 轮播显示			
+				blog.carouselShow($curr);			
+				$('#full_screen').off('click', '.Carousel');
+				$('#full_screen').on('click', '.Carousel', function (e) {
+					e.stopPropagation();
+	
+					let obj = $('#full_screen div.widthAuto'),
+						obj1 = $('#full_screen li');
+	
+					let $curr = $(e.target);
+					if ($curr.get(0).tagName === 'LI') {
+						$('#full_screen').stop().fadeOut(300);
+					} else if ($curr.get(0).tagName === 'IMG' || $curr.hasClass('next')) {
+						(++k) > (obj.length - 1) ? k = 0: k;
+						blog.carouselAnimate(obj, obj1, k);
+					} else if ($curr.hasClass('prev')) {
+						(--k) < 0 ? k = (obj.length - 1) : k;
+						console.log(k)
+						blog.carouselAnimate(obj, obj1, k);
+					}					
+				})
+			}	
+		})
+	},
+	showImg: function (curr) {
+		// 数量隐藏
+		curr.siblings('span.img-number').hide()
+			.parent().addClass('img-details');
+		// 图片和查看大图显示
+		curr.siblings('span.see-img').removeClass('hide')
+			.siblings('img.img').removeClass('hide');			
+	},
+	hideImg :function (curr) {
+		curr.siblings('span.see-img').addClass('hide')
+			.parent().removeClass('img-details');
+		curr.first().siblings('img.img').addClass('hide')
+			.siblings('span.img-number').show();			
+	},
+	carouselShow:function  (curr) {
+		let obj1 = 	$('#full_screen .Carousel-ul');
+		// 创建li
+		this.createEle(obj1, curr);
+		
+		let	obj = $('#full_screen div.widthAuto');
+		obj1.css({
+			width: (obj.length * 100)+'vw'
+		})
+		obj.each(function (index,item) {
+			let that = $(this);
+			let w = that.width();
+			that.css({
+				'margin-left': -(w/2)+'px'
+			})					
+		})			
+	},
+	carouselAnimate:function  (obj, obj1, k) {
+		obj1.animate({
+			left: (-100*k)+'vw',						
+		},500)
+
+		obj.animate({
+			height: '43vh',
+			top: '30vh'
+		},500,function () {
+			obj.css({
+				height: '86vh',
+				top: '7vh'
+			})				
+		})
+	},
+	createEle:function  (obj1, curr) {
+		let imgSrc = curr.siblings('img.img'),
+			str = '';
+		imgSrc.each(function(index, item) {
+			let src = $(this).attr('src');
+			str += blog.imgStr(src);
+		});			
+		obj1.html(str);
+		$('#full_screen').stop().fadeIn(300);
+	},
+	imgStr:function  (src) {
+		let str = '<li>'+
+					'<div class="widthAuto box-shadow">'+
+						'<img src="'+src+'" class="img">'+
+					'</div>'+
+				'</li>';
+		return str;
 	}
 };
 
+// 热度对象
+window.hot = {
+	// 热度显示
+	show :function(obj){
+		let $hot_show = $(obj).parents('.list_box').find('.hot_show');
+		// 判断是否热度显示
+		if( $hot_show.is(":hidden") ){
+			let article_id = $(obj).parents('#info_list').data('article') ;
+			let $that = $(obj);
+			$.post('/Lofter_by_TP5/public/web/hot/showhot',
+				{article_id},
+				function(data){
+					if( data.status ){
+						$hot_show.find(".hot-list-box").html(data.html);
+						$hot_show.slideDown();//有内容才显示
+					}
+			});
+		}else{
+			$hot_show.slideUp();
+			$hot_show.find('.hot-list-box').html("");
+		}
+	},
+	// 点赞
+	hotLove : function(obj){
+		if(sessionStorage.user_info == null){
+			alert("请先登录");
+			return;
+		}
+		// 获取id
+		let article_id = $(obj).parents('.list_box').find('#info_list').data('article') ;
+		$.post("/Lofter_by_TP5/public/web/Hot/Love"
+			   ,{article_id}
+			   ,function(data){
+					let $hot_count = $(obj).parents(".list_box").find("#hot_count");
+				   if(data.status){
+						$hot_count.html(+$hot_count.html()+1); 
+						$(obj).addClass("love-sure");//更改样式
+						
+				   }else{
+						$hot_count.html(+$hot_count.html()-1); 					
+									
+						$(obj).removeClass("love-sure");//更改样式
+				   }	
+			   }
+		);
+	},
+	// 推荐
+	hotRecommend : function(obj){
+		if(sessionStorage.user_info == null){
+			alert("请先登录");
+			return;
+		}
+		// 获取id
+		let article_id = $(obj).parents('.list_box').find('#info_list').data('article') ;
+		$.post("/Lofter_by_TP5/public/web/Hot/Recommend"
+			   ,{article_id}
+			   ,function(data){
+				   let $hot_count = $(obj).parents(".list_box").find("#hot_count");
+				   let recommend_allnum = $("#recommend_allnum").find(".count_article").html();
+				   if(data.status){
+						$hot_count.html(+$hot_count.html()+1); 
+						$(obj).html("已推荐");
+						$("#recommend_allnum").find(".count_article").html(++recommend_allnum);
+				   }else{
+						$hot_count.html(+$hot_count.html()-1); 					
+						$(obj).html("推荐");
+						$("#recommend_allnum").find(".count_article").html(--recommend_allnum);						
+				   }
+			   }
+		);
+	},
+	// 瀑布流的点赞
+	hotLove_water : function(obj){
+		if(sessionStorage.user_info == null){
+			alert("请先登录");
+			return;
+		}
+		// 获取id
+		let article_id = $(obj).parents('.waterfall-innerbox').data('aid') ;
+		$.post("/Lofter_by_TP5/public/web/Hot/Love"
+			   ,{article_id}
+			   ,function(data){
+					let $hot_count = $(obj).parents('.waterfall-innerbox').find("#hot_count");
+				   if(data.status){
+						$hot_count.html(+$hot_count.html()+1); 
+						$(obj).addClass("bro-islove");
+				   }else{
+						$hot_count.html(+$hot_count.html()-1); 					
+						$(obj).removeClass("bro-islove");					
+				   }	
+			   }
+		);
+	},
+}
+
+// $('.list_box').on('click', '.list-img', function (e) {
+
+
+	// 首页图片放大以及轮播start
+	// 首页图片放大以及轮播end

@@ -6,20 +6,27 @@
 			<div class="head-portrait-box float-left" data-uid="{$art.user_info.user_id}" onclick='user.goUserHome(this)'>
 				<div class="head-portrait float-left box-shadow">
 					<a>		
-						<img src="{$art.user_info.user_head}" class="picture"  data-uid="{$art.user_info.user_id}"  >
+						<img src="{$art.user_info.user_head}" class="picture" data-uid="{$art.user_info.user_id}"  >
 					</a>
 				</div>
 			</div>
 			<!-- 信息列表 -->
 			<div id="info_list" class="box-shadow info-list" data-article="{$art.article_id}">
 				<div class="isay">
-					<a href="" class="index-userHome"></a>
+					<a href="{:url('blog/BlogDetail?a_id='.$art.article_id)}" class="index-userHome"></a>
 				</div>
 				<div class="list-img float-left">
 					<?php $art['img']=json_decode($art['article_img']); ?>
-					{foreach $art.img  as $img}
-						<!-- 这里要加跳转 -->
-						<img src="{$img}">
+					{foreach $art.img  as $key=>$img}
+						{if $key>=1}
+							<span class="img-number"><?php echo ($key+1); ?></span>						
+							<img src="{$img}" class="img hide">
+							<!-- 加判断！大于两张图片才显示 -->
+							<span class="see-img hide">查看大图</span>
+						{else}							
+							<img src="{$img}" class="img">
+							<span class="see-img hide">查看大图</span>
+						{/if}
 					{/foreach}
 				</div>
 				<!-- 文本显示 -->
@@ -45,10 +52,19 @@
 					</div>
 					<!-- 功能按钮 -->
 					<div class="options inline-block float-right">
-							<a class="comment btn btn-link">评论( {$art.comment_num|default = "0"} )</a>
+							<a class="hot btn btn-link" onclick="hot.show(this)">热度( <span id="hot_count"> {$art.hot_num|default = "0"}</span> )</a>
+							<a class="comment btn btn-link">评论( <span id="com_count"> {$art.comment_num|default = "0"}</span> )</a>
 						{if $art.user_info.user_id != $Think.session.user_info.user_id}
-							<a class=" btn btn-link">推荐</a>
-							<a><i></i></a>
+							
+							<a class=" btn btn-link recommend" onclick="hot.hotRecommend(this)">
+								{if $art.isRecommend}
+									已推荐
+								{else if}
+									推荐
+								{/if}
+							</a>
+							<!-- 点赞 -->
+							<a class="btn btn-link love {$art.isLove?'love-sure':''}" onclick="hot.hotLove(this)"><span class="glyphicon glyphicon-heart"></span></a>
 						{else}
 							<a href="#edit_modal" data-toggle="modal" class="edit btn btn-link">编辑</a>
 							<a href="#delete" data-toggle="modal" class="del btn btn-link">删除</a>
@@ -69,21 +85,16 @@
 					</ul>
 				</div>
 			</div>
+
+			<!-- 热度 -->
+			<div class="hot_show">
+				<div class="hot-list">
+					<ul class="hot-list-box">
+					
+					</ul>
+				</div>
+			</div>
 		</div>
 			
 	{/foreach}
 </form>
-<script>
-	$(".list_box").on("mouseover",function(e){
-		let $curr=$(e.target);
-		if($curr.hasClass('img')){
-			console.log($curr);
-		}
-	}).on("mouseout",function(e){
-
-	})
-
-	// function eleClass(){
-
-	// }
-</script>

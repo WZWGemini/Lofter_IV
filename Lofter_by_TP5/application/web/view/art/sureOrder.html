@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="__PUBLIC_LOFTER__/css/art.css">
+</head>
+<body>
+	<div class="page">
+		<!-- 头部 -->
+		{include file='element/ele-artHeader'}
+		
+		<div id="art">
+			<div class="confirm-order">
+				<div class="g-box3 f-cb">
+		        	<h2 class="w-fttl">确认订单信息</h2>
+		        </div>
+		        <!-- 确认商品信息 -->
+	            <div class="g-box12 ztag" style="">
+	            	<div class="m-sctop">
+						<div class="fb"></span>作品</div>
+						<div class="sec">商品信息</div>
+						<div>单价</div>
+						<div>数量</div>						
+					</div>
+					<div class="m-sccontent ztag">
+						<ul class="ztag">
+							<li class="first" v-for="(item,key) in select_cart" data-pid="31509100" data-index="0">
+				                <div class="fb">
+					                <div class="prodimg">
+						                <a href="http://www.lofter.com/art/product-31509100/" target="_blank" class="sz2">
+						                <img :src="item.img">
+						                </a>
+					                </div>
+						                <div class="prodname">
+						                <p class="name">《{{item.name}}》</p>                        
+						                <p class="f-fs0 s-fc1">{{item.author}}</p>
+						                </div>
+					            </div>
+					            <div class="sec"><p>&nbsp;{{item.color}}</p><p>{{item.size}}</p></div>
+					            <div class="price">{{item.price}}</div>
+						        <div class="piece">{{item.sum}}</div>             
+						    </li>
+						</ul>
+					</div>				
+	            </div>
+
+	            <div class="g-box3 f-cb border-top">
+		        	<h2 class="w-fttl">确认收货信息</h2>
+		        </div>
+
+		        <div class="g-box3 g-box3-1 ztag">
+	            	<div class="m-saleform">
+	                    <div class="item">
+	                        <label>收货地址</label>
+	                        <div class="ipt">
+				                <span class="s-fc9 ztag" style="position:relative;top:12px;display:none;">请选择收货地址</span>
+	                            <input class="w-inputxt w-inputxt-1 ztag" type="text" v-model="user_address" maxlength="100">
+	                            <span class="s-fc9 ztag" style="display:none;">请填写详细收货地址</span>
+	                        </div>
+	                    </div>
+	                    <div class="item">
+	                        <label>收&nbsp;货&nbsp;人</label>
+	                        <div class="ipt">
+	                            <input class="w-inputxt w-inputxt-2 ztag" v-model="user_name" type="text" maxlength="10">
+	                            <span class="s-fc9 ztag" style="display:none;">请填写收货人姓名</span>
+	                        </div>
+	                    </div>
+	                    <div class="item">
+	                        <label>手机号码</label>
+	                        <div class="ipt">
+	                            <input class="w-inputxt w-inputxt-2 ztag" v-model="user_phone" type="text" maxlength="11">
+	                            <span class="s-fc9 ztag" style="display:none;">请填写收货人手机号码</span>
+	                        </div>
+	                    </div>
+	                    <div class="item">
+	                        <label>邮&nbsp;&nbsp;&nbsp;箱</label>
+	                        <div class="ipt">
+	                            <input class="w-inputxt w-inputxt-2 ztag" v-model="user_email" type="email" maxlength="100">
+	                            <span class="s-fc9 ztag" style="display:none;">请填写联系邮箱</span>
+	                        </div>
+	                    </div>
+	                    <div class="btn"><a href="javascript:;" class="w-bbtn w-bbtn-7 ztag" @click="sureBuy()">确认收货信息</a></div>
+	                </div>
+	            </div>
+			</div>
+		</div>
+
+		<!-- 底部 -->
+		{include file='element/ele-artFooter'}
+	</div>
+</body>
+</html>
+<script src="__PUBLIC_LOFTER__/lib/Bootstrap3.3.7/js/jquery-1.11.1.min.js"></script>
+<script src="__PUBLIC_LOFTER__/lib/vue/vue/vue-2.4.2.min.js"></script>
+<script src="__PUBLIC_LOFTER__/lib/vue/vuex/vuex-2.3.0.js"></script>
+<!-- <script src="__PUBLIC_LOFTER__/js/cart.js"></script> -->
+<script>
+window.onload=function () {
+	new Vue({
+		el:"#art",
+		data:{
+			//购买的货物信息
+			select_cart: sessionStorage.data?JSON.parse(sessionStorage.data):{},
+			//总价格
+			price: sessionStorage.price,
+			user_address :'',
+			user_name :'',
+			user_phone :'',
+			user_email : ''
+		},		
+		computed:{
+
+		},
+		methods:{
+			sureBuy: function(){
+				if(!sessionStorage.data) return;
+				let data = {};
+				let shopcar_arr = [];
+				data['user_address'] = this.user_address;
+				data['user_name'] = this.user_name;
+				data['user_phone'] = this.user_phone;
+				data['user_email'] = this.user_email;			
+				data = JSON.stringify(data);
+				this.select_cart.forEach(function(item){
+					shopcar_arr.push(item.shopcar_id);
+				})
+				shopcar_arr = JSON.stringify(shopcar_arr);
+				if(!confirm("你确认要支付"+this.price+"元吗?")) return;
+				$.post("{:url('shop/buyShopCar')}",{"user_address":data,"shopcar_arr":shopcar_arr},function(){
+					this.data = [];
+					sessionStorage.removeItem("data");
+					sessionStorage.removeItem("price");
+					localStorage.href="{:url('shop/art')}";
+				})
+			}
+
+		},
+		mounted () {
+			
+		}
+	})
+}
+</script>
